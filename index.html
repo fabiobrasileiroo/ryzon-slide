@@ -191,18 +191,19 @@ body.idle #cur-r{
 /* ─── Typography ──────────────────────────────── */
 .display{
   font-family:'Bricolage Grotesque',sans-serif;
-  font-weight:800;line-height:.95;letter-spacing:-.045em;
+  font-weight:800;line-height:1.04;letter-spacing:-.022em;word-spacing:.01em;
+  text-wrap:balance;
 }
-.display-xl{font-size:clamp(80px,11vw,180px)}
-.display-l {font-size:clamp(64px,8.5vw,140px)}
-.display-m {font-size:clamp(52px,6.5vw,108px)}
-.display-s {font-size:clamp(40px,4.5vw,72px)}
+.display-xl{font-size:clamp(80px,11vw,180px);line-height:1.0;letter-spacing:-.028em}
+.display-l {font-size:clamp(64px,8.5vw,140px);line-height:1.02;letter-spacing:-.025em}
+.display-m {font-size:clamp(52px,6.5vw,108px);line-height:1.05;letter-spacing:-.022em}
+.display-s {font-size:clamp(40px,4.5vw,72px);line-height:1.08;letter-spacing:-.018em}
 
-.serif{font-family:'Instrument Serif',serif;font-weight:400;font-style:italic;letter-spacing:-.01em}
+.serif{font-family:'Instrument Serif',serif;font-weight:400;font-style:italic;letter-spacing:0;word-spacing:.02em}
 
-.lead{font-size:22px;line-height:1.55;color:var(--t70);font-weight:400;letter-spacing:-.005em}
-.body{font-size:17px;line-height:1.6;color:var(--t70);font-weight:400}
-.cap{font-size:13px;letter-spacing:.06em;color:var(--t50);font-family:'JetBrains Mono',monospace}
+.lead{font-size:22px;line-height:1.6;color:var(--t70);font-weight:400;letter-spacing:-.002em}
+.body{font-size:17px;line-height:1.65;color:var(--t70);font-weight:400}
+.cap{font-size:13px;letter-spacing:.08em;color:var(--t50);font-family:'JetBrains Mono',monospace}
 .mono{font-family:'JetBrains Mono',monospace}
 
 .tint-em{color:var(--em)}
@@ -296,12 +297,12 @@ body.idle #cur-r{
 #s1{justify-content:center}
 #s1 .center{
   display:flex;flex-direction:column;align-items:center;
-  text-align:center;gap:34px;position:relative;z-index:2;
-  max-width:1100px;
+  text-align:center;gap:48px;position:relative;z-index:2;
+  max-width:1180px;
 }
 #s1 .logo-floats{
   display:flex;align-items:center;gap:14px;
-  padding:8px 16px 8px 8px;
+  padding:8px 18px 8px 8px;
   border-radius:100px;
   border:1px solid var(--hair);
   background:rgba(10,10,12,.5);
@@ -309,23 +310,26 @@ body.idle #cur-r{
 #s1 .logo-img{width:32px;height:32px;object-fit:contain;
   filter:drop-shadow(0 0 10px rgba(0,230,118,.5))}
 #s1 .logo-name{font-family:'Bricolage Grotesque',sans-serif;
-  font-size:17px;font-weight:700;letter-spacing:-.01em}
+  font-size:17px;font-weight:700;letter-spacing:-.005em}
 #s1 .keynote-tag{
   font-family:'JetBrains Mono',monospace;
-  font-size:11px;color:var(--t50);letter-spacing:.22em;
+  font-size:11px;color:var(--t50);letter-spacing:.24em;
   text-transform:uppercase;
   padding-left:14px;border-left:1px solid var(--hair);
 }
 #s1 h1{
   font-family:'Bricolage Grotesque',sans-serif;
-  font-size:clamp(72px,10vw,180px);
-  font-weight:800;line-height:.92;letter-spacing:-.045em;
+  font-size:clamp(68px,9.4vw,168px);
+  font-weight:800;line-height:1.04;letter-spacing:-.024em;word-spacing:.015em;
+  text-wrap:balance;
 }
-#s1 h1 .alt{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;letter-spacing:-.01em;color:var(--t70)}
+#s1 h1 .alt{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;
+  letter-spacing:0;color:var(--t70);padding:0 .04em}
 #s1 .sub{
-  font-size:24px;line-height:1.55;color:var(--t70);
-  font-weight:400;max-width:680px;
+  font-size:23px;line-height:1.6;color:var(--t70);
+  font-weight:400;max-width:720px;letter-spacing:-.003em;
 }
+#s1 .sub strong{padding:0 .04em}
 #s1 .footer-meta{
   position:absolute;bottom:60px;left:0;right:0;
   display:flex;align-items:center;justify-content:space-between;
@@ -370,9 +374,9 @@ body.idle #cur-r{
   justify-content:center;gap:40px;position:relative;
 }
 #s2 h2{font-family:'Bricolage Grotesque',sans-serif;
-  font-size:clamp(48px,5.5vw,84px);font-weight:800;
-  line-height:1.0;letter-spacing:-.04em}
-#s2 h2 .quiet{color:var(--t30);font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;letter-spacing:-.005em;display:block}
+  font-size:clamp(46px,5.2vw,80px);font-weight:800;
+  line-height:1.12;letter-spacing:-.022em;word-spacing:.01em;text-wrap:balance}
+#s2 h2 .quiet{color:var(--t30);font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;letter-spacing:0;display:block;margin-top:.08em}
 #s2 .stacks{display:flex;flex-direction:column;gap:0}
 .stack-row{
   display:flex;align-items:baseline;justify-content:space-between;
@@ -403,20 +407,20 @@ body.idle #cur-r{
 #s3 .hero-num{
   font-family:'Bricolage Grotesque',sans-serif;
   font-size:clamp(180px,22vw,400px);
-  font-weight:800;line-height:.85;letter-spacing:-.06em;
+  font-weight:800;line-height:.92;letter-spacing:-.04em;
   background:linear-gradient(135deg,var(--em) 0%,var(--cy) 100%);
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;
   background-clip:text;
-  position:relative;
+  position:relative;padding:0 .02em;
 }
 #s3 .hero-num::after{
   content:'';position:absolute;inset:0;
   background:linear-gradient(135deg,var(--em) 0%,var(--cy) 100%);
   filter:blur(80px);opacity:.15;z-index:-1;
 }
-#s3 .below-num{margin-top:18px;
+#s3 .below-num{margin-top:24px;
   font-family:'Bricolage Grotesque',sans-serif;
-  font-size:clamp(28px,3.5vw,52px);font-weight:700;line-height:1.1;letter-spacing:-.025em}
+  font-size:clamp(28px,3.5vw,52px);font-weight:700;line-height:1.18;letter-spacing:-.015em;word-spacing:.02em}
 #s3 .below-sub{font-size:18px;color:var(--t50);margin-top:10px;line-height:1.55;max-width:420px}
 
 #s3 .steps{display:flex;flex-direction:column;gap:0}
@@ -638,10 +642,10 @@ body.idle #cur-r{
 #s7 .right .score-mega{
   font-family:'Bricolage Grotesque',sans-serif;
   font-size:clamp(140px,18vw,300px);
-  font-weight:800;line-height:.9;letter-spacing:-.05em;
+  font-weight:800;line-height:.96;letter-spacing:-.035em;
   background:linear-gradient(120deg,var(--em) 0%,var(--cy) 100%);
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  background-clip:text;position:relative;
+  background-clip:text;position:relative;padding:0 .02em;
 }
 #s7 .right .score-mega::after{
   content:'';position:absolute;inset:0;
@@ -747,7 +751,7 @@ body.idle #cur-r{
 /* Compact layout so the slide fits on a notebook screen */
 #sAdmin .wrap{gap:24px;max-height:calc(100vh - 100px)}
 #sAdmin .head{align-items:center;gap:32px}
-#sAdmin .head h2{font-size:clamp(36px,4.2vw,64px);line-height:1.0}
+#sAdmin .head h2{font-size:clamp(38px,4.4vw,68px);line-height:1.08;letter-spacing:-.022em;word-spacing:.01em}
 #sAdmin .head .quote-side q{font-size:18px;line-height:1.4}
 #sAdmin .feature-list{padding-top:18px;border-top:1px solid var(--hair)}
 #sAdmin .feature-list .adminft{padding:14px 20px 0 0}
@@ -915,8 +919,9 @@ body.idle #cur-r{
 @keyframes spring{from{opacity:0;transform:scale(.5)}to{opacity:1;transform:scale(1)}}
 #s8 .manifesto{
   font-family:'Bricolage Grotesque',sans-serif;
-  font-size:clamp(72px,11vw,180px);
-  font-weight:800;line-height:.92;letter-spacing:-.05em;
+  font-size:clamp(68px,10.2vw,168px);
+  font-weight:800;line-height:1.04;letter-spacing:-.024em;word-spacing:.015em;
+  text-wrap:balance;
 }
 #s8 .manifesto .word{display:inline-block;overflow:hidden;vertical-align:bottom}
 #s8 .manifesto .word > span{display:inline-block;transform:translateY(110%);animation:reveal 1.2s var(--ease2) both}
@@ -932,11 +937,13 @@ body.idle #cur-r{
   padding:0 24px;border-right:1px solid var(--hair);
   font-family:'JetBrains Mono',monospace;font-size:14px;
   color:var(--t90);font-weight:500;letter-spacing:.02em;
-  cursor:pointer;transition:color .25s;
+  cursor:pointer;transition:color .25s,transform .25s var(--ease);
+  text-decoration:none;
 }
 .ch:last-child{border-right:none}
-.ch i{width:16px;height:16px;color:var(--em)}
-.ch:hover{color:var(--em)}
+.ch i{width:16px;height:16px;color:var(--em);transition:transform .25s var(--ease)}
+.ch:hover{color:var(--em);transform:translateY(-1px)}
+.ch:hover i{transform:scale(1.12)}
 #s8 .tag-end{font-family:'JetBrains Mono',monospace;font-size:11px;
   letter-spacing:.22em;color:var(--t30);text-transform:uppercase;margin-top:8px}
 </style>
@@ -1782,9 +1789,9 @@ body.idle #cur-r{
     </p>
 
     <div class="channels fadein d-8">
-      <div class="ch"><i data-lucide="globe"></i>ryzon-front.vercel.app</div>
-      <div class="ch"><i data-lucide="send"></i>@ryzon_bot</div>
-      <div class="ch"><i data-lucide="instagram"></i>@ryzon.salvando</div>
+      <a class="ch" href="https://ryzon-front.vercel.app" target="_blank" rel="noopener noreferrer"><i data-lucide="globe"></i>ryzon-front.vercel.app</a>
+      <a class="ch" href="https://t.me/ryzon_bot" target="_blank" rel="noopener noreferrer"><i data-lucide="send"></i>@ryzon_bot</a>
+      <a class="ch" href="https://instagram.com/ryzon.salvando" target="_blank" rel="noopener noreferrer"><i data-lucide="instagram"></i>@ryzon.salvando</a>
     </div>
 
     <div class="tag-end fadein d-9">RYZON · 2026 · OBRIGADO</div>
@@ -1866,7 +1873,7 @@ document.addEventListener('keydown',e=>{
   if(e.key==='End'){e.preventDefault();go(slides.length-1);}
 });
 document.getElementById('deck').addEventListener('click',e=>{
-  if(e.target.closest('.arr')||e.target.closest('.nav-bar'))return;
+  if(e.target.closest('a,.arr,.nav-bar,.ch'))return;
   go(cur_i+1);
 });
 
