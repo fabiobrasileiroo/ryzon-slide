@@ -42,6 +42,20 @@ html,body{
   overflow:hidden;cursor:none;
 }
 
+/* ─── Idle: hide chrome when mouse stops ─── */
+.arr,.nav-bar,.slide-n,.brand,#cur,#cur-r{
+  transition:opacity .6s var(--ease);
+}
+body.idle{cursor:none}
+body.idle .arr,
+body.idle .nav-bar,
+body.idle .slide-n,
+body.idle .brand,
+body.idle #cur,
+body.idle #cur-r{
+  opacity:0;pointer-events:none;
+}
+
 /* ─── Cursor — minimal Apple-like ─────────────── */
 #cur{position:fixed;width:6px;height:6px;background:var(--em);
   border-radius:50%;pointer-events:none;z-index:9999;
@@ -524,6 +538,16 @@ html,body{
 }
 .tcol li:hover{color:var(--em)}
 .tcol li .dt{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.tcol li .ti-ico{
+  width:20px;height:20px;flex-shrink:0;object-fit:contain;
+  display:inline-flex;align-items:center;justify-content:center;
+  filter:drop-shadow(0 0 8px rgba(0,0,0,.4));
+  transition:transform .25s var(--ease),filter .25s var(--ease);
+}
+.tcol li:hover .ti-ico{transform:scale(1.12);filter:drop-shadow(0 0 10px rgba(0,230,118,.4))}
+.tcol li .ti-ico svg{width:18px;height:18px;color:var(--em)}
+.tcol li .ti-ico.lc{width:20px;height:20px;color:var(--em)}
+.tcol li .ti-ico.lc i{width:18px;height:18px}
 
 #s5 .highlights-row{
   display:grid;grid-template-columns:repeat(3,1fr);gap:0;
@@ -712,6 +736,34 @@ html,body{
 #sAdmin .stage{
   position:relative;display:grid;grid-template-columns:1.4fr 1fr;gap:32px;align-items:start;
 }
+#sAdmin .stage-single,
+#sAdminB .stage-duo{position:relative}
+#sAdmin .stage-single{display:flex;justify-content:center}
+#sAdmin .stage-single .window{max-width:1180px;width:100%}
+#sAdmin .stage-single .window img{max-height:48vh;object-fit:cover;object-position:top}
+#sAdminB{justify-content:center;align-items:center}
+#sAdminB .wrap{
+  width:100%;max-width:1500px;position:relative;z-index:2;
+  display:flex;flex-direction:column;gap:40px;
+}
+#sAdminB .head{display:flex;align-items:flex-end;justify-content:space-between;gap:60px}
+#sAdminB h2{max-width:780px}
+#sAdminB .stage-duo{
+  display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start;
+}
+#sAdminB .stage-duo .window img{max-height:52vh;object-fit:cover;object-position:top}
+#sAdminB .meta-row{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  border-top:1px solid var(--hair);padding-top:24px;
+}
+.metablock{padding:0 20px 0 0;border-right:1px solid var(--hair)}
+.metablock:last-child{border-right:none;padding-right:0}
+.metablock:not(:first-child){padding-left:20px}
+.metablock .mk{font-family:'JetBrains Mono',monospace;font-size:10px;
+  letter-spacing:.18em;color:var(--em);font-weight:600;margin-bottom:8px}
+.metablock .mv{font-family:'Bricolage Grotesque',sans-serif;
+  font-size:18px;font-weight:700;letter-spacing:-.01em;margin-bottom:4px}
+.metablock .md{font-size:12px;color:var(--t50);line-height:1.5}
 .window{
   position:relative;border-radius:14px;overflow:hidden;
   border:1px solid var(--hair);background:#0a0a0c;
@@ -877,7 +929,7 @@ html,body{
 <div class="prog" id="prog"></div>
 
 <div class="slide-n">
-  <span id="cur-n">01</span><span class="of">/ 11</span>
+  <span id="cur-n">01</span><span class="of">/ 12</span>
 </div>
 
 <div class="brand">
@@ -1182,45 +1234,45 @@ html,body{
       <div class="tcol">
         <h4><i data-lucide="server"></i>Backend</h4>
         <ul>
-          <li><span class="dt" style="background:#e0234e"></span>NestJS 11</li>
-          <li><span class="dt" style="background:#3178c6"></span>TypeScript</li>
-          <li><span class="dt" style="background:#2563eb"></span>Prisma 6</li>
-          <li><span class="dt" style="background:#336791"></span>PostgreSQL</li>
-          <li><span class="dt" style="background:var(--em)"></span>Node 24</li>
-          <li><span class="dt" style="background:#4285f4"></span>Gemini Vision</li>
-          <li><span class="dt" style="background:#0088cc"></span>Telegram API</li>
+          <li><img class="ti-ico" src="https://cdn.simpleicons.org/nestjs/E0234E" alt="" loading="lazy"/>NestJS 11</li>
+          <li><img class="ti-ico" src="https://cdn.simpleicons.org/typescript/3178C6" alt="" loading="lazy"/>TypeScript</li>
+          <li><img class="ti-ico" src="https://cdn.simpleicons.org/prisma/ffffff" alt="" loading="lazy"/>Prisma 6</li>
+          <li><img class="ti-ico" src="https://cdn.simpleicons.org/postgresql/4169E1" alt="" loading="lazy"/>PostgreSQL</li>
+          <li><img class="ti-ico" src="https://cdn.simpleicons.org/nodedotjs/5FA04E" alt="" loading="lazy"/>Node 24</li>
+          <li><img class="ti-ico" src="https://cdn.simpleicons.org/googlegemini/4285F4" alt="" loading="lazy"/>Gemini Vision</li>
+          <li><img class="ti-ico" src="https://cdn.simpleicons.org/telegram/26A5E4" alt="" loading="lazy"/>Telegram API</li>
         </ul>
       </div>
       <div class="tcol">
         <h4><i data-lucide="monitor"></i>Frontend</h4>
         <ul>
-          <li><span class="dt" style="background:#fff"></span>Next.js 15</li>
-          <li><span class="dt" style="background:#61dafb"></span>React 19</li>
-          <li><span class="dt" style="background:#38bdf8"></span>Tailwind v4</li>
-          <li><span class="dt" style="background:#a78bfa"></span>shadcn/ui</li>
-          <li><span class="dt" style="background:#3178c6"></span>TypeScript</li>
-          <li><span class="dt" style="background:#fff"></span>SWR</li>
+          <li><img class="ti-ico" src="https://cdn.simpleicons.org/nextdotjs/ffffff" alt="" loading="lazy"/>Next.js 15</li>
+          <li><img class="ti-ico" src="https://cdn.simpleicons.org/react/61DAFB" alt="" loading="lazy"/>React 19</li>
+          <li><img class="ti-ico" src="https://cdn.simpleicons.org/tailwindcss/38BDF8" alt="" loading="lazy"/>Tailwind v4</li>
+          <li><img class="ti-ico" src="https://cdn.simpleicons.org/shadcnui/ffffff" alt="" loading="lazy"/>shadcn/ui</li>
+          <li><img class="ti-ico" src="https://cdn.simpleicons.org/typescript/3178C6" alt="" loading="lazy"/>TypeScript</li>
+          <li><img class="ti-ico" src="https://cdn.simpleicons.org/vercel/ffffff" alt="" loading="lazy"/>SWR</li>
         </ul>
       </div>
       <div class="tcol">
         <h4><i data-lucide="database"></i>Dados</h4>
         <ul>
-          <li><span class="dt" style="background:#ef4444"></span>INPE · queimadas</li>
-          <li><span class="dt" style="background:#eab308"></span>ANM · garimpo</li>
-          <li><span class="dt" style="background:#3b82f6"></span>SGB · alagamentos</li>
-          <li><span class="dt" style="background:var(--em)"></span>ImgBB</li>
-          <li><span class="dt" style="background:#a78bfa"></span>Resend · email</li>
-          <li><span class="dt" style="background:#fbbf24"></span>OpenRouter</li>
+          <li><span class="ti-ico lc"><i data-lucide="flame" style="color:#ef4444"></i></span>INPE · queimadas</li>
+          <li><span class="ti-ico lc"><i data-lucide="pickaxe" style="color:#eab308"></i></span>ANM · garimpo</li>
+          <li><span class="ti-ico lc"><i data-lucide="waves" style="color:#3b82f6"></i></span>SGB · alagamentos</li>
+          <li><span class="ti-ico lc"><i data-lucide="image" style="color:#00e676"></i></span>ImgBB</li>
+          <li><img class="ti-ico" src="https://cdn.simpleicons.org/resend/ffffff" alt="" loading="lazy"/>Resend · email</li>
+          <li><span class="ti-ico lc"><i data-lucide="brain-circuit" style="color:#fbbf24"></i></span>OpenRouter</li>
         </ul>
       </div>
       <div class="tcol">
         <h4><i data-lucide="terminal"></i>DevOps</h4>
         <ul>
-          <li><span class="dt" style="background:#2496ed"></span>Docker</li>
-          <li><span class="dt" style="background:#fff"></span>Vercel</li>
-          <li><span class="dt" style="background:#c21325"></span>Jest TDD</li>
-          <li><span class="dt" style="background:#85ea2d"></span>Swagger</li>
-          <li><span class="dt" style="background:#f9a825"></span>pnpm</li>
+          <li><img class="ti-ico" src="https://cdn.simpleicons.org/docker/2496ED" alt="" loading="lazy"/>Docker</li>
+          <li><img class="ti-ico" src="https://cdn.simpleicons.org/vercel/ffffff" alt="" loading="lazy"/>Vercel</li>
+          <li><img class="ti-ico" src="https://cdn.simpleicons.org/jest/C21325" alt="" loading="lazy"/>Jest TDD</li>
+          <li><img class="ti-ico" src="https://cdn.simpleicons.org/swagger/85EA2D" alt="" loading="lazy"/>Swagger</li>
+          <li><img class="ti-ico" src="https://cdn.simpleicons.org/pnpm/F69220" alt="" loading="lazy"/>pnpm</li>
         </ul>
       </div>
     </div>
@@ -1473,7 +1525,7 @@ html,body{
 </section>
 
 <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-     SLIDE 9 — PAINEL ADMIN
+     SLIDE 9 — PAINEL ADMIN · VISÃO GERAL
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
 <section class="slide" id="sAdmin" data-i="8">
   <div class="bg">
@@ -1501,7 +1553,7 @@ html,body{
       </div>
     </div>
 
-    <div class="stage blurin d-4">
+    <div class="stage-single blurin d-4">
       <div class="window">
         <div class="chrome">
           <span class="dt"></span><span class="dt"></span><span class="dt"></span>
@@ -1509,24 +1561,6 @@ html,body{
         </div>
         <span class="tag">DASHBOARD</span>
         <img src="assets/painel-admin-dashboard.png" alt="Dashboard"/>
-      </div>
-      <div class="side-stack">
-        <div class="window">
-          <div class="chrome">
-            <span class="dt"></span><span class="dt"></span><span class="dt"></span>
-            <span class="url">/admin/denuncias</span>
-          </div>
-          <span class="tag">LISTAGEM</span>
-          <img src="assets/painel-admin-denuncias-listagem.png" alt="Listagem"/>
-        </div>
-        <div class="window">
-          <div class="chrome">
-            <span class="dt"></span><span class="dt"></span><span class="dt"></span>
-            <span class="url">/admin/denuncias/:id</span>
-          </div>
-          <span class="tag">DETALHE</span>
-          <img src="assets/painel-admin-detalhe-denuncia.png" alt="Detalhe"/>
-        </div>
       </div>
     </div>
 
@@ -1551,9 +1585,82 @@ html,body{
 </section>
 
 <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     SLIDE 10 — PAINEL ADMIN · TRIAGEM
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<section class="slide" id="sAdminB" data-i="9">
+  <div class="bg">
+    <div class="grid-bg tight"></div>
+    <div class="glow glow-em" style="opacity:.5"></div>
+    <div class="glow glow-cy" style="opacity:.5"></div>
+    <div class="veil"></div>
+    <div class="noise"></div>
+  </div>
+
+  <div class="wrap">
+    <div class="head">
+      <div>
+        <div class="eyebrow blurin d-1">
+          <span class="dot"></span>
+          Capítulo 08 · Triagem
+        </div>
+        <h2 class="display display-m blurin d-2" style="margin-top:18px">
+          Auditável de<br/>
+          <span class="grad">ponta a ponta.</span>
+        </h2>
+      </div>
+      <div class="quote-side blurin d-3" style="max-width:340px;text-align:right">
+        <q style="font-family:'Instrument Serif',serif;font-style:italic;font-size:21px;line-height:1.4;color:var(--t70)">Da listagem ao detalhe — cada denúncia carrega seu histórico completo.</q>
+      </div>
+    </div>
+
+    <div class="stage-duo blurin d-4">
+      <div class="window">
+        <div class="chrome">
+          <span class="dt"></span><span class="dt"></span><span class="dt"></span>
+          <span class="url">/admin/denuncias</span>
+        </div>
+        <span class="tag">LISTAGEM</span>
+        <img src="assets/painel-admin-denuncias-listagem.png" alt="Listagem"/>
+      </div>
+      <div class="window">
+        <div class="chrome">
+          <span class="dt"></span><span class="dt"></span><span class="dt"></span>
+          <span class="url">/admin/denuncias/:id</span>
+        </div>
+        <span class="tag">DETALHE</span>
+        <img src="assets/painel-admin-detalhe-denuncia.png" alt="Detalhe"/>
+      </div>
+    </div>
+
+    <div class="meta-row blurin d-6">
+      <div class="metablock">
+        <div class="mk">FILTRO 01</div>
+        <div class="mv">Status</div>
+        <div class="md">Pendente, em análise, validada, escalada, arquivada.</div>
+      </div>
+      <div class="metablock">
+        <div class="mk">FILTRO 02</div>
+        <div class="mv">IA-Score</div>
+        <div class="md">Threshold 60% mínimo · denúncias falsas bloqueadas automaticamente.</div>
+      </div>
+      <div class="metablock">
+        <div class="mk">FILTRO 03</div>
+        <div class="mv">Tipo · Zona</div>
+        <div class="md">Queimada, garimpo, alagamento — cruzados com geofencing.</div>
+      </div>
+      <div class="metablock">
+        <div class="mk">AUDITORIA</div>
+        <div class="mv">Timeline</div>
+        <div class="md">Cada interação registrada com timestamp e responsável.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
      SLIDE 10 — DIAGRAMA DE FLUXO
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
-<section class="slide" id="sFlow" data-i="9">
+<section class="slide" id="sFlow" data-i="10">
   <div class="bg">
     <div class="grid-bg"></div>
     <div class="orb orb-2"></div>
@@ -1626,7 +1733,7 @@ html,body{
 <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
      SLIDE 11 — CTA
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
-<section class="slide" id="s8" data-i="10">
+<section class="slide" id="s8" data-i="11">
   <div class="bg">
     <div class="grid-bg"></div>
     <div class="orb orb-1"></div>
@@ -1673,6 +1780,18 @@ let mx=0,my=0,rx=0,ry=0;
 document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
 (function loop(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;curR.style.left=rx+'px';curR.style.top=ry+'px';requestAnimationFrame(loop);})();
 
+// Idle-hide chrome (arrows + bottom nav + cursor) — Apple-style cleanup
+let idleTimer;
+function showChrome(){
+  document.body.classList.remove('idle');
+  clearTimeout(idleTimer);
+  idleTimer=setTimeout(()=>document.body.classList.add('idle'),2500);
+}
+document.addEventListener('mousemove',showChrome,{passive:true});
+document.addEventListener('keydown',showChrome);
+document.addEventListener('click',showChrome);
+showChrome();
+
 // Slides
 const slides=[...document.querySelectorAll('.slide')];
 const navEl=document.getElementById('nav');
@@ -1689,7 +1808,7 @@ slides.forEach((_,i)=>{
 const sep=document.createElement('div');sep.className='nav-divider';navEl.appendChild(sep);
 const lbl=document.createElement('div');lbl.className='nav-label';lbl.id='nav-num';lbl.textContent='01 — KEYNOTE';navEl.appendChild(lbl);
 
-const titles=['CAPA','PROBLEMA','SOLUÇÃO','ENGENHARIA','STACK','MERCADO','IA','BOT TELEGRAM','PAINEL ADMIN','FLUXO','OBRIGADO'];
+const titles=['CAPA','PROBLEMA','SOLUÇÃO','ENGENHARIA','STACK','MERCADO','IA','BOT TELEGRAM','PAINEL · VISÃO','PAINEL · TRIAGEM','FLUXO','OBRIGADO'];
 
 function update(i){
   document.querySelectorAll('.dot').forEach((d,j)=>d.classList.toggle('on',j===i));
