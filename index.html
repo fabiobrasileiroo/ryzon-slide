@@ -78,12 +78,17 @@ body.idle #cur-r{
 .slide-n .of{margin-left:6px;color:var(--t15)}
 
 /* ─── Brand mark — top-right ──────────────────── */
-.brand{position:fixed;top:30px;right:40px;z-index:200;
-  display:flex;align-items:center;gap:10px;
+.brand{position:fixed;top:26px;right:40px;z-index:200;
+  display:flex;align-items:center;gap:12px;
   font-family:'Bricolage Grotesque',sans-serif;
-  font-size:15px;font-weight:700;letter-spacing:-.01em;color:var(--t50)}
-.brand .dt{width:6px;height:6px;border-radius:50%;background:var(--em);
-  box-shadow:0 0 10px var(--em);animation:pulse 2.5s ease-in-out infinite}
+  font-size:13px;font-weight:500;letter-spacing:.01em;color:var(--t30)}
+.brand-logo{
+  height:26px;width:auto;object-fit:contain;display:block;
+  filter:drop-shadow(0 0 10px rgba(0,230,118,.45));
+  transition:filter .4s var(--ease),transform .4s var(--ease);
+}
+.brand:hover .brand-logo{filter:drop-shadow(0 0 14px rgba(0,230,118,.7));transform:scale(1.05)}
+.brand .sep{width:1px;height:14px;background:var(--hair);display:inline-block}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 
 /* ─── Deck ────────────────────────────────────── */
@@ -960,7 +965,9 @@ body.idle #cur-r{
 </div>
 
 <div class="brand">
-  <span class="dt"></span><span>RYZON</span><span style="color:var(--t30)">·</span><span style="color:var(--t30)">Keynote 2026</span>
+  <img class="brand-logo" src="assets/ryzon-logo-sem-background.png" alt="Ryzon"/>
+  <span class="sep"></span>
+  <span>Keynote 2026</span>
 </div>
 
 <button class="arr arr-l" onclick="go(cur_i-1)" aria-label="Anterior">
