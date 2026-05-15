@@ -96,6 +96,56 @@ html,body{
   pointer-events:none}
 .bg .noise{position:absolute;inset:-20%;opacity:.025;mix-blend-mode:overlay;
   background-image:url("data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PScwIDAgMjAwIDIwMCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJz48ZmlsdGVyIGlkPSdhJyB4PScwJyB5PScwJz48ZmVUdXJidWxlbmNlIGJhc2VGcmVxdWVuY3k9Jy45JyBudW1PY3RhdmVzPSczJyBzdGl0Y2hUaWxlcz0nc3RpdGNoJy8+PC9maWx0ZXI+PHJlY3Qgd2lkdGg9JzEwMCUnIGhlaWdodD0nMTAwJScgZmlsdGVyPSd1cmwoI2EpJy8+PC9zdmc+")}
+
+/* ─── Checkered grid background (Apple keynote style) ─── */
+.bg .grid-bg{
+  position:absolute;inset:0;pointer-events:none;
+  background-image:
+    linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);
+  background-size:64px 64px;
+  -webkit-mask-image:radial-gradient(ellipse 80% 70% at 50% 50%,#000 30%,transparent 80%);
+          mask-image:radial-gradient(ellipse 80% 70% at 50% 50%,#000 30%,transparent 80%);
+  animation:grid-pan 60s linear infinite;
+}
+.bg .grid-bg.tight{background-size:42px 42px;opacity:.7}
+@keyframes grid-pan{
+  from{background-position:0 0,0 0}
+  to{background-position:640px 640px,640px 640px}
+}
+.bg .dots-bg{
+  position:absolute;inset:0;pointer-events:none;
+  background-image:radial-gradient(circle,rgba(255,255,255,.10) 1px,transparent 1.2px);
+  background-size:28px 28px;
+  -webkit-mask-image:radial-gradient(ellipse 70% 70% at 50% 50%,#000 0%,transparent 75%);
+          mask-image:radial-gradient(ellipse 70% 70% at 50% 50%,#000 0%,transparent 75%);
+}
+
+/* ─── Cinematic blur-in animation ─── */
+.blurin{
+  opacity:0;filter:blur(20px);transform:translateY(14px);
+  animation:blurin 1.2s var(--ease2) both;
+}
+@keyframes blurin{to{opacity:1;filter:blur(0);transform:none}}
+
+/* Floating shapes (Apple-style) */
+.bg .orb{
+  position:absolute;border-radius:50%;
+  background:radial-gradient(circle at 30% 30%,rgba(0,230,118,.18),rgba(0,230,118,0) 70%);
+  filter:blur(40px);will-change:transform;
+}
+.orb-1{width:280px;height:280px;top:12%;left:8%;animation:orb1 22s ease-in-out infinite}
+.orb-2{width:340px;height:340px;bottom:8%;right:6%;
+  background:radial-gradient(circle at 30% 30%,rgba(92,225,255,.16),rgba(92,225,255,0) 70%);
+  animation:orb2 26s ease-in-out infinite}
+@keyframes orb1{
+  0%,100%{transform:translate(0,0)}
+  50%{transform:translate(50px,30px)}
+}
+@keyframes orb2{
+  0%,100%{transform:translate(0,0)}
+  50%{transform:translate(-40px,-30px)}
+}
 .bg .glow{position:absolute;border-radius:50%;filter:blur(160px);will-change:transform}
 .glow-em{width:680px;height:680px;background:rgba(0,230,118,.12);
   top:-180px;right:-150px;animation:drift1 28s ease-in-out infinite}
@@ -599,7 +649,188 @@ html,body{
 .mini .ml{font-size:12px;color:var(--t50);margin-top:6px;line-height:1.45}
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   SLIDE 8 — CTA
+   SLIDE 8 — BOT TELEGRAM (screenshots)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+#sBot{justify-content:center;align-items:center}
+#sBot .wrap{
+  width:100%;max-width:1500px;position:relative;z-index:2;
+  display:grid;grid-template-columns:.85fr 1.15fr;gap:80px;align-items:center;
+}
+#sBot .left h2{margin-top:18px}
+#sBot .left .lead-row{margin-top:24px;max-width:440px;font-size:18px;color:var(--t70);line-height:1.6}
+#sBot .feat-list{margin-top:40px;display:flex;flex-direction:column;gap:0}
+.botfeat{
+  display:flex;gap:18px;align-items:flex-start;
+  padding:20px 0;border-top:1px solid var(--hair);
+}
+.botfeat:last-child{border-bottom:1px solid var(--hair)}
+.botfeat i{width:18px;height:18px;color:var(--em);margin-top:3px;flex-shrink:0}
+.botfeat .ti{font-family:'Bricolage Grotesque',sans-serif;
+  font-size:17px;font-weight:700;letter-spacing:-.01em;margin-bottom:4px}
+.botfeat .ds{font-size:14px;color:var(--t50);line-height:1.55}
+
+#sBot .phones{
+  position:relative;display:flex;gap:24px;justify-content:center;align-items:center;
+  perspective:1200px;
+}
+.phone{
+  position:relative;width:230px;border-radius:30px;overflow:hidden;
+  border:1px solid var(--hair);
+  background:#0a0a0c;
+  box-shadow:0 30px 80px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.04) inset,
+             0 0 60px rgba(0,230,118,.08);
+  transform-style:preserve-3d;
+  transition:transform .8s var(--ease2);
+}
+.phone img{width:100%;display:block}
+.phone-1{transform:rotateY(8deg) translateY(20px) scale(.92);opacity:.65}
+.phone-2{transform:translateY(-12px) scale(1);z-index:2}
+.phone-3{transform:rotateY(-8deg) translateY(20px) scale(.92);opacity:.65}
+.phone .glare{
+  position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(160deg,rgba(255,255,255,.08) 0%,transparent 30%,transparent 70%,rgba(0,0,0,.3) 100%);
+}
+.phone-tag{
+  position:absolute;bottom:-30px;left:50%;transform:translateX(-50%);
+  font-family:'JetBrains Mono',monospace;font-size:10px;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--t30);
+  white-space:nowrap;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   SLIDE 9 — PAINEL ADMIN
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+#sAdmin{justify-content:center;align-items:center}
+#sAdmin .wrap{
+  width:100%;max-width:1500px;position:relative;z-index:2;
+  display:flex;flex-direction:column;gap:48px;
+}
+#sAdmin .head{
+  display:flex;align-items:flex-end;justify-content:space-between;gap:60px;
+}
+#sAdmin h2{max-width:780px}
+#sAdmin .stage{
+  position:relative;display:grid;grid-template-columns:1.4fr 1fr;gap:32px;align-items:start;
+}
+.window{
+  position:relative;border-radius:14px;overflow:hidden;
+  border:1px solid var(--hair);background:#0a0a0c;
+  box-shadow:0 24px 64px rgba(0,0,0,.5),0 0 0 1px rgba(255,255,255,.03) inset;
+  transition:transform .6s var(--ease2),box-shadow .6s var(--ease2);
+}
+.window:hover{transform:translateY(-6px);
+  box-shadow:0 30px 80px rgba(0,0,0,.6),0 0 0 1px rgba(0,230,118,.2) inset,0 0 40px rgba(0,230,118,.12)}
+.window .chrome{
+  display:flex;align-items:center;gap:6px;padding:10px 14px;
+  background:rgba(255,255,255,.02);border-bottom:1px solid var(--hair);
+}
+.window .chrome .dt{width:10px;height:10px;border-radius:50%}
+.window .chrome .dt:nth-child(1){background:#ff5f57}
+.window .chrome .dt:nth-child(2){background:#febc2e}
+.window .chrome .dt:nth-child(3){background:#28c840}
+.window .chrome .url{margin-left:14px;font-family:'JetBrains Mono',monospace;
+  font-size:11px;color:var(--t30);letter-spacing:.04em}
+.window img{width:100%;display:block}
+.window .tag{
+  position:absolute;top:14px;right:14px;z-index:2;
+  font-family:'JetBrains Mono',monospace;font-size:10px;
+  letter-spacing:.16em;text-transform:uppercase;
+  padding:5px 10px;background:rgba(0,230,118,.12);
+  border:1px solid rgba(0,230,118,.3);border-radius:100px;
+  color:var(--em);font-weight:600;
+}
+#sAdmin .side-stack{display:flex;flex-direction:column;gap:24px}
+#sAdmin .feature-list{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  border-top:1px solid var(--hair);
+}
+.adminft{padding:24px 24px 24px 0;border-right:1px solid var(--hair)}
+.adminft:last-child{border-right:none;padding-right:0}
+.adminft:not(:first-child){padding-left:24px}
+.adminft i{width:20px;height:20px;color:var(--em);margin-bottom:14px;display:block}
+.adminft .ti{font-family:'Bricolage Grotesque',sans-serif;
+  font-size:17px;font-weight:700;letter-spacing:-.01em;margin-bottom:6px}
+.adminft .ds{font-size:13px;color:var(--t50);line-height:1.55}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   SLIDE 10 — DIAGRAMA DE FLUXO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+#sFlow{justify-content:center;align-items:center}
+#sFlow .wrap{
+  width:100%;max-width:1500px;position:relative;z-index:2;
+  display:flex;flex-direction:column;gap:48px;
+}
+#sFlow .head{display:flex;align-items:flex-end;justify-content:space-between;gap:60px}
+#sFlow h2{max-width:760px}
+#sFlow .stage{position:relative}
+
+.flow-grid{
+  display:grid;grid-template-columns:repeat(5,1fr);gap:24px;align-items:stretch;
+  position:relative;
+}
+.fnode{
+  position:relative;padding:24px 18px;border:1px solid var(--hair);
+  background:rgba(255,255,255,.015);border-radius:14px;
+  display:flex;flex-direction:column;gap:12px;
+  backdrop-filter:blur(6px);
+  transition:transform .5s var(--ease2),border-color .5s var(--ease2),background .5s var(--ease2);
+}
+.fnode:hover{transform:translateY(-4px);border-color:rgba(0,230,118,.3);
+  background:rgba(0,230,118,.04)}
+.fnode .fnum{
+  font-family:'JetBrains Mono',monospace;font-size:10px;
+  letter-spacing:.18em;color:var(--em);font-weight:600;
+}
+.fnode .ficon{
+  width:42px;height:42px;border-radius:10px;
+  background:rgba(0,230,118,.08);border:1px solid rgba(0,230,118,.25);
+  display:flex;align-items:center;justify-content:center;
+}
+.fnode .ficon i{width:18px;height:18px;color:var(--em)}
+.fnode .ftitle{font-family:'Bricolage Grotesque',sans-serif;
+  font-size:16px;font-weight:700;letter-spacing:-.01em}
+.fnode .fdesc{font-size:12px;color:var(--t50);line-height:1.5}
+.fnode .fmeta{margin-top:auto;
+  font-family:'JetBrains Mono',monospace;font-size:10px;
+  letter-spacing:.12em;color:var(--t30);text-transform:uppercase;
+  padding-top:10px;border-top:1px solid var(--hair);
+}
+.fnode-ai{border-color:rgba(92,225,255,.25);background:rgba(92,225,255,.02)}
+.fnode-ai .fnum{color:var(--cy)}
+.fnode-ai .ficon{background:rgba(92,225,255,.08);border-color:rgba(92,225,255,.3)}
+.fnode-ai .ficon i{color:var(--cy)}
+
+/* dashed arrows between nodes */
+.flow-arrows{
+  position:absolute;inset:0;pointer-events:none;
+  display:grid;grid-template-columns:repeat(5,1fr);
+  align-items:center;
+}
+.flow-arrows .arrow{
+  position:relative;height:1px;margin:0 -8px;
+  background-image:linear-gradient(90deg,var(--em) 50%,transparent 50%);
+  background-size:8px 1px;background-repeat:repeat-x;
+  opacity:.4;
+}
+.flow-arrows .arrow::after{
+  content:'';position:absolute;right:-2px;top:-3px;
+  width:0;height:0;border-left:6px solid var(--em);
+  border-top:3px solid transparent;border-bottom:3px solid transparent;
+  opacity:.7;
+}
+
+#sFlow .legend{
+  display:flex;gap:32px;align-items:center;
+  font-family:'JetBrains Mono',monospace;font-size:11px;
+  letter-spacing:.14em;color:var(--t50);
+}
+#sFlow .legend .lg{display:flex;align-items:center;gap:8px}
+#sFlow .legend .sw{width:24px;height:6px;border-radius:2px}
+#sFlow .legend .sw.em{background:var(--em);box-shadow:0 0 10px rgba(0,230,118,.4)}
+#sFlow .legend .sw.cy{background:var(--cy);box-shadow:0 0 10px rgba(92,225,255,.4)}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   SLIDE 11 — CTA
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 #s8{justify-content:center}
 #s8 .wrap{
@@ -646,7 +877,7 @@ html,body{
 <div class="prog" id="prog"></div>
 
 <div class="slide-n">
-  <span id="cur-n">01</span><span class="of">/ 08</span>
+  <span id="cur-n">01</span><span class="of">/ 11</span>
 </div>
 
 <div class="brand">
@@ -669,6 +900,9 @@ html,body{
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
 <section class="slide" id="s1" data-i="0">
   <div class="bg">
+    <div class="grid-bg"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
     <div class="glow glow-em"></div>
     <div class="glow glow-cy"></div>
     <div class="veil"></div>
@@ -678,7 +912,7 @@ html,body{
   <div class="center">
 
     <div class="logo-floats fadein d-1">
-      <img class="logo-img" src="file:///home/fabiominsait/inovatech/remotion-video-ryzon/public/refs/ryzon-logo-sem-background.png" alt="" onerror="this.style.display='none'"/>
+      <img class="logo-img" src="assets/ryzon-logo-sem-background.png" alt="" onerror="this.style.display='none'"/>
       <span class="logo-name">Ryzon</span>
       <span class="keynote-tag">Pitch · 2026</span>
     </div>
@@ -711,7 +945,7 @@ html,body{
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
 <section class="slide" id="s2" data-i="1">
   <div class="photo-side">
-    <img src="file:///home/fabiominsait/inovatech/remotion-video-ryzon/public/refs/queimada-ilegal.jpg" alt=""
+    <img src="assets/queimada-ilegal.jpg" alt=""
          onerror="this.parentElement.style.background='linear-gradient(135deg,#ff6b35,#3a0e00)'"/>
     <div class="overlay"></div>
     <div class="caption">
@@ -767,6 +1001,8 @@ html,body{
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
 <section class="slide" id="s3" data-i="2">
   <div class="bg">
+    <div class="dots-bg"></div>
+    <div class="orb orb-1"></div>
     <div class="glow glow-em"></div>
     <div class="glow glow-cy"></div>
     <div class="veil"></div>
@@ -829,6 +1065,7 @@ html,body{
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
 <section class="slide" id="s4" data-i="3">
   <div class="bg">
+    <div class="grid-bg tight"></div>
     <div class="glow glow-em" style="opacity:.7"></div>
     <div class="glow glow-cy" style="opacity:.6"></div>
     <div class="veil"></div>
@@ -915,6 +1152,7 @@ html,body{
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
 <section class="slide" id="s5" data-i="4">
   <div class="bg">
+    <div class="dots-bg"></div>
     <div class="glow glow-em" style="opacity:.6"></div>
     <div class="glow glow-cy" style="opacity:.5"></div>
     <div class="veil"></div>
@@ -1018,6 +1256,7 @@ html,body{
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
 <section class="slide" id="s6" data-i="5">
   <div class="bg">
+    <div class="grid-bg"></div>
     <div class="glow glow-em" style="opacity:.7"></div>
     <div class="glow glow-cy" style="opacity:.6"></div>
     <div class="veil"></div>
@@ -1089,6 +1328,8 @@ html,body{
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
 <section class="slide" id="s7" data-i="6">
   <div class="bg">
+    <div class="dots-bg"></div>
+    <div class="orb orb-2"></div>
     <div class="glow glow-em" style="opacity:.8"></div>
     <div class="glow glow-cy" style="opacity:.7"></div>
     <div class="veil"></div>
@@ -1160,10 +1401,236 @@ html,body{
 </section>
 
 <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-     SLIDE 8 — CTA
+     SLIDE 8 — BOT TELEGRAM
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
-<section class="slide" id="s8" data-i="7">
+<section class="slide" id="sBot" data-i="7">
   <div class="bg">
+    <div class="grid-bg tight"></div>
+    <div class="orb orb-1"></div>
+    <div class="glow glow-em" style="opacity:.6"></div>
+    <div class="glow glow-cy" style="opacity:.5"></div>
+    <div class="veil"></div>
+    <div class="noise"></div>
+  </div>
+
+  <div class="wrap">
+    <div class="left">
+      <div class="eyebrow blurin d-1">
+        <span class="dot"></span>
+        Capítulo 07 · Produto
+      </div>
+      <h2 class="display display-m blurin d-2" style="margin-top:18px">
+        Tudo no <span class="grad">Telegram.</span><br/>
+        Sem app. Sem login.
+      </h2>
+      <p class="lead-row blurin d-3">
+        O cidadão abre o app que já usa todos os dias. <strong style="color:var(--txt);font-weight:600">Três toques.</strong> Denúncia registrada. Sem fricção, sem cadastro.
+      </p>
+
+      <div class="feat-list blurin d-5">
+        <div class="botfeat">
+          <i data-lucide="play"></i>
+          <div>
+            <div class="ti">/start instantâneo</div>
+            <div class="ds">Bot responde em &lt;1s. Menu inline com opções claras de denúncia.</div>
+          </div>
+        </div>
+        <div class="botfeat">
+          <i data-lucide="map-pin"></i>
+          <div>
+            <div class="ti">Localização precisa</div>
+            <div class="ds">GPS nativo do Telegram ou seleção via mapa interativo.</div>
+          </div>
+        </div>
+        <div class="botfeat">
+          <i data-lucide="image"></i>
+          <div>
+            <div class="ti">Foto + descrição</div>
+            <div class="ds">Análise de imagem por IA antes da escalação. Anonimato preservado.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="phones">
+      <div class="phone phone-1 scalein d-2">
+        <img src="assets/bot-start.jpeg" alt="Bot /start" onerror="this.style.display='none'"/>
+        <div class="glare"></div>
+        <div class="phone-tag">01 · /start</div>
+      </div>
+      <div class="phone phone-2 scalein d-4">
+        <img src="assets/bot-localizacao.jpeg" alt="Bot localização" onerror="this.style.display='none'"/>
+        <div class="glare"></div>
+        <div class="phone-tag">02 · localização</div>
+      </div>
+      <div class="phone phone-3 scalein d-6">
+        <img src="assets/bot-descricao-final.jpeg" alt="Bot descrição" onerror="this.style.display='none'"/>
+        <div class="glare"></div>
+        <div class="phone-tag">03 · descrição</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     SLIDE 9 — PAINEL ADMIN
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<section class="slide" id="sAdmin" data-i="8">
+  <div class="bg">
+    <div class="dots-bg"></div>
+    <div class="glow glow-em" style="opacity:.5"></div>
+    <div class="glow glow-cy" style="opacity:.5"></div>
+    <div class="veil"></div>
+    <div class="noise"></div>
+  </div>
+
+  <div class="wrap">
+    <div class="head">
+      <div>
+        <div class="eyebrow blurin d-1">
+          <span class="dot"></span>
+          Capítulo 08 · Operação
+        </div>
+        <h2 class="display display-m blurin d-2" style="margin-top:18px">
+          Cockpit dos<br/>
+          <span class="grad">órgãos fiscalizadores.</span>
+        </h2>
+      </div>
+      <div class="quote-side blurin d-3" style="max-width:340px;text-align:right">
+        <q style="font-family:'Instrument Serif',serif;font-style:italic;font-size:21px;line-height:1.4;color:var(--t70)">Cada denúncia rastreável. Cada status auditável. Cada minuto contado.</q>
+      </div>
+    </div>
+
+    <div class="stage blurin d-4">
+      <div class="window">
+        <div class="chrome">
+          <span class="dt"></span><span class="dt"></span><span class="dt"></span>
+          <span class="url">ryzon-front.vercel.app/admin/dashboard</span>
+        </div>
+        <span class="tag">DASHBOARD</span>
+        <img src="assets/painel-admin-dashboard.png" alt="Dashboard"/>
+      </div>
+      <div class="side-stack">
+        <div class="window">
+          <div class="chrome">
+            <span class="dt"></span><span class="dt"></span><span class="dt"></span>
+            <span class="url">/admin/denuncias</span>
+          </div>
+          <span class="tag">LISTAGEM</span>
+          <img src="assets/painel-admin-denuncias-listagem.png" alt="Listagem"/>
+        </div>
+        <div class="window">
+          <div class="chrome">
+            <span class="dt"></span><span class="dt"></span><span class="dt"></span>
+            <span class="url">/admin/denuncias/:id</span>
+          </div>
+          <span class="tag">DETALHE</span>
+          <img src="assets/painel-admin-detalhe-denuncia.png" alt="Detalhe"/>
+        </div>
+      </div>
+    </div>
+
+    <div class="feature-list blurin d-6">
+      <div class="adminft">
+        <i data-lucide="layout-dashboard"></i>
+        <div class="ti">Dashboard tempo real</div>
+        <div class="ds">Visão geral de denúncias por tipo, status e órgão competente.</div>
+      </div>
+      <div class="adminft">
+        <i data-lucide="filter"></i>
+        <div class="ti">Triagem auditável</div>
+        <div class="ds">Filtros por status, IA-score, tipo e zona geográfica. Cada ação registrada.</div>
+      </div>
+      <div class="adminft">
+        <i data-lucide="link-2"></i>
+        <div class="ti">Webhook automático</div>
+        <div class="ds">Rota direta para IBAMA, MPF ou Defesa Civil após 72h sem resposta.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     SLIDE 10 — DIAGRAMA DE FLUXO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<section class="slide" id="sFlow" data-i="9">
+  <div class="bg">
+    <div class="grid-bg"></div>
+    <div class="orb orb-2"></div>
+    <div class="glow glow-em" style="opacity:.6"></div>
+    <div class="glow glow-cy" style="opacity:.6"></div>
+    <div class="veil"></div>
+    <div class="noise"></div>
+  </div>
+
+  <div class="wrap">
+    <div class="head">
+      <div>
+        <div class="eyebrow blurin d-1">
+          <span class="dot"></span>
+          Capítulo 09 · Fluxo
+        </div>
+        <h2 class="display display-m blurin d-2" style="margin-top:18px">
+          Do cidadão ao<br/>
+          <span class="grad">órgão competente.</span>
+        </h2>
+      </div>
+      <div class="legend blurin d-3">
+        <div class="lg"><span class="sw em"></span>Pipeline humano</div>
+        <div class="lg"><span class="sw cy"></span>IA · validação</div>
+      </div>
+    </div>
+
+    <div class="stage">
+      <div class="flow-grid">
+        <div class="fnode blurin d-3">
+          <div class="fnum">ETAPA 01</div>
+          <div class="ficon"><i data-lucide="user"></i></div>
+          <div class="ftitle">Cidadão</div>
+          <div class="fdesc">Abre o bot no Telegram. Zero cadastro, zero fricção.</div>
+          <div class="fmeta">Telegram · /start</div>
+        </div>
+        <div class="fnode blurin d-4">
+          <div class="fnum">ETAPA 02</div>
+          <div class="ficon"><i data-lucide="map-pin"></i></div>
+          <div class="ftitle">Captura</div>
+          <div class="fdesc">GPS + imagem + descrição. Tudo em ≤30s.</div>
+          <div class="fmeta">NestJS · API REST</div>
+        </div>
+        <div class="fnode fnode-ai blurin d-5">
+          <div class="fnum">ETAPA 03</div>
+          <div class="ficon"><i data-lucide="brain-circuit"></i></div>
+          <div class="ftitle">Análise IA</div>
+          <div class="fdesc">Gemini Vision + INPE + ANM + SGB. Score 0–100%.</div>
+          <div class="fmeta">Gemini · 94% médio</div>
+        </div>
+        <div class="fnode blurin d-6">
+          <div class="fnum">ETAPA 04</div>
+          <div class="ficon"><i data-lucide="database"></i></div>
+          <div class="ftitle">Persistência</div>
+          <div class="fdesc">PostgreSQL + Prisma. Status auditável e público.</div>
+          <div class="fmeta">PostgreSQL · 5 status</div>
+        </div>
+        <div class="fnode blurin d-7">
+          <div class="fnum">ETAPA 05</div>
+          <div class="ficon"><i data-lucide="send"></i></div>
+          <div class="ftitle">Escalação</div>
+          <div class="fdesc">Webhook 72h → IBAMA, MPF ou Defesa Civil.</div>
+          <div class="fmeta">Webhook · 3 órgãos</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     SLIDE 11 — CTA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<section class="slide" id="s8" data-i="10">
+  <div class="bg">
+    <div class="grid-bg"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
     <div class="glow glow-em" style="opacity:1"></div>
     <div class="glow glow-cy" style="opacity:.8"></div>
     <div class="veil" style="opacity:1.5"></div>
@@ -1172,7 +1639,7 @@ html,body{
 
   <div class="wrap">
     <img class="logo-cta"
-         src="file:///home/fabiominsait/inovatech/remotion-video-ryzon/public/refs/ryzon-logo-sem-background.png"
+         src="assets/ryzon-logo-sem-background.png"
          alt="Ryzon"
          onerror="this.style.display='none'"/>
 
@@ -1222,7 +1689,7 @@ slides.forEach((_,i)=>{
 const sep=document.createElement('div');sep.className='nav-divider';navEl.appendChild(sep);
 const lbl=document.createElement('div');lbl.className='nav-label';lbl.id='nav-num';lbl.textContent='01 — KEYNOTE';navEl.appendChild(lbl);
 
-const titles=['CAPA','PROBLEMA','SOLUÇÃO','ENGENHARIA','STACK','MERCADO','IA','OBRIGADO'];
+const titles=['CAPA','PROBLEMA','SOLUÇÃO','ENGENHARIA','STACK','MERCADO','IA','BOT TELEGRAM','PAINEL ADMIN','FLUXO','OBRIGADO'];
 
 function update(i){
   document.querySelectorAll('.dot').forEach((d,j)=>d.classList.toggle('on',j===i));
@@ -1239,7 +1706,7 @@ function go(idx){
   slides[prev].classList.remove('active');
   slides[prev].classList.add('out');
   setTimeout(()=>slides[prev].classList.remove('out'),700);
-  slides[cur_i].querySelectorAll('.fadein,.scalein,.reveal > span,.word > span,.pfill').forEach(el=>{
+  slides[cur_i].querySelectorAll('.fadein,.scalein,.blurin,.reveal > span,.word > span,.pfill').forEach(el=>{
     el.style.animation='none';el.offsetHeight;el.style.animation='';
   });
   slides[cur_i].classList.add('active');
