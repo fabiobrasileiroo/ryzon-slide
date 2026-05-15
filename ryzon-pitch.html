@@ -1,0 +1,1270 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Ryzon · Keynote</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,500;12..96,700;12..96,800&family=Instrument+Serif:ital@0;1&family=Manrope:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<style>
+/* ─── Tokens ─────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-font-smoothing:antialiased}
+:root{
+  --bg:    #000000;
+  --bg2:   #0a0a0c;
+  --em:    #00e676;
+  --em-d:  #00b85a;
+  --cy:    #5ce1ff;
+  --or:    #ff6b35;
+  --yw:    #ffd60a;
+  --bl:    #4cc9f0;
+  --txt:   #ffffff;
+  --t90:   rgba(255,255,255,.90);
+  --t70:   rgba(255,255,255,.70);
+  --t50:   rgba(255,255,255,.50);
+  --t30:   rgba(255,255,255,.30);
+  --t15:   rgba(255,255,255,.15);
+  --t08:   rgba(255,255,255,.08);
+  --t04:   rgba(255,255,255,.04);
+  --hair:  rgba(255,255,255,.10);
+
+  /* premium easing — long & smooth */
+  --ease:  cubic-bezier(.22,.61,.36,1);
+  --ease2: cubic-bezier(.16,1,.3,1);
+  --ease3: cubic-bezier(.65,0,.35,1);
+}
+html,body{
+  width:100%;height:100%;
+  background:var(--bg);color:var(--txt);
+  font-family:'Manrope',sans-serif;font-weight:400;
+  overflow:hidden;cursor:none;
+}
+
+/* ─── Cursor — minimal Apple-like ─────────────── */
+#cur{position:fixed;width:6px;height:6px;background:var(--em);
+  border-radius:50%;pointer-events:none;z-index:9999;
+  transform:translate(-50%,-50%);mix-blend-mode:screen}
+#cur-r{position:fixed;width:30px;height:30px;border:1px solid rgba(0,230,118,.45);
+  border-radius:50%;pointer-events:none;z-index:9998;
+  transform:translate(-50%,-50%);opacity:.6;
+  transition:transform .3s var(--ease)}
+
+/* ─── Top progress bar ────────────────────────── */
+.prog{position:fixed;top:0;left:0;height:2px;
+  width:0;background:var(--em);z-index:300;
+  transition:width .8s var(--ease);
+  box-shadow:0 0 12px rgba(0,230,118,.5)}
+
+/* ─── Slide number — top-left ─────────────────── */
+.slide-n{position:fixed;top:34px;left:40px;z-index:200;
+  font-family:'JetBrains Mono',monospace;font-size:11px;
+  letter-spacing:.18em;color:var(--t30);font-weight:500}
+.slide-n .of{margin-left:6px;color:var(--t15)}
+
+/* ─── Brand mark — top-right ──────────────────── */
+.brand{position:fixed;top:30px;right:40px;z-index:200;
+  display:flex;align-items:center;gap:10px;
+  font-family:'Bricolage Grotesque',sans-serif;
+  font-size:15px;font-weight:700;letter-spacing:-.01em;color:var(--t50)}
+.brand .dt{width:6px;height:6px;border-radius:50%;background:var(--em);
+  box-shadow:0 0 10px var(--em);animation:pulse 2.5s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+
+/* ─── Deck ────────────────────────────────────── */
+.deck{position:relative;width:100vw;height:100vh;overflow:hidden}
+
+/* ─── Slide base ──────────────────────────────── */
+.slide{
+  position:absolute;inset:0;
+  display:flex;align-items:center;
+  padding:0 96px;
+  opacity:0;pointer-events:none;
+  transform:scale(1.02);
+  transition:opacity 1.1s var(--ease),transform 1.1s var(--ease);
+  z-index:1;
+}
+.slide.active{opacity:1;transform:none;pointer-events:all;z-index:2}
+.slide.out{opacity:0;transform:scale(.98);z-index:1;transition:opacity .7s var(--ease),transform .7s var(--ease)}
+
+/* ─── Backgrounds: cinematic, subtle ──────────── */
+.bg{position:absolute;inset:0;z-index:0;overflow:hidden}
+.bg .veil{position:absolute;inset:0;
+  background:radial-gradient(ellipse at 30% 30%,rgba(0,230,118,.06) 0%,transparent 55%),
+             radial-gradient(ellipse at 80% 80%,rgba(92,225,255,.04) 0%,transparent 55%);
+  pointer-events:none}
+.bg .noise{position:absolute;inset:-20%;opacity:.025;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PScwIDAgMjAwIDIwMCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJz48ZmlsdGVyIGlkPSdhJyB4PScwJyB5PScwJz48ZmVUdXJidWxlbmNlIGJhc2VGcmVxdWVuY3k9Jy45JyBudW1PY3RhdmVzPSczJyBzdGl0Y2hUaWxlcz0nc3RpdGNoJy8+PC9maWx0ZXI+PHJlY3Qgd2lkdGg9JzEwMCUnIGhlaWdodD0nMTAwJScgZmlsdGVyPSd1cmwoI2EpJy8+PC9zdmc+")}
+.bg .glow{position:absolute;border-radius:50%;filter:blur(160px);will-change:transform}
+.glow-em{width:680px;height:680px;background:rgba(0,230,118,.12);
+  top:-180px;right:-150px;animation:drift1 28s ease-in-out infinite}
+.glow-cy{width:540px;height:540px;background:rgba(92,225,255,.08);
+  bottom:-120px;left:-140px;animation:drift2 32s ease-in-out infinite}
+@keyframes drift1{
+  0%,100%{transform:translate(0,0) scale(1)}
+  50%{transform:translate(-60px,40px) scale(1.05)}
+}
+@keyframes drift2{
+  0%,100%{transform:translate(0,0) scale(1)}
+  50%{transform:translate(50px,-30px) scale(.95)}
+}
+
+/* ─── Hairline ────────────────────────────────── */
+.hairline{height:1px;background:var(--hair);width:100%}
+
+/* ─── Eyebrow label ────────────────────────────── */
+.eyebrow{
+  display:inline-flex;align-items:center;gap:10px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--em);font-weight:500;
+  padding-bottom:6px;border-bottom:1px solid rgba(0,230,118,.3);
+}
+.eyebrow .dot{width:5px;height:5px;border-radius:50%;background:var(--em);
+  box-shadow:0 0 10px var(--em)}
+
+/* ─── Typography ──────────────────────────────── */
+.display{
+  font-family:'Bricolage Grotesque',sans-serif;
+  font-weight:800;line-height:.95;letter-spacing:-.045em;
+}
+.display-xl{font-size:clamp(80px,11vw,180px)}
+.display-l {font-size:clamp(64px,8.5vw,140px)}
+.display-m {font-size:clamp(52px,6.5vw,108px)}
+.display-s {font-size:clamp(40px,4.5vw,72px)}
+
+.serif{font-family:'Instrument Serif',serif;font-weight:400;font-style:italic;letter-spacing:-.01em}
+
+.lead{font-size:22px;line-height:1.55;color:var(--t70);font-weight:400;letter-spacing:-.005em}
+.body{font-size:17px;line-height:1.6;color:var(--t70);font-weight:400}
+.cap{font-size:13px;letter-spacing:.06em;color:var(--t50);font-family:'JetBrains Mono',monospace}
+.mono{font-family:'JetBrains Mono',monospace}
+
+.tint-em{color:var(--em)}
+.tint-cy{color:var(--cy)}
+.tint-or{color:var(--or)}
+.tint-yw{color:var(--yw)}
+.tint-bl{color:var(--bl)}
+.dim{color:var(--t50)}
+.dimmer{color:var(--t30)}
+.grad{
+  background:linear-gradient(120deg,var(--em) 0%,var(--cy) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+
+/* ─── Text reveal animations ──────────────────── */
+.reveal{
+  display:inline-block;overflow:hidden;
+  vertical-align:bottom;line-height:inherit;
+}
+.reveal > span{
+  display:inline-block;
+  transform:translateY(110%);
+  animation:reveal 1.2s var(--ease2) both;
+}
+@keyframes reveal{to{transform:none}}
+
+.fadein{
+  opacity:0;transform:translateY(20px);
+  animation:fadein .9s var(--ease2) both;
+}
+@keyframes fadein{to{opacity:1;transform:none}}
+
+.scalein{
+  opacity:0;transform:scale(.92);
+  animation:scalein 1s var(--ease2) both;
+}
+@keyframes scalein{to{opacity:1;transform:none}}
+
+.d-1{animation-delay:.10s}
+.d-2{animation-delay:.22s}
+.d-3{animation-delay:.36s}
+.d-4{animation-delay:.50s}
+.d-5{animation-delay:.65s}
+.d-6{animation-delay:.80s}
+.d-7{animation-delay:.95s}
+.d-8{animation-delay:1.10s}
+.d-9{animation-delay:1.25s}
+
+/* ─── Hero number with cinematic float ────────── */
+.bignum{position:relative}
+.bignum .ghost{
+  position:absolute;inset:0;color:var(--em);
+  opacity:.08;filter:blur(20px);
+  z-index:-1;
+}
+
+/* ─── Navigation chrome ──────────────────────── */
+.nav-bar{
+  position:fixed;bottom:32px;left:50%;transform:translateX(-50%);
+  display:flex;align-items:center;gap:14px;z-index:200;
+  padding:11px 20px;
+  background:rgba(10,10,12,.7);
+  border:1px solid var(--hair);
+  border-radius:100px;
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+}
+.dot{
+  width:6px;height:6px;border-radius:3px;
+  background:var(--t15);cursor:pointer;
+  transition:all .35s var(--ease);
+}
+.dot.on{width:24px;background:var(--em);box-shadow:0 0 10px rgba(0,230,118,.5)}
+.nav-divider{width:1px;height:14px;background:var(--t15)}
+.nav-label{font-family:'JetBrains Mono',monospace;font-size:10px;
+  color:var(--t30);letter-spacing:.12em;font-weight:500}
+
+.arr{position:fixed;top:50%;z-index:200;transform:translateY(-50%);
+  width:36px;height:36px;border-radius:50%;
+  background:rgba(10,10,12,.6);border:1px solid var(--hair);
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;backdrop-filter:blur(12px);
+  transition:all .25s var(--ease);color:var(--t30)}
+.arr:hover{border-color:var(--em);color:var(--em);background:rgba(0,230,118,.06)}
+.arr i{width:16px;height:16px}
+.arr-l{left:22px}.arr-r{right:22px}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   SLIDE 1 — CAPA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+#s1{justify-content:center}
+#s1 .center{
+  display:flex;flex-direction:column;align-items:center;
+  text-align:center;gap:34px;position:relative;z-index:2;
+  max-width:1100px;
+}
+#s1 .logo-floats{
+  display:flex;align-items:center;gap:14px;
+  padding:8px 16px 8px 8px;
+  border-radius:100px;
+  border:1px solid var(--hair);
+  background:rgba(10,10,12,.5);
+}
+#s1 .logo-img{width:32px;height:32px;object-fit:contain;
+  filter:drop-shadow(0 0 10px rgba(0,230,118,.5))}
+#s1 .logo-name{font-family:'Bricolage Grotesque',sans-serif;
+  font-size:17px;font-weight:700;letter-spacing:-.01em}
+#s1 .keynote-tag{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;color:var(--t50);letter-spacing:.22em;
+  text-transform:uppercase;
+  padding-left:14px;border-left:1px solid var(--hair);
+}
+#s1 h1{
+  font-family:'Bricolage Grotesque',sans-serif;
+  font-size:clamp(72px,10vw,180px);
+  font-weight:800;line-height:.92;letter-spacing:-.045em;
+}
+#s1 h1 .alt{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;letter-spacing:-.01em;color:var(--t70)}
+#s1 .sub{
+  font-size:24px;line-height:1.55;color:var(--t70);
+  font-weight:400;max-width:680px;
+}
+#s1 .footer-meta{
+  position:absolute;bottom:60px;left:0;right:0;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 96px;font-size:12px;color:var(--t30);
+  font-family:'JetBrains Mono',monospace;letter-spacing:.12em;text-transform:uppercase;
+}
+#s1 .pulse-cta{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:13px;color:var(--t50);
+  font-family:'JetBrains Mono',monospace;letter-spacing:.14em;
+}
+#s1 .pulse-cta::before{content:'';width:6px;height:6px;border-radius:50%;
+  background:var(--em);box-shadow:0 0 10px var(--em);animation:pulse 2s ease-in-out infinite}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   SLIDE 2 — PROBLEMA (full-bleed image)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+#s2{padding:0;display:flex;align-items:stretch}
+#s2 .photo-side{
+  flex:1.1;position:relative;overflow:hidden;
+  border-right:1px solid var(--hair);
+}
+#s2 .photo-side img{
+  width:100%;height:100%;object-fit:cover;
+  animation:kenburns 18s ease-out both;
+}
+@keyframes kenburns{
+  from{transform:scale(1.05)}
+  to  {transform:scale(1.12) translate(-1%,-1%)}
+}
+#s2 .photo-side .overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(90deg,rgba(0,0,0,.4) 0%,transparent 40%,transparent 70%,rgba(0,0,0,.8) 100%);
+}
+#s2 .photo-side .caption{
+  position:absolute;bottom:40px;left:40px;right:40px;
+  font-family:'JetBrains Mono',monospace;font-size:11px;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--t50);
+}
+#s2 .content-side{
+  flex:1;padding:0 80px;display:flex;flex-direction:column;
+  justify-content:center;gap:40px;position:relative;
+}
+#s2 h2{font-family:'Bricolage Grotesque',sans-serif;
+  font-size:clamp(48px,5.5vw,84px);font-weight:800;
+  line-height:1.0;letter-spacing:-.04em}
+#s2 h2 .quiet{color:var(--t30);font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;letter-spacing:-.005em;display:block}
+#s2 .stacks{display:flex;flex-direction:column;gap:0}
+.stack-row{
+  display:flex;align-items:baseline;justify-content:space-between;
+  padding:24px 0;border-top:1px solid var(--hair);gap:32px;
+  transition:padding .35s var(--ease);
+}
+.stack-row:last-child{border-bottom:1px solid var(--hair)}
+.stack-row .num{
+  font-family:'Bricolage Grotesque',sans-serif;
+  font-size:72px;font-weight:800;letter-spacing:-.04em;line-height:1;
+  flex-shrink:0;
+}
+.stack-row .num .u{font-size:.4em;font-weight:500;color:var(--t50);margin-left:4px}
+.stack-row .meta{text-align:right;max-width:280px}
+.stack-row .meta .nm{font-size:14px;font-weight:600;color:var(--t90);margin-bottom:4px;
+  display:flex;align-items:center;gap:8px;justify-content:flex-end}
+.stack-row .meta .nm i{width:16px;height:16px}
+.stack-row .meta .ds{font-size:13px;color:var(--t50);line-height:1.45}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   SLIDE 3 — SOLUÇÃO (huge "30s")
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+#s3{justify-content:center}
+#s3 .grid{
+  display:grid;grid-template-columns:1.2fr .8fr;gap:80px;
+  align-items:center;width:100%;max-width:1500px;position:relative;z-index:2;
+}
+#s3 .hero-num{
+  font-family:'Bricolage Grotesque',sans-serif;
+  font-size:clamp(180px,22vw,400px);
+  font-weight:800;line-height:.85;letter-spacing:-.06em;
+  background:linear-gradient(135deg,var(--em) 0%,var(--cy) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+  position:relative;
+}
+#s3 .hero-num::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,var(--em) 0%,var(--cy) 100%);
+  filter:blur(80px);opacity:.15;z-index:-1;
+}
+#s3 .below-num{margin-top:18px;
+  font-family:'Bricolage Grotesque',sans-serif;
+  font-size:clamp(28px,3.5vw,52px);font-weight:700;line-height:1.1;letter-spacing:-.025em}
+#s3 .below-sub{font-size:18px;color:var(--t50);margin-top:10px;line-height:1.55;max-width:420px}
+
+#s3 .steps{display:flex;flex-direction:column;gap:0}
+.solstep{
+  display:flex;gap:20px;align-items:flex-start;
+  padding:22px 0;border-top:1px solid var(--hair);
+}
+.solstep:last-child{border-bottom:1px solid var(--hair)}
+.solstep .n{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;color:var(--em);letter-spacing:.16em;
+  padding-top:4px;flex-shrink:0;min-width:30px;
+}
+.solstep .body-w{flex:1}
+.solstep .ttl{
+  font-family:'Bricolage Grotesque',sans-serif;
+  font-size:20px;font-weight:700;letter-spacing:-.015em;
+  display:flex;align-items:center;gap:10px;margin-bottom:6px;
+}
+.solstep .ttl i{width:18px;height:18px;color:var(--em)}
+.solstep .dsc{font-size:14px;color:var(--t50);line-height:1.55}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   SLIDE 4 — ARQUITETURA (clean diagram)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+#s4{justify-content:center;align-items:center}
+#s4 .grid{
+  display:grid;grid-template-columns:.9fr 1.1fr;gap:80px;
+  align-items:center;width:100%;max-width:1500px;position:relative;z-index:2;
+}
+#s4 h2{margin-top:18px}
+#s4 .lead-row{margin-top:24px;max-width:420px}
+
+.diagram{
+  display:flex;flex-direction:column;gap:0;
+  border-radius:0;
+}
+.layer{
+  display:grid;grid-template-columns:120px 1fr;
+  padding:24px 0;border-top:1px solid var(--hair);
+  align-items:center;gap:24px;
+  transition:padding .3s var(--ease);
+}
+.layer:last-child{border-bottom:1px solid var(--hair)}
+.layer:hover{padding-left:8px}
+.layer .lbl{
+  display:flex;align-items:center;gap:10px;
+  font-family:'JetBrains Mono',monospace;font-size:11px;
+  letter-spacing:.16em;text-transform:uppercase;font-weight:500;
+}
+.layer .lbl i{width:14px;height:14px}
+.layer .items{
+  display:flex;flex-wrap:wrap;gap:8px;
+}
+.layer .items span{
+  font-size:13px;font-weight:500;color:var(--t70);
+  font-family:'JetBrains Mono',monospace;letter-spacing:-.005em;
+}
+.layer .items span::after{content:'·';margin-left:8px;color:var(--t15)}
+.layer .items span:last-child::after{display:none}
+
+#s4 .pillars{display:flex;flex-direction:column;gap:0}
+.pillar{
+  padding:22px 0;border-top:1px solid var(--hair);
+  display:flex;gap:18px;align-items:flex-start;
+}
+.pillar:last-child{border-bottom:1px solid var(--hair)}
+.pillar .pn{
+  font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--em);
+  letter-spacing:.16em;padding-top:4px;flex-shrink:0;min-width:38px;
+}
+.pillar .pt{
+  font-family:'Bricolage Grotesque',sans-serif;
+  font-size:22px;font-weight:700;letter-spacing:-.02em;margin-bottom:6px;
+}
+.pillar .pd{font-size:14px;color:var(--t50);line-height:1.55;max-width:440px}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   SLIDE 5 — TECNOLOGIAS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+#s5{justify-content:center;align-items:center}
+#s5 .wrap{
+  width:100%;max-width:1500px;position:relative;z-index:2;
+  display:flex;flex-direction:column;gap:64px;
+}
+#s5 .header-row{
+  display:flex;align-items:flex-end;justify-content:space-between;
+  gap:60px;
+}
+#s5 h2{max-width:680px}
+#s5 .header-meta{
+  display:flex;flex-direction:column;gap:8px;align-items:flex-end;
+  font-family:'JetBrains Mono',monospace;font-size:11px;
+  letter-spacing:.16em;color:var(--t30);text-transform:uppercase;
+}
+#s5 .header-meta .lg{font-size:36px;font-family:'Bricolage Grotesque',sans-serif;
+  font-weight:800;letter-spacing:-.03em;color:var(--em);text-transform:none}
+
+#s5 .tgrid{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:0;
+  border-top:1px solid var(--hair);
+}
+.tcol{padding:32px 24px 32px 0;border-right:1px solid var(--hair)}
+.tcol:last-child{border-right:none;padding-right:0}
+.tcol:not(:first-child){padding-left:24px}
+.tcol h4{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--em);font-weight:500;margin-bottom:24px;
+  display:flex;align-items:center;gap:8px;
+}
+.tcol h4 i{width:13px;height:13px}
+.tcol ul{list-style:none;display:flex;flex-direction:column;gap:14px}
+.tcol li{
+  display:flex;align-items:center;gap:10px;
+  font-size:15px;font-weight:500;color:var(--t90);
+  font-family:'Bricolage Grotesque',sans-serif;letter-spacing:-.01em;
+  transition:color .2s;
+}
+.tcol li:hover{color:var(--em)}
+.tcol li .dt{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+
+#s5 .highlights-row{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:0;
+  border-top:1px solid var(--hair);padding-top:32px;
+}
+.hl{display:flex;gap:14px;align-items:flex-start;padding-right:32px}
+.hl i{width:22px;height:22px;color:var(--em);flex-shrink:0;margin-top:2px}
+.hl .ht{font-family:'Bricolage Grotesque',sans-serif;
+  font-size:17px;font-weight:700;letter-spacing:-.015em;margin-bottom:3px}
+.hl .hd{font-size:13px;color:var(--t50);line-height:1.55}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   SLIDE 6 — MERCADO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+#s6{justify-content:center;align-items:center}
+#s6 .wrap{width:100%;max-width:1500px;position:relative;z-index:2;display:flex;flex-direction:column;gap:56px}
+#s6 .top{display:flex;align-items:flex-end;justify-content:space-between;gap:60px}
+#s6 h2{max-width:780px}
+#s6 .quote-side{max-width:340px;text-align:right}
+#s6 .quote-side q{font-family:'Instrument Serif',serif;font-style:italic;
+  font-size:22px;line-height:1.4;color:var(--t70);letter-spacing:-.005em}
+#s6 .quote-side .attrib{font-size:11px;color:var(--t30);margin-top:8px;
+  font-family:'JetBrains Mono',monospace;letter-spacing:.14em;text-transform:uppercase}
+
+#s6 .grid-stats{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  border-top:1px solid var(--hair);
+}
+.mkstat{padding:30px 28px 30px 0;border-right:1px solid var(--hair);position:relative}
+.mkstat:last-child{border-right:none;padding-right:0}
+.mkstat:not(:first-child){padding-left:28px}
+.mkstat .mn{
+  font-family:'Bricolage Grotesque',sans-serif;
+  font-size:68px;font-weight:800;letter-spacing:-.04em;line-height:1;
+}
+.mkstat .ml{font-size:13px;color:var(--t50);margin-top:14px;line-height:1.5;max-width:200px}
+
+#s6 .organs-row{
+  display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;
+  border-top:1px solid var(--hair);padding-top:32px;
+}
+.org-block{display:flex;flex-direction:column;gap:8px;padding-right:32px;border-right:1px solid var(--hair)}
+.org-block:last-child{border-right:none;padding-right:0}
+.org-block:not(:first-child){padding-left:32px}
+.org-block .badge{
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;letter-spacing:.18em;color:var(--em);
+  font-weight:600;margin-bottom:6px;
+}
+.org-block .name{
+  font-family:'Bricolage Grotesque',sans-serif;
+  font-size:22px;font-weight:700;letter-spacing:-.02em;line-height:1.15;
+}
+.org-block .role{font-size:13px;color:var(--t50);margin-top:6px;line-height:1.5}
+.org-block .scope{display:flex;align-items:center;gap:6px;margin-top:10px;
+  font-size:12px;color:var(--t70);font-weight:500}
+.org-block .scope i{width:13px;height:13px}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   SLIDE 7 — IA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+#s7{justify-content:center;align-items:center}
+#s7 .wrap{width:100%;max-width:1500px;position:relative;z-index:2;
+  display:grid;grid-template-columns:1fr 1.1fr;gap:80px;align-items:center}
+#s7 .left h2{margin-top:18px}
+#s7 .left .lead-row{margin-top:24px;max-width:440px;font-size:19px;color:var(--t70);line-height:1.55}
+
+#s7 .checks{display:flex;flex-direction:column;gap:0;margin-top:40px}
+.aichk{
+  display:flex;align-items:center;gap:18px;
+  padding:20px 0;border-top:1px solid var(--hair);
+}
+.aichk:last-child{border-bottom:1px solid var(--hair)}
+.aichk .dotn{
+  width:32px;height:32px;border-radius:50%;
+  background:rgba(0,230,118,.12);border:1px solid rgba(0,230,118,.35);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.aichk .dotn svg{width:14px;height:14px}
+.aichk .ti{font-family:'Bricolage Grotesque',sans-serif;
+  font-size:17px;font-weight:600;letter-spacing:-.01em;flex:1}
+.aichk .ti strong{color:var(--em);font-weight:700}
+.aichk .src{
+  font-family:'JetBrains Mono',monospace;
+  font-size:12px;color:var(--t30);letter-spacing:.06em;flex-shrink:0;
+}
+
+#s7 .right .score-mega{
+  font-family:'Bricolage Grotesque',sans-serif;
+  font-size:clamp(140px,18vw,300px);
+  font-weight:800;line-height:.9;letter-spacing:-.05em;
+  background:linear-gradient(120deg,var(--em) 0%,var(--cy) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;position:relative;
+}
+#s7 .right .score-mega::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(120deg,var(--em) 0%,var(--cy) 100%);
+  filter:blur(100px);opacity:.18;z-index:-1;
+}
+#s7 .right .score-label{
+  font-family:'JetBrains Mono',monospace;
+  font-size:12px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--t50);margin-top:14px;
+}
+#s7 .right .pbar{height:2px;background:var(--t15);margin-top:24px;width:100%;overflow:hidden}
+#s7 .right .pfill{height:100%;width:0;background:linear-gradient(90deg,var(--em),var(--cy));
+  animation:pf 1.6s var(--ease) both;animation-delay:.6s;
+  box-shadow:0 0 16px rgba(0,230,118,.5)}
+@keyframes pf{to{width:94%}}
+#s7 .right .thr{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--t30);
+  margin-top:8px;letter-spacing:.12em}
+
+#s7 .right .mini-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  margin-top:48px;border-top:1px solid var(--hair);
+}
+.mini{padding:22px 18px 22px 0;border-right:1px solid var(--hair)}
+.mini:last-child{border-right:none;padding-right:0}
+.mini:not(:first-child){padding-left:18px}
+.mini .mn{font-family:'Bricolage Grotesque',sans-serif;
+  font-size:38px;font-weight:800;letter-spacing:-.03em;line-height:1}
+.mini .ml{font-size:12px;color:var(--t50);margin-top:6px;line-height:1.45}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   SLIDE 8 — CTA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+#s8{justify-content:center}
+#s8 .wrap{
+  display:flex;flex-direction:column;align-items:center;
+  text-align:center;gap:48px;position:relative;z-index:2;max-width:1100px;
+}
+#s8 .logo-cta{width:64px;height:64px;object-fit:contain;
+  filter:drop-shadow(0 0 30px rgba(0,230,118,.5));
+  animation:spring 1s cubic-bezier(.34,1.56,.64,1) both}
+@keyframes spring{from{opacity:0;transform:scale(.5)}to{opacity:1;transform:scale(1)}}
+#s8 .manifesto{
+  font-family:'Bricolage Grotesque',sans-serif;
+  font-size:clamp(72px,11vw,180px);
+  font-weight:800;line-height:.92;letter-spacing:-.05em;
+}
+#s8 .manifesto .word{display:inline-block;overflow:hidden;vertical-align:bottom}
+#s8 .manifesto .word > span{display:inline-block;transform:translateY(110%);animation:reveal 1.2s var(--ease2) both}
+#s8 .ms-sub{font-family:'Instrument Serif',serif;font-style:italic;
+  font-size:26px;color:var(--t70);font-weight:400;max-width:600px;line-height:1.45}
+#s8 .channels{
+  display:flex;gap:0;align-items:center;
+  border-top:1px solid var(--hair);border-bottom:1px solid var(--hair);
+  padding:18px 0;margin-top:8px;
+}
+.ch{
+  display:flex;align-items:center;gap:10px;
+  padding:0 24px;border-right:1px solid var(--hair);
+  font-family:'JetBrains Mono',monospace;font-size:14px;
+  color:var(--t90);font-weight:500;letter-spacing:.02em;
+  cursor:pointer;transition:color .25s;
+}
+.ch:last-child{border-right:none}
+.ch i{width:16px;height:16px;color:var(--em)}
+.ch:hover{color:var(--em)}
+#s8 .tag-end{font-family:'JetBrains Mono',monospace;font-size:11px;
+  letter-spacing:.22em;color:var(--t30);text-transform:uppercase;margin-top:8px}
+</style>
+</head>
+<body>
+
+<div id="cur"></div>
+<div id="cur-r"></div>
+
+<div class="prog" id="prog"></div>
+
+<div class="slide-n">
+  <span id="cur-n">01</span><span class="of">/ 08</span>
+</div>
+
+<div class="brand">
+  <span class="dt"></span><span>RYZON</span><span style="color:var(--t30)">·</span><span style="color:var(--t30)">Keynote 2026</span>
+</div>
+
+<button class="arr arr-l" onclick="go(cur_i-1)" aria-label="Anterior">
+  <i data-lucide="chevron-left"></i>
+</button>
+<button class="arr arr-r" onclick="go(cur_i+1)" aria-label="Próximo">
+  <i data-lucide="chevron-right"></i>
+</button>
+
+<nav class="nav-bar" id="nav"></nav>
+
+<div class="deck" id="deck">
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     SLIDE 1 — CAPA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<section class="slide" id="s1" data-i="0">
+  <div class="bg">
+    <div class="glow glow-em"></div>
+    <div class="glow glow-cy"></div>
+    <div class="veil"></div>
+    <div class="noise"></div>
+  </div>
+
+  <div class="center">
+
+    <div class="logo-floats fadein d-1">
+      <img class="logo-img" src="file:///home/fabiominsait/inovatech/remotion-video-ryzon/public/refs/ryzon-logo-sem-background.png" alt="" onerror="this.style.display='none'"/>
+      <span class="logo-name">Ryzon</span>
+      <span class="keynote-tag">Pitch · 2026</span>
+    </div>
+
+    <h1>
+      <span class="reveal"><span style="animation-delay:.3s">Denúncias</span></span><br/>
+      <span class="reveal"><span style="animation-delay:.5s">em </span></span><span class="reveal"><span style="animation-delay:.65s" class="grad">tempo real</span></span><span class="reveal"><span style="animation-delay:.8s">.</span></span>
+    </h1>
+
+    <div class="fadein d-7">
+      <p class="sub">
+        <span class="serif">Tecnologia que coloca o poder de fiscalização ambiental nas mãos de</span>
+        <strong style="color:var(--txt);font-weight:600">213 milhões de brasileiros</strong>
+        <span class="serif">—</span>
+        em <strong style="color:var(--em);font-weight:600">30 segundos.</strong>
+      </p>
+    </div>
+
+  </div>
+
+  <div class="footer-meta fadein d-8">
+    <span>Inovatech · Pitch deck</span>
+    <span class="pulse-cta">Pressione → para começar</span>
+    <span>Maio 2026</span>
+  </div>
+</section>
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     SLIDE 2 — PROBLEMA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<section class="slide" id="s2" data-i="1">
+  <div class="photo-side">
+    <img src="file:///home/fabiominsait/inovatech/remotion-video-ryzon/public/refs/queimada-ilegal.jpg" alt=""
+         onerror="this.parentElement.style.background='linear-gradient(135deg,#ff6b35,#3a0e00)'"/>
+    <div class="overlay"></div>
+    <div class="caption">
+      <div class="eyebrow" style="margin-bottom:14px;border-color:rgba(255,107,53,.4);color:var(--or)">
+        <span class="dot" style="background:var(--or);box-shadow:0 0 10px var(--or)"></span>
+        Capítulo 01 · O Problema
+      </div>
+      <div style="font-family:'Instrument Serif',serif;font-style:italic;font-size:22px;line-height:1.4;color:var(--t90);margin-top:18px;max-width:380px;">
+        "Cada chama na Amazônia é um pedaço do Brasil queimando sem ninguém ver."
+      </div>
+    </div>
+  </div>
+
+  <div class="content-side">
+    <h2 class="fadein d-1">
+      <span>O Brasil queima,</span><br/>
+      <span>é minerado</span><br/>
+      <span class="quiet">e alaga em silêncio.</span>
+    </h2>
+
+    <div class="stacks fadein d-3">
+      <div class="stack-row">
+        <div class="num tint-or">278<span class="u">MIL</span></div>
+        <div class="meta">
+          <div class="nm"><i data-lucide="flame" style="color:var(--or)"></i>Queimadas</div>
+          <div class="ds">focos de incêndio por ano segundo o INPE</div>
+        </div>
+      </div>
+      <div class="stack-row">
+        <div class="num tint-yw">1.200<span class="u">KM²</span></div>
+        <div class="meta">
+          <div class="nm"><i data-lucide="pickaxe" style="color:var(--yw)"></i>Garimpo ilegal</div>
+          <div class="ds">desmatados anualmente em terras indígenas</div>
+        </div>
+      </div>
+      <div class="stack-row">
+        <div class="num tint-bl">3M</div>
+        <div class="meta">
+          <div class="nm"><i data-lucide="waves" style="color:var(--bl)"></i>Alagamentos</div>
+          <div class="ds">brasileiros afetados a cada estação chuvosa</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="fadein d-6" style="font-size:15px;color:var(--t50);line-height:1.6;max-width:480px;font-style:italic;font-family:'Instrument Serif',serif;">
+      — Nenhum canal digital unificado conecta cidadãos aos órgãos. <span style="color:var(--txt);font-style:normal;font-family:'Manrope';font-weight:600">Crimes ficam sem punição.</span>
+    </div>
+  </div>
+</section>
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     SLIDE 3 — SOLUÇÃO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<section class="slide" id="s3" data-i="2">
+  <div class="bg">
+    <div class="glow glow-em"></div>
+    <div class="glow glow-cy"></div>
+    <div class="veil"></div>
+    <div class="noise"></div>
+  </div>
+
+  <div class="grid">
+    <div>
+      <div class="eyebrow fadein d-1">
+        <span class="dot"></span>
+        Capítulo 02 · A Solução
+      </div>
+
+      <div class="hero-num scalein d-2" style="margin-top:28px">30s</div>
+
+      <div class="below-num fadein d-4">
+        do <span class="serif">cidadão</span> ao <span class="grad">IBAMA</span>.
+      </div>
+      <div class="below-sub fadein d-5">
+        Pelo Telegram. Sem cadastro. Sem login.<br/>
+        Totalmente anônimo. Totalmente público.
+      </div>
+    </div>
+
+    <div class="steps fadein d-5">
+      <div class="solstep">
+        <div class="n">01</div>
+        <div class="body-w">
+          <div class="ttl"><i data-lucide="map-pin"></i>Localização</div>
+          <div class="dsc">Coordenadas via GPS ou mapa interativo. Queimada, garimpo ou alagamento.</div>
+        </div>
+      </div>
+      <div class="solstep">
+        <div class="n">02</div>
+        <div class="body-w">
+          <div class="ttl"><i data-lucide="camera"></i>Imagem</div>
+          <div class="dsc">Gemini Vision analisa autenticidade em tempo real e bloqueia falsas antes de escalar.</div>
+        </div>
+      </div>
+      <div class="solstep">
+        <div class="n">03</div>
+        <div class="body-w">
+          <div class="ttl"><i data-lucide="badge-check"></i>Rastreio público</div>
+          <div class="dsc">ID gerado. Acompanhe o status a qualquer momento sem login. Transparência total.</div>
+        </div>
+      </div>
+      <div class="solstep">
+        <div class="n">04</div>
+        <div class="body-w">
+          <div class="ttl"><i data-lucide="send"></i>Escalação</div>
+          <div class="dsc">Sem resposta em 72h? Webhook automático para IBAMA, MPF ou Defesa Civil.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     SLIDE 4 — ARQUITETURA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<section class="slide" id="s4" data-i="3">
+  <div class="bg">
+    <div class="glow glow-em" style="opacity:.7"></div>
+    <div class="glow glow-cy" style="opacity:.6"></div>
+    <div class="veil"></div>
+    <div class="noise"></div>
+  </div>
+
+  <div class="grid">
+    <div>
+      <div class="eyebrow fadein d-1">
+        <span class="dot"></span>
+        Capítulo 03 · Engenharia
+      </div>
+      <h2 class="display display-m fadein d-2" style="margin-top:18px">
+        Construído como<br/>
+        software de <span class="grad">produção.</span>
+      </h2>
+      <p class="lead-row fadein d-3" style="font-size:18px;color:var(--t70);line-height:1.6;max-width:440px;">
+        Arquitetura DDD + TDD. Domínio isolado de frameworks. Cada regra de negócio testada antes de chegar ao banco.
+      </p>
+
+      <div class="diagram fadein d-5" style="margin-top:40px">
+        <div class="layer">
+          <div class="lbl" style="color:var(--em)"><i data-lucide="hexagon"></i>Domain</div>
+          <div class="items">
+            <span>Entidades</span><span>Value Objects</span><span>Use Cases</span><span>Repos (abstract)</span>
+          </div>
+        </div>
+        <div class="layer">
+          <div class="lbl" style="color:var(--cy)"><i data-lucide="layout-template"></i>Application</div>
+          <div class="items">
+            <span>DTOs</span><span>Controllers</span><span>Modules</span><span>Swagger</span>
+          </div>
+        </div>
+        <div class="layer">
+          <div class="lbl" style="color:var(--t50)"><i data-lucide="server"></i>Infrastructure</div>
+          <div class="items">
+            <span>Prisma</span><span>PostgreSQL</span><span>Telegram</span><span>Gemini</span><span>Webhooks</span>
+          </div>
+        </div>
+        <div class="layer">
+          <div class="lbl" style="color:var(--yw)"><i data-lucide="test-tube-2"></i>Tests</div>
+          <div class="items">
+            <span>In-memory repos</span><span>Unit specs</span><span>Jest</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pillars fadein d-4">
+      <div class="pillar">
+        <div class="pn">PILAR 01</div>
+        <div>
+          <div class="pt">Domain-Driven Design</div>
+          <div class="pd">Entidades puras. Use cases independentes de framework. NestJS e Prisma são detalhes — não fundações.</div>
+        </div>
+      </div>
+      <div class="pillar">
+        <div class="pn">PILAR 02</div>
+        <div>
+          <div class="pt">Test-Driven Development</div>
+          <div class="pd">Repositórios in-memory tornam cada teste 100× mais rápido. Sem banco, sem flakiness, sem desculpa.</div>
+        </div>
+      </div>
+      <div class="pillar">
+        <div class="pn">PILAR 03</div>
+        <div>
+          <div class="pt">Clean Architecture</div>
+          <div class="pd">Dependências fluem para dentro. Trocar PostgreSQL por MySQL não toca uma única regra de negócio.</div>
+        </div>
+      </div>
+      <div class="pillar">
+        <div class="pn">PILAR 04</div>
+        <div>
+          <div class="pt">Escalação automática · 72h</div>
+          <div class="pd">Scheduler desacoplado roteia denúncias para o órgão competente sem intervenção humana.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     SLIDE 5 — TECNOLOGIAS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<section class="slide" id="s5" data-i="4">
+  <div class="bg">
+    <div class="glow glow-em" style="opacity:.6"></div>
+    <div class="glow glow-cy" style="opacity:.5"></div>
+    <div class="veil"></div>
+    <div class="noise"></div>
+  </div>
+
+  <div class="wrap">
+    <div class="header-row">
+      <div>
+        <div class="eyebrow fadein d-1">
+          <span class="dot"></span>
+          Capítulo 04 · Stack
+        </div>
+        <h2 class="display display-m fadein d-2" style="margin-top:18px">
+          Stack <span class="grad">de produção</span>,<br/>
+          escolhida com intenção.
+        </h2>
+      </div>
+      <div class="header-meta fadein d-3">
+        <span>Total de tecnologias</span>
+        <span class="lg">24+</span>
+        <span>Em uso ativo</span>
+      </div>
+    </div>
+
+    <div class="tgrid fadein d-4">
+      <div class="tcol">
+        <h4><i data-lucide="server"></i>Backend</h4>
+        <ul>
+          <li><span class="dt" style="background:#e0234e"></span>NestJS 11</li>
+          <li><span class="dt" style="background:#3178c6"></span>TypeScript</li>
+          <li><span class="dt" style="background:#2563eb"></span>Prisma 6</li>
+          <li><span class="dt" style="background:#336791"></span>PostgreSQL</li>
+          <li><span class="dt" style="background:var(--em)"></span>Node 24</li>
+          <li><span class="dt" style="background:#4285f4"></span>Gemini Vision</li>
+          <li><span class="dt" style="background:#0088cc"></span>Telegram API</li>
+        </ul>
+      </div>
+      <div class="tcol">
+        <h4><i data-lucide="monitor"></i>Frontend</h4>
+        <ul>
+          <li><span class="dt" style="background:#fff"></span>Next.js 15</li>
+          <li><span class="dt" style="background:#61dafb"></span>React 19</li>
+          <li><span class="dt" style="background:#38bdf8"></span>Tailwind v4</li>
+          <li><span class="dt" style="background:#a78bfa"></span>shadcn/ui</li>
+          <li><span class="dt" style="background:#3178c6"></span>TypeScript</li>
+          <li><span class="dt" style="background:#fff"></span>SWR</li>
+        </ul>
+      </div>
+      <div class="tcol">
+        <h4><i data-lucide="database"></i>Dados</h4>
+        <ul>
+          <li><span class="dt" style="background:#ef4444"></span>INPE · queimadas</li>
+          <li><span class="dt" style="background:#eab308"></span>ANM · garimpo</li>
+          <li><span class="dt" style="background:#3b82f6"></span>SGB · alagamentos</li>
+          <li><span class="dt" style="background:var(--em)"></span>ImgBB</li>
+          <li><span class="dt" style="background:#a78bfa"></span>Resend · email</li>
+          <li><span class="dt" style="background:#fbbf24"></span>OpenRouter</li>
+        </ul>
+      </div>
+      <div class="tcol">
+        <h4><i data-lucide="terminal"></i>DevOps</h4>
+        <ul>
+          <li><span class="dt" style="background:#2496ed"></span>Docker</li>
+          <li><span class="dt" style="background:#fff"></span>Vercel</li>
+          <li><span class="dt" style="background:#c21325"></span>Jest TDD</li>
+          <li><span class="dt" style="background:#85ea2d"></span>Swagger</li>
+          <li><span class="dt" style="background:#f9a825"></span>pnpm</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="highlights-row fadein d-6">
+      <div class="hl">
+        <i data-lucide="brain-circuit"></i>
+        <div>
+          <div class="ht">IA antes de escalar</div>
+          <div class="hd">Gemini Vision valida cada imagem em tempo real.</div>
+        </div>
+      </div>
+      <div class="hl">
+        <i data-lucide="map"></i>
+        <div>
+          <div class="ht">Validação geoespacial</div>
+          <div class="hd">Cruzamento com 3 bases oficiais brasileiras.</div>
+        </div>
+      </div>
+      <div class="hl">
+        <i data-lucide="timer"></i>
+        <div>
+          <div class="ht">Escalação 72h</div>
+          <div class="hd">Webhook automático ao órgão competente.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     SLIDE 6 — MERCADO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<section class="slide" id="s6" data-i="5">
+  <div class="bg">
+    <div class="glow glow-em" style="opacity:.7"></div>
+    <div class="glow glow-cy" style="opacity:.6"></div>
+    <div class="veil"></div>
+    <div class="noise"></div>
+  </div>
+
+  <div class="wrap">
+    <div class="top">
+      <div>
+        <div class="eyebrow fadein d-1">
+          <span class="dot"></span>
+          Capítulo 05 · Mercado
+        </div>
+        <h2 class="display display-m fadein d-2" style="margin-top:18px">
+          Um problema<br/>
+          de <span class="grad">escala nacional.</span>
+        </h2>
+      </div>
+      <div class="quote-side fadein d-3">
+        <q>O Brasil tem o maior índice de crimes ambientais da América Latina — e nenhum canal digital eficiente para combatê-los.</q>
+        <div class="attrib">— Análise de mercado</div>
+      </div>
+    </div>
+
+    <div class="grid-stats fadein d-4">
+      <div class="mkstat">
+        <div class="mn grad">5M</div>
+        <div class="ml">km² de Amazônia sob ameaça direta</div>
+      </div>
+      <div class="mkstat">
+        <div class="mn tint-yw">R$ 3bi</div>
+        <div class="ml">em danos ambientais anuais sem responsabilização</div>
+      </div>
+      <div class="mkstat">
+        <div class="mn tint-bl">213M</div>
+        <div class="ml">brasileiros como potenciais fiscais e denunciantes</div>
+      </div>
+      <div class="mkstat">
+        <div class="mn tint-or">72h</div>
+        <div class="ml">SLA antes da escalação automática</div>
+      </div>
+    </div>
+
+    <div class="organs-row fadein d-6">
+      <div class="org-block">
+        <div class="badge">ÓRGÃO · 01</div>
+        <div class="name">IBAMA</div>
+        <div class="role">Instituto Brasileiro do Meio Ambiente e dos Recursos Naturais</div>
+        <div class="scope"><i data-lucide="flame" style="color:var(--or)"></i>Queimada<span style="color:var(--t30);margin:0 4px">·</span><i data-lucide="pickaxe" style="color:var(--yw)"></i>Garimpo</div>
+      </div>
+      <div class="org-block">
+        <div class="badge">ÓRGÃO · 02</div>
+        <div class="name">Ministério Público Federal</div>
+        <div class="role">Persecução penal e ação civil pública</div>
+        <div class="scope"><i data-lucide="pickaxe" style="color:var(--yw)"></i>Garimpo ilegal</div>
+      </div>
+      <div class="org-block">
+        <div class="badge">ÓRGÃO · 03</div>
+        <div class="name">Defesa Civil</div>
+        <div class="role">Proteção e resposta a desastres naturais</div>
+        <div class="scope"><i data-lucide="waves" style="color:var(--bl)"></i>Alagamentos</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     SLIDE 7 — IA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<section class="slide" id="s7" data-i="6">
+  <div class="bg">
+    <div class="glow glow-em" style="opacity:.8"></div>
+    <div class="glow glow-cy" style="opacity:.7"></div>
+    <div class="veil"></div>
+    <div class="noise"></div>
+  </div>
+
+  <div class="wrap">
+    <div class="left">
+      <div class="eyebrow fadein d-1">
+        <span class="dot"></span>
+        Capítulo 06 · IA
+      </div>
+      <h2 class="display display-m fadein d-2">
+        IA na<br/>
+        <span class="grad">linha de frente.</span>
+      </h2>
+      <p class="lead-row fadein d-3">
+        Antes de notificar qualquer órgão, o Ryzon cruza <strong style="color:var(--txt);font-weight:600">três bases oficiais</strong> e analisa imagens com Gemini Vision — eliminando denúncias falsas.
+      </p>
+
+      <div class="checks">
+        <div class="aichk fadein d-4">
+          <div class="dotn"><svg viewBox="0 0 24 24" fill="none" stroke="#00e676" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12 l5 5 l9 -10"/></svg></div>
+          <div class="ti">Coordenadas cruzadas com <strong>INPE</strong></div>
+          <div class="src">FOCOS DE CALOR</div>
+        </div>
+        <div class="aichk fadein d-5">
+          <div class="dotn"><svg viewBox="0 0 24 24" fill="none" stroke="#00e676" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12 l5 5 l9 -10"/></svg></div>
+          <div class="ti">Batida com <strong>Amazônia Minada</strong></div>
+          <div class="src">ANM · ÁREAS</div>
+        </div>
+        <div class="aichk fadein d-6">
+          <div class="dotn"><svg viewBox="0 0 24 24" fill="none" stroke="#00e676" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12 l5 5 l9 -10"/></svg></div>
+          <div class="ti">Zonas validadas via <strong>SGB / Defesa Civil</strong></div>
+          <div class="src">HIDROLOGIA</div>
+        </div>
+        <div class="aichk fadein d-7">
+          <div class="dotn"><svg viewBox="0 0 24 24" fill="none" stroke="#00e676" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12 l5 5 l9 -10"/></svg></div>
+          <div class="ti">Imagem analisada por <strong>Gemini Vision</strong></div>
+          <div class="src">0 – 100%</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="right">
+      <div class="scalein d-3">
+        <div class="score-mega">94<span style="font-size:.5em;vertical-align:top">%</span></div>
+        <div class="score-label">Índice médio de autenticidade</div>
+        <div class="pbar"><div class="pfill"></div></div>
+        <div class="thr">Threshold mínimo · 60%</div>
+      </div>
+
+      <div class="mini-grid fadein d-7">
+        <div class="mini">
+          <div class="mn grad">5</div>
+          <div class="ml">Status auditáveis na timeline</div>
+        </div>
+        <div class="mini">
+          <div class="mn tint-cy">3</div>
+          <div class="ml">Órgãos conectados via webhook</div>
+        </div>
+        <div class="mini">
+          <div class="mn tint-yw">10+</div>
+          <div class="ml">Endpoints REST documentados</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     SLIDE 8 — CTA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<section class="slide" id="s8" data-i="7">
+  <div class="bg">
+    <div class="glow glow-em" style="opacity:1"></div>
+    <div class="glow glow-cy" style="opacity:.8"></div>
+    <div class="veil" style="opacity:1.5"></div>
+    <div class="noise"></div>
+  </div>
+
+  <div class="wrap">
+    <img class="logo-cta"
+         src="file:///home/fabiominsait/inovatech/remotion-video-ryzon/public/refs/ryzon-logo-sem-background.png"
+         alt="Ryzon"
+         onerror="this.style.display='none'"/>
+
+    <div class="manifesto">
+      <span class="word"><span style="animation-delay:.3s">Denuncie.</span></span><br/>
+      <span class="word"><span style="animation-delay:.55s" class="grad">Acompanhe.</span></span><br/>
+      <span class="word"><span style="animation-delay:.8s" class="tint-cy">Cobre.</span></span>
+    </div>
+
+    <p class="ms-sub fadein d-7">
+      Tecnologia que protege<br/>
+      o que importa.
+    </p>
+
+    <div class="channels fadein d-8">
+      <div class="ch"><i data-lucide="globe"></i>ryzon-front.vercel.app</div>
+      <div class="ch"><i data-lucide="send"></i>@ryzon_bot</div>
+      <div class="ch"><i data-lucide="instagram"></i>@ryzon.salvando</div>
+    </div>
+
+    <div class="tag-end fadein d-9">RYZON · 2026 · OBRIGADO</div>
+  </div>
+</section>
+
+</div>
+
+<script>
+// Cursor
+const cur = document.getElementById('cur'), curR = document.getElementById('cur-r');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
+(function loop(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;curR.style.left=rx+'px';curR.style.top=ry+'px';requestAnimationFrame(loop);})();
+
+// Slides
+const slides=[...document.querySelectorAll('.slide')];
+const navEl=document.getElementById('nav');
+const progEl=document.getElementById('prog');
+const curN=document.getElementById('cur-n');
+let cur_i=0,busy=false;
+
+slides.forEach((_,i)=>{
+  const d=document.createElement('div');
+  d.className='dot'+(i===0?' on':'');
+  d.onclick=()=>go(i);
+  navEl.appendChild(d);
+});
+const sep=document.createElement('div');sep.className='nav-divider';navEl.appendChild(sep);
+const lbl=document.createElement('div');lbl.className='nav-label';lbl.id='nav-num';lbl.textContent='01 — KEYNOTE';navEl.appendChild(lbl);
+
+const titles=['CAPA','PROBLEMA','SOLUÇÃO','ENGENHARIA','STACK','MERCADO','IA','OBRIGADO'];
+
+function update(i){
+  document.querySelectorAll('.dot').forEach((d,j)=>d.classList.toggle('on',j===i));
+  document.getElementById('nav-num').textContent=String(i+1).padStart(2,'0')+' — '+titles[i];
+  curN.textContent=String(i+1).padStart(2,'0');
+  progEl.style.width=((i+1)/slides.length*100)+'%';
+}
+
+function go(idx){
+  idx=Math.max(0,Math.min(slides.length-1,idx));
+  if(busy||idx===cur_i)return;
+  busy=true;
+  const prev=cur_i;cur_i=idx;
+  slides[prev].classList.remove('active');
+  slides[prev].classList.add('out');
+  setTimeout(()=>slides[prev].classList.remove('out'),700);
+  slides[cur_i].querySelectorAll('.fadein,.scalein,.reveal > span,.word > span,.pfill').forEach(el=>{
+    el.style.animation='none';el.offsetHeight;el.style.animation='';
+  });
+  slides[cur_i].classList.add('active');
+  update(cur_i);
+  setTimeout(()=>{busy=false},700);
+}
+window.go=go;
+window.cur_i=cur_i;
+Object.defineProperty(window,'cur_i',{get:()=>cur_i});
+
+slides[0].classList.add('active');
+progEl.style.width=(1/slides.length*100)+'%';
+
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key===' '){e.preventDefault();go(cur_i+1);}
+  if(e.key==='ArrowLeft'){e.preventDefault();go(cur_i-1);}
+  if(e.key==='Home'){e.preventDefault();go(0);}
+  if(e.key==='End'){e.preventDefault();go(slides.length-1);}
+});
+document.getElementById('deck').addEventListener('click',e=>{
+  if(e.target.closest('.arr')||e.target.closest('.nav-bar'))return;
+  go(cur_i+1);
+});
+
+lucide.createIcons();
+</script>
+</body>
+</html>
