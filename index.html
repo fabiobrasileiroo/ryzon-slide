@@ -738,9 +738,29 @@ body.idle #cur-r{
 }
 #sAdmin .stage-single,
 #sAdminB .stage-duo{position:relative}
-#sAdmin .stage-single{display:flex;justify-content:center}
-#sAdmin .stage-single .window{max-width:1180px;width:100%}
-#sAdmin .stage-single .window img{max-height:48vh;object-fit:cover;object-position:top}
+#sAdmin .stage-single{display:flex;justify-content:center;min-height:0}
+#sAdmin .stage-single .window{max-width:1100px;width:100%}
+#sAdmin .stage-single .window img{
+  max-height:40vh;width:100%;object-fit:cover;object-position:top;
+}
+
+/* Compact layout so the slide fits on a notebook screen */
+#sAdmin .wrap{gap:24px;max-height:calc(100vh - 100px)}
+#sAdmin .head{align-items:center;gap:32px}
+#sAdmin .head h2{font-size:clamp(36px,4.2vw,64px);line-height:1.0}
+#sAdmin .head .quote-side q{font-size:18px;line-height:1.4}
+#sAdmin .feature-list{padding-top:18px;border-top:1px solid var(--hair)}
+#sAdmin .feature-list .adminft{padding:14px 20px 0 0}
+#sAdmin .feature-list .adminft:not(:first-child){padding-left:20px}
+#sAdmin .feature-list .adminft i{width:18px;height:18px;margin-bottom:10px}
+#sAdmin .feature-list .adminft .ti{font-size:15px;margin-bottom:4px}
+#sAdmin .feature-list .adminft .ds{font-size:12.5px;line-height:1.5}
+@media (max-height:820px){
+  #sAdmin .wrap{gap:18px}
+  #sAdmin .head h2{font-size:clamp(32px,3.8vw,52px)}
+  #sAdmin .stage-single .window img{max-height:36vh}
+  #sAdmin .feature-list .adminft .ds{font-size:12px}
+}
 #sAdminB{justify-content:center;align-items:center}
 #sAdminB .wrap{
   width:100%;max-width:1500px;position:relative;z-index:2;
