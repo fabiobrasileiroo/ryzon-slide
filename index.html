@@ -88,12 +88,14 @@ body.idle #cur-r{
   font-family:'Bricolage Grotesque',sans-serif;
   font-size:13px;font-weight:500;letter-spacing:.01em;color:var(--t30)}
 .brand-logo{
-  height:52px;width:auto;object-fit:contain;display:block;
-  filter:drop-shadow(0 0 14px rgba(0,230,118,.5));
+  height:78px;width:auto;object-fit:contain;display:block;
+  filter:drop-shadow(0 0 18px rgba(0,230,118,.55));
   transition:filter .4s var(--ease),transform .4s var(--ease);
 }
-.brand:hover .brand-logo{filter:drop-shadow(0 0 20px rgba(0,230,118,.75));transform:scale(1.05)}
-@media (max-height:820px){.brand-logo{height:42px}}
+.brand:hover .brand-logo{filter:drop-shadow(0 0 24px rgba(0,230,118,.8));transform:scale(1.05)}
+.brand{transition:opacity .5s var(--ease)}
+body.on-cover .brand{opacity:0;pointer-events:none}
+@media (max-height:820px){.brand-logo{height:60px}}
 .brand .sep{width:1px;height:14px;background:var(--hair);display:inline-block}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 
@@ -311,23 +313,12 @@ body.idle #cur-r{
   text-align:center;gap:48px;position:relative;z-index:2;
   max-width:1180px;
 }
-#s1 .logo-floats{
-  display:flex;align-items:center;gap:14px;
-  padding:8px 18px 8px 8px;
-  border-radius:100px;
-  border:1px solid var(--hair);
-  background:rgba(10,10,12,.5);
+#s1 .logo-hero{
+  height:clamp(140px,18vh,220px);width:auto;object-fit:contain;display:block;
+  margin-bottom:32px;
+  filter:drop-shadow(0 0 36px rgba(0,230,118,.55));
 }
-#s1 .logo-img{width:32px;height:32px;object-fit:contain;
-  filter:drop-shadow(0 0 10px rgba(0,230,118,.5))}
-#s1 .logo-name{font-family:'Bricolage Grotesque',sans-serif;
-  font-size:17px;font-weight:700;letter-spacing:-.005em}
-#s1 .keynote-tag{
-  font-family:'JetBrains Mono',monospace;
-  font-size:11px;color:var(--t50);letter-spacing:.24em;
-  text-transform:uppercase;
-  padding-left:14px;border-left:1px solid var(--hair);
-}
+@media (max-height:820px){#s1 .logo-hero{height:clamp(110px,15vh,160px);margin-bottom:24px}}
 #s1 h1{
   font-family:'Bricolage Grotesque',sans-serif;
   font-size:clamp(56px,7.4vw,128px);
@@ -1314,11 +1305,7 @@ body.idle #cur-r{
 
   <div class="center">
 
-    <div class="logo-floats fadein d-1">
-      <img class="logo-img" src="assets/ryzon-logo-sem-background.png" alt="" onerror="this.style.display='none'"/>
-      <span class="logo-name">Ryzon</span>
-      <span class="keynote-tag">Pitch · 2026</span>
-    </div>
+    <img class="logo-hero fadein d-1" src="assets/ryzon-logo-sem-background.png" alt="Ryzon" onerror="this.style.display='none'"/>
 
     <h1>
       <span class="reveal"><span style="animation-delay:.3s">Denúncias</span></span><br/>
@@ -2482,6 +2469,7 @@ function update(i){
   document.getElementById('nav-num').textContent=String(i+1).padStart(2,'0')+' — '+titles[i];
   curN.textContent=String(i+1).padStart(2,'0');
   progEl.style.width=((i+1)/slides.length*100)+'%';
+  document.body.classList.toggle('on-cover',i===0);
 }
 
 function go(idx){
@@ -2505,6 +2493,7 @@ Object.defineProperty(window,'cur_i',{get:()=>cur_i});
 
 slides[0].classList.add('active');
 progEl.style.width=(1/slides.length*100)+'%';
+document.body.classList.add('on-cover');
 
 document.addEventListener('keydown',e=>{
   if(e.key==='ArrowRight'||e.key===' '){e.preventDefault();go(cur_i+1);}
