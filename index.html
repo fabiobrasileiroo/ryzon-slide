@@ -49,14 +49,13 @@ html,body{
 }
 
 /* ─── Idle: hide chrome when mouse stops ─── */
-.arr,.nav-bar,.slide-n,.brand,#cur,#cur-r{
+.arr,.nav-bar,.slide-n,#cur,#cur-r{
   transition:opacity .6s var(--ease);
 }
 body.idle{cursor:none}
 body.idle .arr,
 body.idle .nav-bar,
 body.idle .slide-n,
-body.idle .brand,
 body.idle #cur,
 body.idle #cur-r{
   opacity:0;pointer-events:none;
@@ -84,16 +83,17 @@ body.idle #cur-r{
 .slide-n .of{margin-left:6px;color:var(--t15)}
 
 /* ─── Brand mark — top-right ──────────────────── */
-.brand{position:fixed;top:26px;right:40px;z-index:200;
+.brand{position:fixed;top:22px;right:40px;z-index:200;
   display:flex;align-items:center;gap:12px;
   font-family:'Bricolage Grotesque',sans-serif;
   font-size:13px;font-weight:500;letter-spacing:.01em;color:var(--t30)}
 .brand-logo{
-  height:26px;width:auto;object-fit:contain;display:block;
-  filter:drop-shadow(0 0 10px rgba(0,230,118,.45));
+  height:52px;width:auto;object-fit:contain;display:block;
+  filter:drop-shadow(0 0 14px rgba(0,230,118,.5));
   transition:filter .4s var(--ease),transform .4s var(--ease);
 }
-.brand:hover .brand-logo{filter:drop-shadow(0 0 14px rgba(0,230,118,.7));transform:scale(1.05)}
+.brand:hover .brand-logo{filter:drop-shadow(0 0 20px rgba(0,230,118,.75));transform:scale(1.05)}
+@media (max-height:820px){.brand-logo{height:42px}}
 .brand .sep{width:1px;height:14px;background:var(--hair);display:inline-block}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 
@@ -192,9 +192,9 @@ body.idle #cur-r{
 .eyebrow{
   display:inline-flex;align-items:center;gap:10px;
   font-family:'JetBrains Mono',monospace;
-  font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+  font-size:12px;letter-spacing:.22em;text-transform:uppercase;
   color:var(--em);font-weight:500;
-  padding-bottom:6px;border-bottom:1px solid rgba(0,230,118,.3);
+  padding-bottom:7px;border-bottom:1px solid rgba(0,230,118,.3);
 }
 .eyebrow .dot{width:5px;height:5px;border-radius:50%;background:var(--em);
   box-shadow:0 0 10px var(--em)}
@@ -205,15 +205,15 @@ body.idle #cur-r{
   font-weight:800;line-height:1.04;letter-spacing:-.022em;word-spacing:.01em;
   text-wrap:balance;
 }
-.display-xl{font-size:clamp(80px,11vw,180px);line-height:1.0;letter-spacing:-.028em}
-.display-l {font-size:clamp(64px,8.5vw,140px);line-height:1.02;letter-spacing:-.025em}
-.display-m {font-size:clamp(52px,6.5vw,108px);line-height:1.05;letter-spacing:-.022em}
-.display-s {font-size:clamp(40px,4.5vw,72px);line-height:1.08;letter-spacing:-.018em}
+.display-xl{font-size:clamp(72px,9.4vw,148px);line-height:1.02;letter-spacing:-.026em}
+.display-l {font-size:clamp(54px,6.6vw,100px);line-height:1.05;letter-spacing:-.022em}
+.display-m {font-size:clamp(40px,4.8vw,72px);line-height:1.08;letter-spacing:-.02em}
+.display-s {font-size:clamp(32px,3.4vw,52px);line-height:1.12;letter-spacing:-.016em}
 
 .serif{font-family:'Instrument Serif',serif;font-weight:400;font-style:italic;letter-spacing:0;word-spacing:.02em}
 
-.lead{font-size:22px;line-height:1.6;color:var(--t70);font-weight:400;letter-spacing:-.002em}
-.body{font-size:17px;line-height:1.65;color:var(--t70);font-weight:400}
+.lead{font-size:24px;line-height:1.55;color:var(--t70);font-weight:400;letter-spacing:-.003em}
+.body{font-size:18px;line-height:1.6;color:var(--t70);font-weight:400}
 .cap{font-size:13px;letter-spacing:.08em;color:var(--t50);font-family:'JetBrains Mono',monospace}
 .mono{font-family:'JetBrains Mono',monospace}
 
@@ -330,14 +330,14 @@ body.idle #cur-r{
 }
 #s1 h1{
   font-family:'Bricolage Grotesque',sans-serif;
-  font-size:clamp(68px,9.4vw,168px);
-  font-weight:800;line-height:1.04;letter-spacing:-.024em;word-spacing:.015em;
+  font-size:clamp(56px,7.4vw,128px);
+  font-weight:800;line-height:1.05;letter-spacing:-.022em;word-spacing:.015em;
   text-wrap:balance;
 }
 #s1 h1 .alt{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;
   letter-spacing:0;color:var(--t70);padding:0 .04em}
 #s1 .sub{
-  font-size:23px;line-height:1.6;color:var(--t70);
+  font-size:22px;line-height:1.55;color:var(--t70);
   font-weight:400;max-width:720px;letter-spacing:-.003em;
 }
 #s1 .sub strong{padding:0 .04em}
@@ -385,8 +385,8 @@ body.idle #cur-r{
   justify-content:center;gap:40px;position:relative;
 }
 #s2 h2{font-family:'Bricolage Grotesque',sans-serif;
-  font-size:clamp(46px,5.2vw,80px);font-weight:800;
-  line-height:1.12;letter-spacing:-.022em;word-spacing:.01em;text-wrap:balance}
+  font-size:clamp(38px,4.4vw,64px);font-weight:800;
+  line-height:1.14;letter-spacing:-.02em;word-spacing:.01em;text-wrap:balance}
 #s2 h2 .quiet{color:var(--t30);font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;letter-spacing:0;display:block;margin-top:.08em}
 #s2 .stacks{display:flex;flex-direction:column;gap:0}
 .stack-row{
@@ -539,16 +539,16 @@ body.idle #cur-r{
 .tcol:not(:first-child){padding-left:24px}
 .tcol h4{
   font-family:'JetBrains Mono',monospace;
-  font-size:11px;letter-spacing:.16em;text-transform:uppercase;
-  color:var(--em);font-weight:500;margin-bottom:24px;
+  font-size:12px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--em);font-weight:500;margin-bottom:22px;
   display:flex;align-items:center;gap:8px;
 }
-.tcol h4 i{width:13px;height:13px}
+.tcol h4 i{width:14px;height:14px}
 .tcol ul{list-style:none;display:flex;flex-direction:column;gap:14px}
 .tcol li{
-  display:flex;align-items:center;gap:10px;
-  font-size:15px;font-weight:500;color:var(--t90);
-  font-family:'Bricolage Grotesque',sans-serif;letter-spacing:-.01em;
+  display:flex;align-items:center;gap:12px;
+  font-size:17px;font-weight:500;color:var(--t90);
+  font-family:'Bricolage Grotesque',sans-serif;letter-spacing:-.012em;
   transition:color .2s;
 }
 .tcol li:hover{color:var(--em)}
@@ -628,7 +628,7 @@ body.idle #cur-r{
 #s7 .wrap{width:100%;max-width:1500px;position:relative;z-index:2;
   display:grid;grid-template-columns:1fr 1.1fr;gap:80px;align-items:center}
 #s7 .left h2{margin-top:18px}
-#s7 .left .lead-row{margin-top:24px;max-width:440px;font-size:19px;color:var(--t70);line-height:1.55}
+#s7 .left .lead-row{margin-top:24px;max-width:460px;font-size:20px;color:var(--t70);line-height:1.55}
 
 #s7 .checks{display:flex;flex-direction:column;gap:0;margin-top:40px}
 .aichk{
@@ -696,7 +696,7 @@ body.idle #cur-r{
   display:grid;grid-template-columns:.85fr 1.15fr;gap:80px;align-items:center;
 }
 #sBot .left h2{margin-top:18px}
-#sBot .left .lead-row{margin-top:24px;max-width:440px;font-size:18px;color:var(--t70);line-height:1.6}
+#sBot .left .lead-row{margin-top:24px;max-width:460px;font-size:20px;color:var(--t70);line-height:1.55}
 #sBot .feat-list{margin-top:40px;display:flex;flex-direction:column;gap:0}
 .botfeat{
   display:flex;gap:18px;align-items:flex-start;
@@ -776,18 +776,18 @@ body.idle #cur-r{
   #sAdmin .stage-single .window img{max-height:36vh}
   #sAdmin .feature-list .adminft .ds{font-size:12px}
 }
-#sAdminB{justify-content:center;align-items:center}
-#sAdminB .wrap{
+#sAdminB,#sPub{justify-content:center;align-items:center}
+#sAdminB .wrap,#sPub .wrap{
   width:100%;max-width:1500px;position:relative;z-index:2;
   display:flex;flex-direction:column;gap:40px;
 }
-#sAdminB .head{display:flex;align-items:flex-end;justify-content:space-between;gap:60px}
-#sAdminB h2{max-width:780px}
-#sAdminB .stage-duo{
+#sAdminB .head,#sPub .head{display:flex;align-items:flex-end;justify-content:space-between;gap:60px}
+#sAdminB h2,#sPub h2{max-width:780px}
+#sAdminB .stage-duo,#sPub .stage-duo{
   display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start;
 }
-#sAdminB .stage-duo .window img{max-height:52vh;object-fit:cover;object-position:top}
-#sAdminB .meta-row{
+#sAdminB .stage-duo .window img,#sPub .stage-duo .window img{max-height:52vh;object-fit:cover;object-position:top}
+#sAdminB .meta-row,#sPub .meta-row{
   display:grid;grid-template-columns:repeat(4,1fr);
   border-top:1px solid var(--hair);padding-top:24px;
 }
@@ -836,8 +836,8 @@ body.idle #cur-r{
 .adminft:not(:first-child){padding-left:24px}
 .adminft i{width:20px;height:20px;color:var(--em);margin-bottom:14px;display:block}
 .adminft .ti{font-family:'Bricolage Grotesque',sans-serif;
-  font-size:17px;font-weight:700;letter-spacing:-.01em;margin-bottom:6px}
-.adminft .ds{font-size:13px;color:var(--t50);line-height:1.55}
+  font-size:18px;font-weight:700;letter-spacing:-.012em;color:var(--t90);margin-bottom:6px}
+.adminft .ds{font-size:14.5px;color:var(--t50);line-height:1.55}
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    SLIDE 10 — DIAGRAMA DE FLUXO
@@ -875,8 +875,8 @@ body.idle #cur-r{
 }
 .fnode .ficon i{width:18px;height:18px;color:var(--em)}
 .fnode .ftitle{font-family:'Bricolage Grotesque',sans-serif;
-  font-size:16px;font-weight:700;letter-spacing:-.01em}
-.fnode .fdesc{font-size:12px;color:var(--t50);line-height:1.5}
+  font-size:18px;font-weight:700;letter-spacing:-.012em}
+.fnode .fdesc{font-size:14px;color:var(--t50);line-height:1.5}
 .fnode .fmeta{margin-top:auto;
   font-family:'JetBrains Mono',monospace;font-size:10px;
   letter-spacing:.12em;color:var(--t30);text-transform:uppercase;
@@ -917,6 +917,319 @@ body.idle #cur-r{
 #sFlow .legend .sw.cy{background:var(--cy);box-shadow:0 0 10px rgba(92,225,255,.4)}
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   SLIDE — ARQUITETURA (AWS-style diagram)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+#sArch{justify-content:center;align-items:center}
+#sArch .wrap{
+  width:100%;max-width:1400px;position:relative;z-index:2;
+  display:flex;flex-direction:column;gap:24px;
+}
+#sArch .head{display:flex;align-items:flex-end;justify-content:space-between;gap:60px}
+#sArch h2{max-width:760px;font-size:clamp(40px,5vw,72px)}
+#sArch .arch-meta{display:flex;gap:32px;align-items:flex-end}
+#sArch .arch-meta .metric{display:flex;flex-direction:column;gap:3px;
+  font-family:'JetBrains Mono',monospace}
+#sArch .arch-meta .lbl{font-size:10px;letter-spacing:.18em;color:var(--t30);text-transform:uppercase}
+#sArch .arch-meta .val{font-family:'Bricolage Grotesque',sans-serif;
+  font-size:24px;font-weight:700;color:var(--em);letter-spacing:-.02em;line-height:1}
+
+.arch-stage{display:flex;flex-direction:column;gap:18px;position:relative}
+
+/* Edge layer: 2 cloud regions side by side */
+.arch-edge{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+
+/* Cloud region container (AWS-style dashed border + tag) */
+.cloud-region{
+  position:relative;border:1px dashed rgba(255,255,255,.18);
+  border-radius:12px;padding:26px 16px 12px;
+  background:rgba(255,255,255,.012);
+  backdrop-filter:blur(4px);
+  transition:border-color .4s var(--ease);
+}
+.cloud-tag{
+  position:absolute;top:-12px;left:18px;padding:5px 13px;
+  background:#0a0a0a;border:1px solid var(--hair);border-radius:6px;
+  display:flex;align-items:center;gap:8px;
+  font-family:'JetBrains Mono',monospace;font-size:11px;
+  letter-spacing:.14em;color:var(--t70);text-transform:uppercase;
+}
+.cloud-tag img{width:14px;height:14px;object-fit:contain}
+
+.cloud-tg{border-color:rgba(38,165,228,.32)}
+.cloud-tg .cloud-tag{border-color:rgba(38,165,228,.4);color:rgba(180,220,250,.95)}
+.cloud-vc{border-color:rgba(255,255,255,.28)}
+.cloud-vc .cloud-tag{border-color:rgba(255,255,255,.3);color:rgba(255,255,255,.92)}
+.cloud-oci{border-color:rgba(248,80,80,.32);padding:26px 18px 14px}
+.cloud-oci .cloud-tag{border-color:rgba(248,80,80,.45);color:rgba(255,170,170,.98)}
+.cloud-do{border-color:rgba(0,128,255,.32)}
+.cloud-do .cloud-tag{border-color:rgba(0,128,255,.45);color:rgba(170,210,255,.98)}
+.region-pill.region-do{background:rgba(0,128,255,.14);color:rgba(170,210,255,.98)}
+.conn-arrow{
+  margin-left:auto;display:inline-flex;align-items:center;gap:6px;
+  padding:4px 10px;border-radius:5px;
+  background:rgba(0,128,255,.1);border:1px solid rgba(0,128,255,.3);
+  font-family:'JetBrains Mono',monospace;font-size:11px;
+  letter-spacing:.04em;color:rgba(170,210,255,.98);
+}
+.conn-arrow i{width:12px;height:12px}
+.r-img{width:24px;height:24px;flex-shrink:0;object-fit:contain}
+
+/* Resource boxes inside cloud regions */
+.resource{
+  display:flex;align-items:center;gap:14px;
+  padding:15px 16px;border:1px solid var(--hair);border-radius:9px;
+  background:rgba(255,255,255,.02);
+  transition:border-color .3s var(--ease);
+}
+.resource:hover{border-color:rgba(0,230,118,.35)}
+.resource > i{width:24px;height:24px;color:var(--em);flex-shrink:0}
+.resource .rt{font-family:'Bricolage Grotesque',sans-serif;
+  font-size:17px;font-weight:700;color:var(--t90);letter-spacing:-.01em}
+.resource .rd{font-size:13px;color:var(--t50);margin-top:4px;
+  font-family:'JetBrains Mono',monospace;letter-spacing:.04em}
+
+/* Region pill (top-right area) */
+.region-pill{margin-left:8px;padding:3px 9px;border-radius:4px;
+  background:rgba(248,80,80,.14);color:rgba(255,180,180,.95);
+  font-size:10.5px;letter-spacing:.14em;font-weight:600}
+
+/* VCN — dashed inner */
+.vcn{
+  border:1px dashed rgba(255,255,255,.14);border-radius:10px;
+  padding:32px 16px 16px;position:relative;
+  background:rgba(255,255,255,.01);
+}
+.ip-pill{
+  margin-left:auto;display:inline-flex;align-items:center;gap:6px;
+  padding:4px 11px;border-radius:5px;
+  background:rgba(92,225,255,.1);border:1px solid rgba(92,225,255,.3);
+  font-family:'JetBrains Mono',monospace;font-size:11.5px;
+  letter-spacing:.04em;color:rgba(180,235,255,.98);text-transform:none;
+}
+.ip-pill i{width:12px;height:12px;color:rgba(92,225,255,.9)}
+.ip-pill b{font-weight:700;color:#fff;letter-spacing:.02em}
+.vcn-tag{
+  position:absolute;top:-11px;left:14px;right:14px;padding:4px 11px;
+  background:#0a0a0a;
+  display:flex;align-items:center;gap:8px;
+  font-family:'JetBrains Mono',monospace;font-size:11px;
+  letter-spacing:.12em;color:var(--t50);text-transform:uppercase;
+}
+.vcn-tag i{width:13px;height:13px}
+.vcn-tag code{font-size:11px;color:var(--em);
+  background:rgba(0,230,118,.08);padding:2px 7px;border-radius:3px;
+  font-family:'JetBrains Mono',monospace;letter-spacing:.04em;text-transform:none;font-weight:600}
+
+/* Public Subnet — green dashed */
+.subnet{
+  border:1px dashed rgba(0,230,118,.24);border-radius:9px;
+  padding:30px 14px 14px;position:relative;
+  background:rgba(0,230,118,.014);
+}
+.subnet-tag{
+  position:absolute;top:-11px;left:12px;padding:4px 11px;
+  background:#0a0a0a;
+  display:flex;align-items:center;gap:8px;
+  font-family:'JetBrains Mono',monospace;font-size:11px;
+  letter-spacing:.12em;color:rgba(0,230,118,.9);text-transform:uppercase;
+}
+.subnet-tag i{width:13px;height:13px}
+.subnet-tag code{font-size:11px;color:var(--em);
+  background:rgba(0,230,118,.12);padding:2px 7px;border-radius:3px;
+  font-family:'JetBrains Mono',monospace;letter-spacing:.04em;text-transform:none;font-weight:600}
+.ig-pill{margin-left:6px;padding:3px 9px;border-radius:4px;
+  background:rgba(92,225,255,.14);color:rgba(180,235,255,.95);
+  font-size:10.5px;letter-spacing:.12em;font-weight:600}
+
+/* VM Instance */
+.vm-instance{
+  border:1px solid rgba(255,255,255,.13);border-radius:9px;
+  padding:28px 14px 14px;position:relative;
+  background:rgba(255,255,255,.022);
+}
+.vm-tag{
+  position:absolute;top:-11px;left:12px;right:12px;padding:4px 11px;
+  background:#0a0a0a;
+  display:flex;align-items:center;gap:8px;
+  font-family:'JetBrains Mono',monospace;font-size:11px;
+  letter-spacing:.12em;color:var(--t70);text-transform:uppercase;
+}
+.vm-tag i{width:13px;height:13px;color:var(--em)}
+.vm-spec{color:var(--t30);font-size:10.5px;letter-spacing:.12em}
+.vm-ip{margin-left:auto;padding:3px 9px;border-radius:4px;
+  background:rgba(0,230,118,.1);color:var(--em);
+  font-size:11px;letter-spacing:.04em;text-transform:none;font-weight:700}
+
+.vm-stack{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.vm-stack.vm-stack-2{grid-template-columns:1fr 1fr}
+.cnt{
+  display:flex;align-items:flex-start;gap:10px;
+  padding:11px 12px;border:1px solid var(--hair);border-radius:8px;
+  background:rgba(255,255,255,.025);
+  transition:border-color .3s var(--ease),transform .3s var(--ease);
+}
+.cnt:hover{border-color:rgba(0,230,118,.35);transform:translateY(-2px)}
+.cnt > img{width:26px;height:26px;flex-shrink:0;object-fit:contain;margin-top:2px;
+  filter:drop-shadow(0 0 6px rgba(0,0,0,.4))}
+.cnt .cbody{flex:1;min-width:0}
+.cnt .ct{font-family:'Bricolage Grotesque',sans-serif;
+  font-size:16px;font-weight:700;color:var(--t90);letter-spacing:-.01em}
+.cnt .cd{font-size:13px;color:var(--t50);margin-top:4px;
+  font-family:'JetBrains Mono',monospace;letter-spacing:.04em;line-height:1.45}
+.cnt .port{
+  font-family:'JetBrains Mono',monospace;font-size:11px;
+  letter-spacing:.06em;color:var(--em);
+  background:rgba(0,230,118,.1);padding:4px 8px;border-radius:4px;
+  flex-shrink:0;align-self:flex-start;font-weight:600;
+}
+
+/* Externals — single compact horizontal line */
+.arch-ext-line{
+  display:flex;align-items:center;flex-wrap:wrap;gap:8px;
+  padding:13px 18px;border:1px solid var(--hair);border-radius:9px;
+  background:rgba(255,255,255,.014);
+}
+.ext-label{display:inline-flex;align-items:center;gap:8px;
+  font-family:'JetBrains Mono',monospace;font-size:11.5px;
+  letter-spacing:.16em;color:var(--t50);text-transform:uppercase;
+  padding-right:10px;border-right:1px solid var(--hair);margin-right:4px;font-weight:600}
+.ext-label i{width:14px;height:14px;color:var(--em)}
+.ext-sep{display:inline-block;width:1px;height:16px;
+  background:var(--hair);margin:0 4px}
+.pill{display:inline-flex;align-items:center;gap:7px;
+  padding:6px 12px;border:1px solid var(--hair);border-radius:20px;
+  font-family:'JetBrains Mono',monospace;font-size:12.5px;
+  color:var(--t90);background:rgba(255,255,255,.018);font-weight:500;
+  transition:border-color .25s var(--ease),transform .25s var(--ease)}
+.pill:hover{border-color:rgba(0,230,118,.35);transform:translateY(-1px)}
+.pill img{width:15px;height:15px;object-fit:contain}
+.pill i{width:14px;height:14px}
+
+/* Compact for shorter notebooks */
+@media (max-height:820px){
+  #sArch .wrap{gap:14px;max-width:1320px}
+  #sArch h2{font-size:clamp(28px,3vw,44px)}
+  #sArch .arch-meta .val{font-size:18px}
+  .arch-stage{gap:14px}
+  .cloud-region{padding:24px 14px 12px}
+  .cloud-oci{padding:24px 14px 14px}
+  .resource{padding:11px 14px}
+  .resource .rt{font-size:15px}
+  .resource .rd{font-size:12px}
+  .vcn{padding:26px 12px 12px}
+  .subnet{padding:24px 10px 10px}
+  .vm-instance{padding:24px 12px 10px}
+  .vm-stack{gap:10px}
+  .cnt{padding:10px 11px;gap:9px}
+  .cnt > img{width:22px;height:22px}
+  .cnt .ct{font-size:14px}
+  .cnt .cd{font-size:11.5px}
+  .arch-ext-line{padding:9px 14px;gap:6px}
+  .pill{padding:5px 10px;font-size:11.5px}
+  .conn-arrow{font-size:10.5px;padding:3px 8px}
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   SLIDE — ROADMAP (3 semanas → futuro)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+#sRoad{justify-content:center;align-items:center}
+#sRoad .wrap{
+  width:100%;max-width:1500px;position:relative;z-index:2;
+  display:flex;flex-direction:column;gap:36px;
+}
+#sRoad .head{display:flex;align-items:flex-end;justify-content:space-between;gap:60px}
+#sRoad h2{max-width:780px}
+#sRoad .road-meta{
+  display:flex;flex-direction:column;gap:4px;text-align:right;
+  font-family:'JetBrains Mono',monospace;
+}
+#sRoad .road-meta .lbl{font-size:10px;letter-spacing:.18em;color:var(--t30);text-transform:uppercase}
+#sRoad .road-meta .val{font-family:'Bricolage Grotesque',sans-serif;
+  font-size:26px;font-weight:700;color:var(--t90);letter-spacing:-.018em;line-height:1.1}
+#sRoad .road-meta .val.em{font-size:16px;color:var(--em);letter-spacing:-.01em}
+
+.road-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:22px;align-items:start;
+}
+.road-col{
+  border:1px solid var(--hair);border-radius:14px;
+  background:rgba(255,255,255,.012);overflow:hidden;
+  display:flex;flex-direction:column;
+  transition:border-color .4s var(--ease),transform .4s var(--ease);
+}
+.road-col:hover{transform:translateY(-3px)}
+.road-col-head{
+  padding:18px 20px 16px;border-bottom:1px solid var(--hair);
+  background:rgba(255,255,255,.015);
+}
+.road-col-tag{
+  font-family:'JetBrains Mono',monospace;font-size:10px;
+  letter-spacing:.18em;text-transform:uppercase;
+  display:flex;align-items:center;gap:8px;
+}
+.road-col-tag .swatch{width:8px;height:8px;border-radius:2px}
+.road-col-title{font-family:'Bricolage Grotesque',sans-serif;
+  font-size:24px;font-weight:700;letter-spacing:-.018em;margin-top:10px;
+  display:flex;align-items:baseline;gap:10px;color:var(--t90);
+}
+.road-col-title .count{font-family:'JetBrains Mono',monospace;
+  font-size:13px;color:var(--t50);font-weight:500;letter-spacing:.04em}
+.road-col-sub{font-family:'JetBrains Mono',monospace;font-size:10.5px;
+  letter-spacing:.08em;color:var(--t50);margin-top:6px;text-transform:uppercase}
+
+.road-col.shipped{border-color:rgba(0,230,118,.28)}
+.road-col.shipped .road-col-tag{color:rgba(160,255,210,.98)}
+.road-col.shipped .road-col-tag .swatch{background:var(--em);box-shadow:0 0 8px rgba(0,230,118,.55)}
+.road-col.shipped .road-col-head{background:rgba(0,230,118,.04)}
+
+.road-col.next{border-color:rgba(92,225,255,.25)}
+.road-col.next .road-col-tag{color:rgba(180,235,255,.95)}
+.road-col.next .road-col-tag .swatch{background:var(--cy);box-shadow:0 0 8px rgba(92,225,255,.5)}
+.road-col.next .road-col-head{background:rgba(92,225,255,.03)}
+
+.road-col.later{border-color:rgba(255,255,255,.14)}
+.road-col.later .road-col-tag{color:var(--t50)}
+.road-col.later .road-col-tag .swatch{background:rgba(255,255,255,.42)}
+
+.road-list{padding:14px 16px 18px;display:flex;flex-direction:column;gap:6px;flex:1}
+.road-item{
+  display:flex;align-items:flex-start;gap:10px;
+  padding:9px 12px;border-radius:8px;
+  background:rgba(255,255,255,.014);
+  border:1px solid transparent;
+  transition:border-color .25s var(--ease),background .25s var(--ease);
+}
+.road-item:hover{border-color:rgba(255,255,255,.1);background:rgba(255,255,255,.028)}
+.road-item .check{
+  width:14px;height:14px;border-radius:3px;flex-shrink:0;margin-top:2px;
+  display:flex;align-items:center;justify-content:center;
+}
+.road-col.shipped .road-item .check{background:var(--em);color:#000}
+.road-col.shipped .road-item .check i{width:10px;height:10px;stroke-width:3.5}
+.road-col.next .road-item .check{border:1px solid rgba(92,225,255,.45);background:rgba(92,225,255,.1)}
+.road-col.later .road-item .check{border:1px dashed rgba(255,255,255,.25)}
+.road-item .ritxt{
+  font-family:'Manrope',sans-serif;font-size:15.5px;line-height:1.5;
+  color:var(--t90);font-weight:500;letter-spacing:-.005em;flex:1;
+}
+.road-item .ritag{
+  font-family:'JetBrains Mono',monospace;font-size:9.5px;
+  letter-spacing:.1em;color:var(--t30);text-transform:uppercase;
+  flex-shrink:0;align-self:center;
+  padding:2px 6px;border:1px solid var(--hair);border-radius:4px;
+}
+
+@media (max-height:820px){
+  #sRoad .wrap{gap:24px}
+  #sRoad h2{font-size:clamp(34px,4vw,58px)}
+  .road-col-title{font-size:19px}
+  .road-col-head{padding:14px 16px 12px}
+  .road-list{padding:10px 14px 14px;gap:5px}
+  .road-item{padding:7px 10px}
+  .road-item .ritxt{font-size:12px;line-height:1.4}
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    SLIDE 11 — CTA
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 #s8{justify-content:center}
@@ -930,8 +1243,8 @@ body.idle #cur-r{
 @keyframes spring{from{opacity:0;transform:scale(.5)}to{opacity:1;transform:scale(1)}}
 #s8 .manifesto{
   font-family:'Bricolage Grotesque',sans-serif;
-  font-size:clamp(68px,10.2vw,168px);
-  font-weight:800;line-height:1.04;letter-spacing:-.024em;word-spacing:.015em;
+  font-size:clamp(56px,7.4vw,120px);
+  font-weight:800;line-height:1.06;letter-spacing:-.022em;word-spacing:.015em;
   text-wrap:balance;
 }
 #s8 .manifesto .word{display:inline-block;overflow:hidden;vertical-align:bottom}
@@ -967,13 +1280,11 @@ body.idle #cur-r{
 <div class="prog" id="prog"></div>
 
 <div class="slide-n">
-  <span id="cur-n">01</span><span class="of">/ 12</span>
+  <span id="cur-n">01</span><span class="of">/ 15</span>
 </div>
 
 <div class="brand">
   <img class="brand-logo" src="assets/ryzon-logo-sem-background.png" alt="Ryzon"/>
-  <span class="sep"></span>
-  <span>Keynote 2026</span>
 </div>
 
 <button class="arr arr-l" onclick="go(cur_i-1)" aria-label="Anterior">
@@ -988,7 +1299,7 @@ body.idle #cur-r{
 <div class="deck" id="deck">
 
 <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-     SLIDE 1 — CAPA
+     SLIDE 01 — CAPA
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
 <section class="slide" id="s1" data-i="0">
   <div class="bg">
@@ -1033,7 +1344,7 @@ body.idle #cur-r{
 </section>
 
 <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-     SLIDE 2 — PROBLEMA
+     SLIDE 02 — PROBLEMA
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
 <section class="slide" id="s2" data-i="1">
   <div class="photo-side">
@@ -1089,7 +1400,7 @@ body.idle #cur-r{
 </section>
 
 <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-     SLIDE 3 — SOLUÇÃO
+     SLIDE 03 — SOLUÇÃO
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
 <section class="slide" id="s3" data-i="2">
   <div class="bg">
@@ -1153,96 +1464,357 @@ body.idle #cur-r{
 </section>
 
 <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-     SLIDE 4 — ARQUITETURA
+     SLIDE 04 — BOT TELEGRAM (mockup)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
-<section class="slide" id="s4" data-i="3">
+<section class="slide" id="sBot" data-i="3">
   <div class="bg">
     <div class="grid-bg tight"></div>
-    <div class="glow glow-em" style="opacity:.7"></div>
-    <div class="glow glow-cy" style="opacity:.6"></div>
+    <div class="orb orb-1"></div>
+    <div class="glow glow-em" style="opacity:.6"></div>
+    <div class="glow glow-cy" style="opacity:.5"></div>
     <div class="veil"></div>
     <div class="noise"></div>
   </div>
 
-  <div class="grid">
-    <div>
-      <div class="eyebrow fadein d-1">
+  <div class="wrap">
+    <div class="left">
+      <div class="eyebrow blurin d-1">
         <span class="dot"></span>
-        Capítulo 03 · Engenharia
+        Capítulo 03 · Bot Telegram
       </div>
-      <h2 class="display display-m fadein d-2" style="margin-top:18px">
-        Construído como<br/>
-        software de <span class="grad">produção.</span>
+      <h2 class="display display-m blurin d-2" style="margin-top:18px">
+        Tudo no <span class="grad">Telegram.</span><br/>
+        Sem app. Sem login.
       </h2>
-      <p class="lead-row fadein d-3" style="font-size:18px;color:var(--t70);line-height:1.6;max-width:440px;">
-        Arquitetura DDD + TDD. Domínio isolado de frameworks. Cada regra de negócio testada antes de chegar ao banco.
+      <p class="lead-row blurin d-3">
+        O cidadão abre o app que já usa todos os dias. <strong style="color:var(--txt);font-weight:600">Três toques.</strong> Denúncia registrada. Sem fricção, sem cadastro.
       </p>
 
-      <div class="diagram fadein d-5" style="margin-top:40px">
-        <div class="layer">
-          <div class="lbl" style="color:var(--em)"><i data-lucide="hexagon"></i>Domain</div>
-          <div class="items">
-            <span>Entidades</span><span>Value Objects</span><span>Use Cases</span><span>Repos (abstract)</span>
+      <div class="feat-list blurin d-5">
+        <div class="botfeat">
+          <i data-lucide="play"></i>
+          <div>
+            <div class="ti">/start instantâneo</div>
+            <div class="ds">Bot responde em &lt;1s. Menu inline com opções claras de denúncia.</div>
           </div>
         </div>
-        <div class="layer">
-          <div class="lbl" style="color:var(--cy)"><i data-lucide="layout-template"></i>Application</div>
-          <div class="items">
-            <span>DTOs</span><span>Controllers</span><span>Modules</span><span>Swagger</span>
+        <div class="botfeat">
+          <i data-lucide="map-pin"></i>
+          <div>
+            <div class="ti">Localização precisa</div>
+            <div class="ds">GPS nativo do Telegram ou seleção via mapa interativo.</div>
           </div>
         </div>
-        <div class="layer">
-          <div class="lbl" style="color:var(--t50)"><i data-lucide="server"></i>Infrastructure</div>
-          <div class="items">
-            <span>Prisma</span><span>PostgreSQL</span><span>Telegram</span><span>Gemini</span><span>Webhooks</span>
-          </div>
-        </div>
-        <div class="layer">
-          <div class="lbl" style="color:var(--yw)"><i data-lucide="test-tube-2"></i>Tests</div>
-          <div class="items">
-            <span>In-memory repos</span><span>Unit specs</span><span>Jest</span>
+        <div class="botfeat">
+          <i data-lucide="image"></i>
+          <div>
+            <div class="ti">Foto + descrição</div>
+            <div class="ds">Análise de imagem por IA antes da escalação. Anonimato preservado.</div>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="pillars fadein d-4">
-      <div class="pillar">
-        <div class="pn">PILAR 01</div>
-        <div>
-          <div class="pt">Domain-Driven Design</div>
-          <div class="pd">Entidades puras. Use cases independentes de framework. NestJS e Prisma são detalhes — não fundações.</div>
-        </div>
+    <div class="phones">
+      <div class="phone phone-1 scalein d-2">
+        <img src="assets/bot-start.jpeg" alt="Bot /start" onerror="this.style.display='none'"/>
+        <div class="glare"></div>
+        <div class="phone-tag">01 · /start</div>
       </div>
-      <div class="pillar">
-        <div class="pn">PILAR 02</div>
-        <div>
-          <div class="pt">Test-Driven Development</div>
-          <div class="pd">Repositórios in-memory tornam cada teste 100× mais rápido. Sem banco, sem flakiness, sem desculpa.</div>
-        </div>
+      <div class="phone phone-2 scalein d-4">
+        <img src="assets/bot-localizacao.jpeg" alt="Bot localização" onerror="this.style.display='none'"/>
+        <div class="glare"></div>
+        <div class="phone-tag">02 · localização</div>
       </div>
-      <div class="pillar">
-        <div class="pn">PILAR 03</div>
-        <div>
-          <div class="pt">Clean Architecture</div>
-          <div class="pd">Dependências fluem para dentro. Trocar PostgreSQL por MySQL não toca uma única regra de negócio.</div>
-        </div>
-      </div>
-      <div class="pillar">
-        <div class="pn">PILAR 04</div>
-        <div>
-          <div class="pt">Escalação automática · 72h</div>
-          <div class="pd">Scheduler desacoplado roteia denúncias para o órgão competente sem intervenção humana.</div>
-        </div>
+      <div class="phone phone-3 scalein d-6">
+        <img src="assets/bot-descricao-final.jpeg" alt="Bot descrição" onerror="this.style.display='none'"/>
+        <div class="glare"></div>
+        <div class="phone-tag">03 · descrição</div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-     SLIDE 5 — TECNOLOGIAS
+     SLIDE 05 — PAINEL PÚBLICO (cidadão acompanha)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
-<section class="slide" id="s5" data-i="4">
+<section class="slide" id="sPub" data-i="4">
+  <div class="bg">
+    <div class="grid-bg tight"></div>
+    <div class="glow glow-em" style="opacity:.5"></div>
+    <div class="glow glow-cy" style="opacity:.5"></div>
+    <div class="veil"></div>
+    <div class="noise"></div>
+  </div>
+
+  <div class="wrap">
+    <div class="head">
+      <div>
+        <div class="eyebrow blurin d-1">
+          <span class="dot"></span>
+          Capítulo 03 · Painel · Público
+        </div>
+        <h2 class="display display-m blurin d-2" style="margin-top:18px">
+          Transparência <span class="grad">para o cidadão.</span>
+        </h2>
+      </div>
+      <div class="quote-side blurin d-3" style="max-width:340px;text-align:right">
+        <q style="font-family:'Instrument Serif',serif;font-style:italic;font-size:21px;line-height:1.4;color:var(--t70)">Sua denúncia ganha rosto, status e prazo — sem login, sem burocracia.</q>
+      </div>
+    </div>
+
+    <div class="stage-duo blurin d-4">
+      <div class="window">
+        <div class="chrome">
+          <span class="dt"></span><span class="dt"></span><span class="dt"></span>
+          <span class="url">/denuncias</span>
+        </div>
+        <span class="tag">MAPA PÚBLICO</span>
+        <img src="assets/painel-publico.png" alt="Painel público — listagem"/>
+      </div>
+      <div class="window">
+        <div class="chrome">
+          <span class="dt"></span><span class="dt"></span><span class="dt"></span>
+          <span class="url">/denuncias/:id</span>
+        </div>
+        <span class="tag">DETALHE</span>
+        <img src="assets/painel-publico-detalhe.png" alt="Painel público — detalhe"/>
+      </div>
+    </div>
+
+    <div class="meta-row blurin d-6">
+      <div class="metablock">
+        <div class="mk">ACESSO 01</div>
+        <div class="mv">Sem login</div>
+        <div class="md">Cidadão vê todas as denúncias por geolocalização ou tipo.</div>
+      </div>
+      <div class="metablock">
+        <div class="mk">ACESSO 02</div>
+        <div class="mv">Status em tempo real</div>
+        <div class="md">Pendente · em análise · validada · escalada · arquivada.</div>
+      </div>
+      <div class="metablock">
+        <div class="mk">ACESSO 03</div>
+        <div class="mv">Anonimato preservado</div>
+        <div class="md">Sem dados pessoais expostos · LGPD por padrão.</div>
+      </div>
+      <div class="metablock">
+        <div class="mk">ACESSO 04</div>
+        <div class="mv">Pressão social</div>
+        <div class="md">Quanto mais visível, mais cobrado o órgão competente.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     SLIDE 06 — PAINEL · VISÃO (admin)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<section class="slide" id="sAdmin" data-i="5">
+  <div class="bg">
+    <div class="dots-bg"></div>
+    <div class="glow glow-em" style="opacity:.5"></div>
+    <div class="glow glow-cy" style="opacity:.5"></div>
+    <div class="veil"></div>
+    <div class="noise"></div>
+  </div>
+
+  <div class="wrap">
+    <div class="head">
+      <div>
+        <div class="eyebrow blurin d-1">
+          <span class="dot"></span>
+          Capítulo 03 · Painel · Visão
+        </div>
+        <h2 class="display display-m blurin d-2" style="margin-top:18px">
+          Cockpit do <span class="grad">fiscal.</span>
+        </h2>
+      </div>
+      <div class="quote-side blurin d-3" style="max-width:340px;text-align:right">
+        <q style="font-family:'Instrument Serif',serif;font-style:italic;font-size:21px;line-height:1.4;color:var(--t70)">Cada denúncia rastreável. Cada status auditável. Cada minuto contado.</q>
+      </div>
+    </div>
+
+    <div class="stage-single blurin d-4">
+      <div class="window">
+        <div class="chrome">
+          <span class="dt"></span><span class="dt"></span><span class="dt"></span>
+          <span class="url">ryzon-front.vercel.app/admin/dashboard</span>
+        </div>
+        <span class="tag">DASHBOARD</span>
+        <img src="assets/painel-admin-dashboard.png" alt="Dashboard"/>
+      </div>
+    </div>
+
+    <div class="feature-list blurin d-6">
+      <div class="adminft">
+        <i data-lucide="layout-dashboard"></i>
+        <div class="ti">Dashboard tempo real</div>
+        <div class="ds">Visão geral de denúncias por tipo, status e órgão competente.</div>
+      </div>
+      <div class="adminft">
+        <i data-lucide="filter"></i>
+        <div class="ti">Triagem auditável</div>
+        <div class="ds">Filtros por status, IA-score, tipo e zona geográfica. Cada ação registrada.</div>
+      </div>
+      <div class="adminft">
+        <i data-lucide="link-2"></i>
+        <div class="ti">Webhook automático</div>
+        <div class="ds">Rota direta para IBAMA, MPF ou Defesa Civil após 72h sem resposta.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     SLIDE 06 — PAINEL · TRIAGEM (mockup)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<section class="slide" id="sAdminB" data-i="6">
+  <div class="bg">
+    <div class="grid-bg tight"></div>
+    <div class="glow glow-em" style="opacity:.5"></div>
+    <div class="glow glow-cy" style="opacity:.5"></div>
+    <div class="veil"></div>
+    <div class="noise"></div>
+  </div>
+
+  <div class="wrap">
+    <div class="head">
+      <div>
+        <div class="eyebrow blurin d-1">
+          <span class="dot"></span>
+          Capítulo 03 · Painel · Triagem
+        </div>
+        <h2 class="display display-m blurin d-2" style="margin-top:18px">
+          Auditável de<br/>
+          <span class="grad">ponta a ponta.</span>
+        </h2>
+      </div>
+      <div class="quote-side blurin d-3" style="max-width:340px;text-align:right">
+        <q style="font-family:'Instrument Serif',serif;font-style:italic;font-size:21px;line-height:1.4;color:var(--t70)">Da listagem ao detalhe — cada denúncia carrega seu histórico completo.</q>
+      </div>
+    </div>
+
+    <div class="stage-duo blurin d-4">
+      <div class="window">
+        <div class="chrome">
+          <span class="dt"></span><span class="dt"></span><span class="dt"></span>
+          <span class="url">/admin/denuncias</span>
+        </div>
+        <span class="tag">LISTAGEM</span>
+        <img src="assets/painel-admin-denuncias-listagem.png" alt="Listagem"/>
+      </div>
+      <div class="window">
+        <div class="chrome">
+          <span class="dt"></span><span class="dt"></span><span class="dt"></span>
+          <span class="url">/admin/denuncias/:id</span>
+        </div>
+        <span class="tag">DETALHE</span>
+        <img src="assets/painel-admin-detalhe-denuncia.png" alt="Detalhe"/>
+      </div>
+    </div>
+
+    <div class="meta-row blurin d-6">
+      <div class="metablock">
+        <div class="mk">FILTRO 01</div>
+        <div class="mv">Status</div>
+        <div class="md">Pendente, em análise, validada, escalada, arquivada.</div>
+      </div>
+      <div class="metablock">
+        <div class="mk">FILTRO 02</div>
+        <div class="mv">IA-Score</div>
+        <div class="md">Threshold 60% mínimo · denúncias falsas bloqueadas automaticamente.</div>
+      </div>
+      <div class="metablock">
+        <div class="mk">FILTRO 03</div>
+        <div class="mv">Tipo · Zona</div>
+        <div class="md">Queimada, garimpo, alagamento — cruzados com geofencing.</div>
+      </div>
+      <div class="metablock">
+        <div class="mk">AUDITORIA</div>
+        <div class="mv">Timeline</div>
+        <div class="md">Cada interação registrada com timestamp e responsável.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     SLIDE 07 — MERCADO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<section class="slide" id="s6" data-i="7">
+  <div class="bg">
+    <div class="grid-bg"></div>
+    <div class="glow glow-em" style="opacity:.7"></div>
+    <div class="glow glow-cy" style="opacity:.6"></div>
+    <div class="veil"></div>
+    <div class="noise"></div>
+  </div>
+
+  <div class="wrap">
+    <div class="top">
+      <div>
+        <div class="eyebrow fadein d-1">
+          <span class="dot"></span>
+          Capítulo 04 · Mercado
+        </div>
+        <h2 class="display display-m fadein d-2" style="margin-top:18px">
+          Um problema<br/>
+          de <span class="grad">escala nacional.</span>
+        </h2>
+      </div>
+      <div class="quote-side fadein d-3">
+        <q>O Brasil tem o maior índice de crimes ambientais da América Latina — e nenhum canal digital eficiente para combatê-los.</q>
+        <div class="attrib">— Análise de mercado</div>
+      </div>
+    </div>
+
+    <div class="grid-stats fadein d-4">
+      <div class="mkstat">
+        <div class="mn grad">5M</div>
+        <div class="ml">km² de Amazônia sob ameaça direta</div>
+      </div>
+      <div class="mkstat">
+        <div class="mn tint-yw">R$ 3bi</div>
+        <div class="ml">em danos ambientais anuais sem responsabilização</div>
+      </div>
+      <div class="mkstat">
+        <div class="mn tint-bl">213M</div>
+        <div class="ml">brasileiros como potenciais fiscais e denunciantes</div>
+      </div>
+      <div class="mkstat">
+        <div class="mn tint-or">72h</div>
+        <div class="ml">SLA antes da escalação automática</div>
+      </div>
+    </div>
+
+    <div class="organs-row fadein d-6">
+      <div class="org-block">
+        <div class="badge">ÓRGÃO · 01</div>
+        <div class="name">IBAMA</div>
+        <div class="role">Instituto Brasileiro do Meio Ambiente e dos Recursos Naturais</div>
+        <div class="scope"><i data-lucide="flame" style="color:var(--or)"></i>Queimada<span style="color:var(--t30);margin:0 4px">·</span><i data-lucide="pickaxe" style="color:var(--yw)"></i>Garimpo</div>
+      </div>
+      <div class="org-block">
+        <div class="badge">ÓRGÃO · 02</div>
+        <div class="name">Ministério Público Federal</div>
+        <div class="role">Persecução penal e ação civil pública</div>
+        <div class="scope"><i data-lucide="pickaxe" style="color:var(--yw)"></i>Garimpo ilegal</div>
+      </div>
+      <div class="org-block">
+        <div class="badge">ÓRGÃO · 03</div>
+        <div class="name">Defesa Civil</div>
+        <div class="role">Proteção e resposta a desastres naturais</div>
+        <div class="scope"><i data-lucide="waves" style="color:var(--bl)"></i>Alagamentos</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     SLIDE 08 — STACK
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<section class="slide" id="s5" data-i="8">
   <div class="bg">
     <div class="dots-bg"></div>
     <div class="glow glow-em" style="opacity:.6"></div>
@@ -1256,7 +1828,7 @@ body.idle #cur-r{
       <div>
         <div class="eyebrow fadein d-1">
           <span class="dot"></span>
-          Capítulo 04 · Stack
+          Capítulo 05 · Stack
         </div>
         <h2 class="display display-m fadein d-2" style="margin-top:18px">
           Stack <span class="grad">de produção</span>,<br/>
@@ -1344,81 +1916,253 @@ body.idle #cur-r{
 </section>
 
 <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-     SLIDE 6 — MERCADO
+     SLIDE 09 — ARQUITETURA
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
-<section class="slide" id="s6" data-i="5">
+<section class="slide" id="sArch" data-i="9">
   <div class="bg">
-    <div class="grid-bg"></div>
+    <div class="grid-bg tight"></div>
+    <div class="orb orb-1"></div>
+    <div class="glow glow-em" style="opacity:.5"></div>
+    <div class="glow glow-cy" style="opacity:.5"></div>
+    <div class="veil"></div>
+    <div class="noise"></div>
+  </div>
+
+  <div class="wrap">
+    <div class="head">
+      <div>
+        <div class="eyebrow blurin d-1">
+          <span class="dot"></span>
+          Capítulo 06 · Arquitetura
+        </div>
+        <h2 class="display display-m blurin d-2" style="margin-top:18px">
+          Diagrama de <span class="grad">produção</span>,<br/>
+          frugal por design.
+        </h2>
+      </div>
+      <div class="arch-meta blurin d-3">
+        <div class="metric">
+          <span class="lbl">Custo / mês</span>
+          <span class="val">US$ 0</span>
+        </div>
+        <div class="metric">
+          <span class="lbl">Uptime</span>
+          <span class="val">99.4%</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="arch-stage">
+
+      <!-- Edge layer -->
+      <div class="arch-edge blurin d-3">
+        <div class="cloud-region cloud-tg">
+          <div class="cloud-tag">
+            <img src="https://cdn.simpleicons.org/telegram/26A5E4" alt=""/>
+            Telegram Cloud · Bot API
+          </div>
+          <div class="resource">
+            <i data-lucide="bot"></i>
+            <div class="cbody">
+              <div class="rt">@ryzon_bot</div>
+              <div class="rd">long-polling · pt-BR</div>
+            </div>
+          </div>
+        </div>
+        <div class="cloud-region cloud-vc">
+          <div class="cloud-tag">
+            <img src="https://cdn.simpleicons.org/vercel/ffffff" alt=""/>
+            Vercel Edge Network · GLOBAL CDN
+          </div>
+          <div class="resource">
+            <i data-lucide="layout-template"></i>
+            <div class="cbody">
+              <div class="rt">ryzon-front.vercel.app</div>
+              <div class="rd">Next.js 15 · React 19 · Edge SSR</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Oracle Cloud (the big container) -->
+      <div class="cloud-region cloud-oci blurin d-4">
+        <div class="cloud-tag">
+          <img src="https://cdn.simpleicons.org/oracle/F80000" alt=""/>
+          Oracle Cloud Infrastructure · Always Free Tier
+          <span class="region-pill">SA-SAOPAULO-1</span>
+        </div>
+
+        <div class="vcn">
+          <div class="vcn-tag">
+            <i data-lucide="network"></i>
+            VCN ryzon-vcn-prod &nbsp;<code>10.0.0.0/16</code>
+            <span class="ip-pill"><i data-lucide="globe-2"></i>Public&nbsp;IP&nbsp;<b>152.70.222.149</b></span>
+          </div>
+
+          <div class="subnet">
+            <div class="subnet-tag">
+              <i data-lucide="square-stack"></i>
+              Public Subnet &nbsp;<code>10.0.1.0/24</code>
+              <span class="ig-pill">Internet Gateway · 0.0.0.0/0</span>
+            </div>
+
+            <div class="vm-instance">
+              <div class="vm-tag">
+                <i data-lucide="server"></i>
+                Compute · VM.Standard.E2.1.Micro
+                <span class="vm-spec">1 OCPU · 1 GB RAM · Ubuntu 24.04 LTS</span>
+                <span class="vm-ip">priv 10.0.1.42</span>
+              </div>
+
+              <div class="vm-stack vm-stack-2">
+                <div class="cnt">
+                  <img src="https://cdn.simpleicons.org/docker/2496ED" alt=""/>
+                  <div class="cbody">
+                    <div class="ct">NestJS API</div>
+                    <div class="cd">Node 24 · Prisma 6 · Swagger</div>
+                  </div>
+                  <span class="port">:3000</span>
+                </div>
+                <div class="cnt">
+                  <img src="https://cdn.simpleicons.org/telegram/26A5E4" alt=""/>
+                  <div class="cbody">
+                    <div class="ct">Bot Worker</div>
+                    <div class="cd">node-telegram-bot-api · long-poll</div>
+                  </div>
+                  <span class="port">PID</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Digital Ocean Managed Database -->
+      <div class="cloud-region cloud-do blurin d-5">
+        <div class="cloud-tag">
+          <img src="https://cdn.simpleicons.org/digitalocean/0080FF" alt=""/>
+          Digital Ocean · Managed Database
+          <span class="region-pill region-do">NYC3</span>
+        </div>
+        <div class="resource">
+          <img src="https://cdn.simpleicons.org/postgresql/4169E1" alt="" class="r-img"/>
+          <div class="cbody">
+            <div class="rt">PostgreSQL 16 · ryzon-db-prod</div>
+            <div class="rd">db-s-1vcpu-1gb · backup diário · SSL only · :25060</div>
+          </div>
+          <span class="conn-arrow"><i data-lucide="arrow-left-right"></i>VCN ⇄ DO</span>
+        </div>
+      </div>
+
+      <!-- External services (single compact row) -->
+      <div class="arch-ext-line blurin d-5">
+        <span class="ext-label"><i data-lucide="link-2"></i>External APIs</span>
+        <span class="pill"><img src="https://cdn.simpleicons.org/googlegemini/4285F4" alt=""/>Gemini Vision</span>
+        <span class="pill"><i data-lucide="route"></i>OpenRouter</span>
+        <span class="ext-sep"></span>
+        <span class="pill"><i data-lucide="flame" style="color:#ef4444"></i>INPE</span>
+        <span class="pill"><i data-lucide="pickaxe" style="color:#eab308"></i>ANM</span>
+        <span class="pill"><i data-lucide="waves" style="color:#3b82f6"></i>SGB</span>
+        <span class="ext-sep"></span>
+        <span class="pill"><i data-lucide="image" style="color:#00e676"></i>ImgBB</span>
+        <span class="pill"><img src="https://cdn.simpleicons.org/resend/ffffff" alt=""/>Resend</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     SLIDE 10 — ENGENHARIA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<section class="slide" id="s4" data-i="10">
+  <div class="bg">
+    <div class="grid-bg tight"></div>
     <div class="glow glow-em" style="opacity:.7"></div>
     <div class="glow glow-cy" style="opacity:.6"></div>
     <div class="veil"></div>
     <div class="noise"></div>
   </div>
 
-  <div class="wrap">
-    <div class="top">
-      <div>
-        <div class="eyebrow fadein d-1">
-          <span class="dot"></span>
-          Capítulo 05 · Mercado
+  <div class="grid">
+    <div>
+      <div class="eyebrow fadein d-1">
+        <span class="dot"></span>
+        Capítulo 07 · Engenharia
+      </div>
+      <h2 class="display display-m fadein d-2" style="margin-top:18px">
+        Construído como<br/>
+        software de <span class="grad">produção.</span>
+      </h2>
+      <p class="lead-row fadein d-3" style="font-size:18px;color:var(--t70);line-height:1.6;max-width:440px;">
+        Arquitetura DDD + TDD. Domínio isolado de frameworks. Cada regra de negócio testada antes de chegar ao banco.
+      </p>
+
+      <div class="diagram fadein d-5" style="margin-top:40px">
+        <div class="layer">
+          <div class="lbl" style="color:var(--em)"><i data-lucide="hexagon"></i>Domain</div>
+          <div class="items">
+            <span>Entidades</span><span>Value Objects</span><span>Use Cases</span><span>Repos (abstract)</span>
+          </div>
         </div>
-        <h2 class="display display-m fadein d-2" style="margin-top:18px">
-          Um problema<br/>
-          de <span class="grad">escala nacional.</span>
-        </h2>
-      </div>
-      <div class="quote-side fadein d-3">
-        <q>O Brasil tem o maior índice de crimes ambientais da América Latina — e nenhum canal digital eficiente para combatê-los.</q>
-        <div class="attrib">— Análise de mercado</div>
-      </div>
-    </div>
-
-    <div class="grid-stats fadein d-4">
-      <div class="mkstat">
-        <div class="mn grad">5M</div>
-        <div class="ml">km² de Amazônia sob ameaça direta</div>
-      </div>
-      <div class="mkstat">
-        <div class="mn tint-yw">R$ 3bi</div>
-        <div class="ml">em danos ambientais anuais sem responsabilização</div>
-      </div>
-      <div class="mkstat">
-        <div class="mn tint-bl">213M</div>
-        <div class="ml">brasileiros como potenciais fiscais e denunciantes</div>
-      </div>
-      <div class="mkstat">
-        <div class="mn tint-or">72h</div>
-        <div class="ml">SLA antes da escalação automática</div>
+        <div class="layer">
+          <div class="lbl" style="color:var(--cy)"><i data-lucide="layout-template"></i>Application</div>
+          <div class="items">
+            <span>DTOs</span><span>Controllers</span><span>Modules</span><span>Swagger</span>
+          </div>
+        </div>
+        <div class="layer">
+          <div class="lbl" style="color:var(--t50)"><i data-lucide="server"></i>Infrastructure</div>
+          <div class="items">
+            <span>Prisma</span><span>PostgreSQL</span><span>Telegram</span><span>Gemini</span><span>Webhooks</span>
+          </div>
+        </div>
+        <div class="layer">
+          <div class="lbl" style="color:var(--yw)"><i data-lucide="test-tube-2"></i>Tests</div>
+          <div class="items">
+            <span>In-memory repos</span><span>Unit specs</span><span>Jest</span>
+          </div>
+        </div>
       </div>
     </div>
 
-    <div class="organs-row fadein d-6">
-      <div class="org-block">
-        <div class="badge">ÓRGÃO · 01</div>
-        <div class="name">IBAMA</div>
-        <div class="role">Instituto Brasileiro do Meio Ambiente e dos Recursos Naturais</div>
-        <div class="scope"><i data-lucide="flame" style="color:var(--or)"></i>Queimada<span style="color:var(--t30);margin:0 4px">·</span><i data-lucide="pickaxe" style="color:var(--yw)"></i>Garimpo</div>
+    <div class="pillars fadein d-4">
+      <div class="pillar">
+        <div class="pn">PILAR 01</div>
+        <div>
+          <div class="pt">Domain-Driven Design</div>
+          <div class="pd">Entidades puras. Use cases independentes de framework. NestJS e Prisma são detalhes — não fundações.</div>
+        </div>
       </div>
-      <div class="org-block">
-        <div class="badge">ÓRGÃO · 02</div>
-        <div class="name">Ministério Público Federal</div>
-        <div class="role">Persecução penal e ação civil pública</div>
-        <div class="scope"><i data-lucide="pickaxe" style="color:var(--yw)"></i>Garimpo ilegal</div>
+      <div class="pillar">
+        <div class="pn">PILAR 02</div>
+        <div>
+          <div class="pt">Test-Driven Development</div>
+          <div class="pd">Repositórios in-memory tornam cada teste 100× mais rápido. Sem banco, sem flakiness, sem desculpa.</div>
+        </div>
       </div>
-      <div class="org-block">
-        <div class="badge">ÓRGÃO · 03</div>
-        <div class="name">Defesa Civil</div>
-        <div class="role">Proteção e resposta a desastres naturais</div>
-        <div class="scope"><i data-lucide="waves" style="color:var(--bl)"></i>Alagamentos</div>
+      <div class="pillar">
+        <div class="pn">PILAR 03</div>
+        <div>
+          <div class="pt">Clean Architecture</div>
+          <div class="pd">Dependências fluem para dentro. Trocar PostgreSQL por MySQL não toca uma única regra de negócio.</div>
+        </div>
+      </div>
+      <div class="pillar">
+        <div class="pn">PILAR 04</div>
+        <div>
+          <div class="pt">Escalação automática · 72h</div>
+          <div class="pd">Scheduler desacoplado roteia denúncias para o órgão competente sem intervenção humana.</div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-     SLIDE 7 — IA
+     SLIDE 11 — IA
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
-<section class="slide" id="s7" data-i="6">
+<section class="slide" id="s7" data-i="11">
   <div class="bg">
     <div class="dots-bg"></div>
     <div class="orb orb-2"></div>
@@ -1432,7 +2176,7 @@ body.idle #cur-r{
     <div class="left">
       <div class="eyebrow fadein d-1">
         <span class="dot"></span>
-        Capítulo 06 · IA
+        Capítulo 08 · IA
       </div>
       <h2 class="display display-m fadein d-2">
         IA na<br/>
@@ -1493,214 +2237,9 @@ body.idle #cur-r{
 </section>
 
 <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-     SLIDE 8 — BOT TELEGRAM
+     SLIDE 12 — FLUXO
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
-<section class="slide" id="sBot" data-i="7">
-  <div class="bg">
-    <div class="grid-bg tight"></div>
-    <div class="orb orb-1"></div>
-    <div class="glow glow-em" style="opacity:.6"></div>
-    <div class="glow glow-cy" style="opacity:.5"></div>
-    <div class="veil"></div>
-    <div class="noise"></div>
-  </div>
-
-  <div class="wrap">
-    <div class="left">
-      <div class="eyebrow blurin d-1">
-        <span class="dot"></span>
-        Capítulo 07 · Produto
-      </div>
-      <h2 class="display display-m blurin d-2" style="margin-top:18px">
-        Tudo no <span class="grad">Telegram.</span><br/>
-        Sem app. Sem login.
-      </h2>
-      <p class="lead-row blurin d-3">
-        O cidadão abre o app que já usa todos os dias. <strong style="color:var(--txt);font-weight:600">Três toques.</strong> Denúncia registrada. Sem fricção, sem cadastro.
-      </p>
-
-      <div class="feat-list blurin d-5">
-        <div class="botfeat">
-          <i data-lucide="play"></i>
-          <div>
-            <div class="ti">/start instantâneo</div>
-            <div class="ds">Bot responde em &lt;1s. Menu inline com opções claras de denúncia.</div>
-          </div>
-        </div>
-        <div class="botfeat">
-          <i data-lucide="map-pin"></i>
-          <div>
-            <div class="ti">Localização precisa</div>
-            <div class="ds">GPS nativo do Telegram ou seleção via mapa interativo.</div>
-          </div>
-        </div>
-        <div class="botfeat">
-          <i data-lucide="image"></i>
-          <div>
-            <div class="ti">Foto + descrição</div>
-            <div class="ds">Análise de imagem por IA antes da escalação. Anonimato preservado.</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="phones">
-      <div class="phone phone-1 scalein d-2">
-        <img src="assets/bot-start.jpeg" alt="Bot /start" onerror="this.style.display='none'"/>
-        <div class="glare"></div>
-        <div class="phone-tag">01 · /start</div>
-      </div>
-      <div class="phone phone-2 scalein d-4">
-        <img src="assets/bot-localizacao.jpeg" alt="Bot localização" onerror="this.style.display='none'"/>
-        <div class="glare"></div>
-        <div class="phone-tag">02 · localização</div>
-      </div>
-      <div class="phone phone-3 scalein d-6">
-        <img src="assets/bot-descricao-final.jpeg" alt="Bot descrição" onerror="this.style.display='none'"/>
-        <div class="glare"></div>
-        <div class="phone-tag">03 · descrição</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-     SLIDE 9 — PAINEL ADMIN · VISÃO GERAL
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
-<section class="slide" id="sAdmin" data-i="8">
-  <div class="bg">
-    <div class="dots-bg"></div>
-    <div class="glow glow-em" style="opacity:.5"></div>
-    <div class="glow glow-cy" style="opacity:.5"></div>
-    <div class="veil"></div>
-    <div class="noise"></div>
-  </div>
-
-  <div class="wrap">
-    <div class="head">
-      <div>
-        <div class="eyebrow blurin d-1">
-          <span class="dot"></span>
-          Capítulo 08 · Operação
-        </div>
-        <h2 class="display display-m blurin d-2" style="margin-top:18px">
-          Cockpit dos<br/>
-          <span class="grad">órgãos fiscalizadores.</span>
-        </h2>
-      </div>
-      <div class="quote-side blurin d-3" style="max-width:340px;text-align:right">
-        <q style="font-family:'Instrument Serif',serif;font-style:italic;font-size:21px;line-height:1.4;color:var(--t70)">Cada denúncia rastreável. Cada status auditável. Cada minuto contado.</q>
-      </div>
-    </div>
-
-    <div class="stage-single blurin d-4">
-      <div class="window">
-        <div class="chrome">
-          <span class="dt"></span><span class="dt"></span><span class="dt"></span>
-          <span class="url">ryzon-front.vercel.app/admin/dashboard</span>
-        </div>
-        <span class="tag">DASHBOARD</span>
-        <img src="assets/painel-admin-dashboard.png" alt="Dashboard"/>
-      </div>
-    </div>
-
-    <div class="feature-list blurin d-6">
-      <div class="adminft">
-        <i data-lucide="layout-dashboard"></i>
-        <div class="ti">Dashboard tempo real</div>
-        <div class="ds">Visão geral de denúncias por tipo, status e órgão competente.</div>
-      </div>
-      <div class="adminft">
-        <i data-lucide="filter"></i>
-        <div class="ti">Triagem auditável</div>
-        <div class="ds">Filtros por status, IA-score, tipo e zona geográfica. Cada ação registrada.</div>
-      </div>
-      <div class="adminft">
-        <i data-lucide="link-2"></i>
-        <div class="ti">Webhook automático</div>
-        <div class="ds">Rota direta para IBAMA, MPF ou Defesa Civil após 72h sem resposta.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-     SLIDE 10 — PAINEL ADMIN · TRIAGEM
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
-<section class="slide" id="sAdminB" data-i="9">
-  <div class="bg">
-    <div class="grid-bg tight"></div>
-    <div class="glow glow-em" style="opacity:.5"></div>
-    <div class="glow glow-cy" style="opacity:.5"></div>
-    <div class="veil"></div>
-    <div class="noise"></div>
-  </div>
-
-  <div class="wrap">
-    <div class="head">
-      <div>
-        <div class="eyebrow blurin d-1">
-          <span class="dot"></span>
-          Capítulo 08 · Triagem
-        </div>
-        <h2 class="display display-m blurin d-2" style="margin-top:18px">
-          Auditável de<br/>
-          <span class="grad">ponta a ponta.</span>
-        </h2>
-      </div>
-      <div class="quote-side blurin d-3" style="max-width:340px;text-align:right">
-        <q style="font-family:'Instrument Serif',serif;font-style:italic;font-size:21px;line-height:1.4;color:var(--t70)">Da listagem ao detalhe — cada denúncia carrega seu histórico completo.</q>
-      </div>
-    </div>
-
-    <div class="stage-duo blurin d-4">
-      <div class="window">
-        <div class="chrome">
-          <span class="dt"></span><span class="dt"></span><span class="dt"></span>
-          <span class="url">/admin/denuncias</span>
-        </div>
-        <span class="tag">LISTAGEM</span>
-        <img src="assets/painel-admin-denuncias-listagem.png" alt="Listagem"/>
-      </div>
-      <div class="window">
-        <div class="chrome">
-          <span class="dt"></span><span class="dt"></span><span class="dt"></span>
-          <span class="url">/admin/denuncias/:id</span>
-        </div>
-        <span class="tag">DETALHE</span>
-        <img src="assets/painel-admin-detalhe-denuncia.png" alt="Detalhe"/>
-      </div>
-    </div>
-
-    <div class="meta-row blurin d-6">
-      <div class="metablock">
-        <div class="mk">FILTRO 01</div>
-        <div class="mv">Status</div>
-        <div class="md">Pendente, em análise, validada, escalada, arquivada.</div>
-      </div>
-      <div class="metablock">
-        <div class="mk">FILTRO 02</div>
-        <div class="mv">IA-Score</div>
-        <div class="md">Threshold 60% mínimo · denúncias falsas bloqueadas automaticamente.</div>
-      </div>
-      <div class="metablock">
-        <div class="mk">FILTRO 03</div>
-        <div class="mv">Tipo · Zona</div>
-        <div class="md">Queimada, garimpo, alagamento — cruzados com geofencing.</div>
-      </div>
-      <div class="metablock">
-        <div class="mk">AUDITORIA</div>
-        <div class="mv">Timeline</div>
-        <div class="md">Cada interação registrada com timestamp e responsável.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-     SLIDE 10 — DIAGRAMA DE FLUXO
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
-<section class="slide" id="sFlow" data-i="10">
+<section class="slide" id="sFlow" data-i="12">
   <div class="bg">
     <div class="grid-bg"></div>
     <div class="orb orb-2"></div>
@@ -1771,9 +2310,98 @@ body.idle #cur-r{
 </section>
 
 <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-     SLIDE 11 — CTA
+     SLIDE 13 — ROADMAP
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
-<section class="slide" id="s8" data-i="11">
+<section class="slide" id="sRoad" data-i="13">
+  <div class="bg">
+    <div class="grid-bg"></div>
+    <div class="orb orb-1"></div>
+    <div class="glow glow-em" style="opacity:.5"></div>
+    <div class="glow glow-cy" style="opacity:.4"></div>
+    <div class="veil"></div>
+    <div class="noise"></div>
+  </div>
+
+  <div class="wrap">
+    <div class="head">
+      <div>
+        <div class="eyebrow blurin d-1">
+          <span class="dot"></span>
+          Capítulo 10 · Roadmap
+        </div>
+        <h2 class="display display-m blurin d-2" style="margin-top:18px">
+          Em <span class="grad">3 semanas</span>,<br/>
+          até onde chegamos.
+        </h2>
+      </div>
+      <div class="road-meta blurin d-3">
+        <span class="lbl">Sprints concluídos</span>
+        <span class="val">3 / 3</span>
+        <span class="lbl" style="margin-top:10px">Próxima entrega</span>
+        <span class="val em">Iteração 04 · maio/26</span>
+      </div>
+    </div>
+
+    <div class="road-grid">
+      <div class="road-col shipped blurin d-3">
+        <div class="road-col-head">
+          <div class="road-col-tag"><span class="swatch"></span>Shipped · 3 semanas</div>
+          <div class="road-col-title">Em produção <span class="count">/ 09</span></div>
+          <div class="road-col-sub">MVP testado e em uso</div>
+        </div>
+        <div class="road-list">
+          <div class="road-item"><span class="check"><i data-lucide="check"></i></span><span class="ritxt">Bot Telegram completo (pt-BR)</span></div>
+          <div class="road-item"><span class="check"><i data-lucide="check"></i></span><span class="ritxt">API NestJS + Prisma + PostgreSQL</span></div>
+          <div class="road-item"><span class="check"><i data-lucide="check"></i></span><span class="ritxt">Painel admin (triagem + dashboard)</span></div>
+          <div class="road-item"><span class="check"><i data-lucide="check"></i></span><span class="ritxt">Painel público (transparência)</span></div>
+          <div class="road-item"><span class="check"><i data-lucide="check"></i></span><span class="ritxt">Gemini Vision · análise por imagem</span></div>
+          <div class="road-item"><span class="check"><i data-lucide="check"></i></span><span class="ritxt">Validação INPE · ANM · SGB</span></div>
+          <div class="road-item"><span class="check"><i data-lucide="check"></i></span><span class="ritxt">Webhook 72h aos órgãos</span></div>
+          <div class="road-item"><span class="check"><i data-lucide="check"></i></span><span class="ritxt">Suite Jest · TDD nas regras críticas</span></div>
+          <div class="road-item"><span class="check"><i data-lucide="check"></i></span><span class="ritxt">Deploy Oracle Free Tier + Vercel</span></div>
+        </div>
+      </div>
+
+      <div class="road-col next blurin d-4">
+        <div class="road-col-head">
+          <div class="road-col-tag"><span class="swatch"></span>Próximo · 4–8 semanas</div>
+          <div class="road-col-title">Iteração 04–06 <span class="count">/ 07</span></div>
+          <div class="road-col-sub">Escala e retenção</div>
+        </div>
+        <div class="road-list">
+          <div class="road-item"><span class="check"></span><span class="ritxt">Auth + perfil cidadão (histórico)</span></div>
+          <div class="road-item"><span class="check"></span><span class="ritxt">App mobile (React Native)</span></div>
+          <div class="road-item"><span class="check"></span><span class="ritxt">Notificação push de status</span><span class="ritag">Resend</span></div>
+          <div class="road-item"><span class="check"></span><span class="ritxt">Mapa público em tempo real</span></div>
+          <div class="road-item"><span class="check"></span><span class="ritxt">SLA por órgão · métricas abertas</span></div>
+          <div class="road-item"><span class="check"></span><span class="ritxt">Anonimização LGPD reforçada</span></div>
+          <div class="road-item"><span class="check"></span><span class="ritxt">Modelo IA fine-tuned para BR</span></div>
+        </div>
+      </div>
+
+      <div class="road-col later blurin d-5">
+        <div class="road-col-head">
+          <div class="road-col-tag"><span class="swatch"></span>Backlog · 6+ meses</div>
+          <div class="road-col-title">Visão de produto <span class="count">/ 06</span></div>
+          <div class="road-col-sub">Plataforma nacional</div>
+        </div>
+        <div class="road-list">
+          <div class="road-item"><span class="check"></span><span class="ritxt">Multi-tenant (estados / municípios)</span></div>
+          <div class="road-item"><span class="check"></span><span class="ritxt">Integração API oficial IBAMA / MPF</span></div>
+          <div class="road-item"><span class="check"></span><span class="ritxt">IA preditiva · zonas de risco</span></div>
+          <div class="road-item"><span class="check"></span><span class="ritxt">Open Data (CSV / GraphQL público)</span></div>
+          <div class="road-item"><span class="check"></span><span class="ritxt">Gamificação · reputação cidadã</span></div>
+          <div class="road-item"><span class="check"></span><span class="ritxt">Amazônia transfronteira (PT/ES/EN)</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     SLIDE 14 — CTA · OBRIGADO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<section class="slide" id="s8" data-i="14">
   <div class="bg">
     <div class="grid-bg"></div>
     <div class="orb orb-1"></div>
@@ -1847,7 +2475,7 @@ slides.forEach((_,i)=>{
 const sep=document.createElement('div');sep.className='nav-divider';navEl.appendChild(sep);
 const lbl=document.createElement('div');lbl.className='nav-label';lbl.id='nav-num';lbl.textContent='01 — KEYNOTE';navEl.appendChild(lbl);
 
-const titles=['CAPA','PROBLEMA','SOLUÇÃO','ENGENHARIA','STACK','MERCADO','IA','BOT TELEGRAM','PAINEL · VISÃO','PAINEL · TRIAGEM','FLUXO','OBRIGADO'];
+const titles=['CAPA','PROBLEMA','SOLUÇÃO','BOT TELEGRAM','PAINEL · PÚBLICO','PAINEL · VISÃO','PAINEL · TRIAGEM','MERCADO','STACK','ARQUITETURA','ENGENHARIA','IA','FLUXO','ROADMAP','OBRIGADO'];
 
 function update(i){
   document.querySelectorAll('.dot').forEach((d,j)=>d.classList.toggle('on',j===i));
