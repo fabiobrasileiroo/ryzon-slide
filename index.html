@@ -1441,8 +1441,26 @@ body.on-cover .brand{opacity:0;pointer-events:none}
   color:var(--txt);padding:2px 6px;border-radius:5px;line-height:1}
 body.idle .help-btn{opacity:.25}
 
-/* ─── Auto-play badge (bottom-left, stacks above help) ─── */
-.auto-badge{position:fixed;bottom:78px;left:32px;z-index:250;display:none;
+/* ─── Room code pill (bottom-left, above help) ─── */
+.room-pill{position:fixed;bottom:78px;left:32px;z-index:255;
+  display:inline-flex;align-items:center;gap:10px;
+  padding:8px 14px;border-radius:999px;
+  background:linear-gradient(180deg,rgba(0,230,118,.12),rgba(0,230,118,.06));
+  border:1px solid rgba(0,230,118,.32);
+  font-family:'JetBrains Mono',monospace;
+  cursor:pointer;transition:transform .18s var(--ease),border-color .25s var(--ease),background .25s var(--ease);
+  box-shadow:0 8px 22px rgba(0,0,0,.3)}
+.room-pill:hover{transform:translateY(-1px);border-color:rgba(0,230,118,.55);
+  background:linear-gradient(180deg,rgba(0,230,118,.18),rgba(0,230,118,.1))}
+.room-pill .lbl{font-size:9px;letter-spacing:.24em;color:var(--em);
+  text-transform:uppercase;opacity:.75}
+.room-pill .val{font-size:14px;font-weight:700;letter-spacing:.18em;
+  color:var(--em);text-shadow:0 0 12px rgba(0,230,118,.45)}
+.room-pill i{width:14px;height:14px;color:var(--em);opacity:.85}
+body.idle .room-pill{opacity:.35}
+
+/* ─── Auto-play badge (bottom-left, stacks above room pill) ─── */
+.auto-badge{position:fixed;bottom:128px;left:32px;z-index:250;display:none;
   align-items:center;gap:8px;padding:7px 13px;border-radius:999px;
   background:rgba(0,230,118,.12);border:1px solid rgba(0,230,118,.32);
   font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.18em;
@@ -1489,6 +1507,11 @@ body.idle .auto-badge,body.idle .link-badge{opacity:0;transition:opacity .6s var
 
 <div class="auto-badge" id="auto-badge"><span class="dot"></span><span id="auto-label">AUTO 15S</span></div>
 <div class="link-badge" id="link-badge"><span class="dot"></span><span>REMOTO CONECTADO</span></div>
+<button class="room-pill" id="room-pill" type="button" aria-label="Código da sala — abrir controle remoto">
+  <i data-lucide="radio"></i>
+  <span class="lbl">Sala</span>
+  <span class="val" id="room-pill-val">····</span>
+</button>
 <button class="help-btn" id="help-btn" type="button" aria-label="Atalhos e controle remoto">
   <i data-lucide="keyboard"></i>
   <span>Atalhos</span>
@@ -2977,7 +3000,7 @@ document.addEventListener('keydown',e=>{
   if(k==='A'&&e.shiftKey){e.preventDefault();startAuto(30000);return;}
 });
 document.getElementById('deck').addEventListener('click',e=>{
-  if(e.target.closest('a,.arr,.nav-bar,.ch,.help-ov,.help-btn,.auto-badge,.link-badge'))return;
+  if(e.target.closest('a,.arr,.nav-bar,.ch,.help-ov,.help-btn,.room-pill,.auto-badge,.link-badge'))return;
   go(cur_i+1);
 });
 
@@ -2992,6 +3015,8 @@ if(!room){room=genRoom();}
 const remoteUrl=location.origin+location.pathname.replace(/index\.html$/,'')+'remote.html?room='+room;
 document.getElementById('remote-url').textContent=remoteUrl;
 document.getElementById('remote-code').textContent=room;
+document.getElementById('room-pill-val').textContent=room;
+document.getElementById('room-pill').addEventListener('click',e=>{e.stopPropagation();toggleHelp(true);});
 const linkBadge=document.getElementById('link-badge');
 
 function setupPeer(){
