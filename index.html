@@ -1424,18 +1424,35 @@ body.on-cover .brand{opacity:0;pointer-events:none}
 .help-card .close-hint{margin-top:18px;font-size:11px;color:var(--t30);
   font-family:'JetBrains Mono',monospace;letter-spacing:.16em;text-transform:uppercase;text-align:center}
 
-/* ─── Auto-play badge ────────────────────────── */
-.auto-badge{position:fixed;bottom:30px;left:40px;z-index:250;display:none;
-  align-items:center;gap:8px;padding:8px 14px;border-radius:999px;
+/* ─── Help button (bottom-left) ──────────────── */
+.help-btn{position:fixed;bottom:28px;left:32px;z-index:260;
+  display:inline-flex;align-items:center;gap:10px;
+  padding:10px 14px 10px 12px;border-radius:999px;
+  background:linear-gradient(180deg,rgba(20,22,24,.92),rgba(8,10,12,.92));
+  border:1px solid var(--hair);color:var(--t70);cursor:pointer;
+  font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.22em;
+  text-transform:uppercase;transition:transform .18s var(--ease),
+    border-color .25s var(--ease),color .25s var(--ease),background .25s var(--ease);
+  box-shadow:0 8px 22px rgba(0,0,0,.35)}
+.help-btn:hover{color:var(--em);border-color:rgba(0,230,118,.4);transform:translateY(-1px)}
+.help-btn i{width:16px;height:16px}
+.help-btn .kbd{font-family:'JetBrains Mono',monospace;font-size:10px;
+  background:var(--t08);border:1px solid var(--hair);border-bottom-width:2px;
+  color:var(--txt);padding:2px 6px;border-radius:5px;line-height:1}
+body.idle .help-btn{opacity:.25}
+
+/* ─── Auto-play badge (bottom-left, stacks above help) ─── */
+.auto-badge{position:fixed;bottom:78px;left:32px;z-index:250;display:none;
+  align-items:center;gap:8px;padding:7px 13px;border-radius:999px;
   background:rgba(0,230,118,.12);border:1px solid rgba(0,230,118,.32);
-  font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.18em;
+  font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.18em;
   color:var(--em);text-transform:uppercase}
 .auto-badge.on{display:inline-flex;animation:fadein .4s var(--ease) forwards}
 .auto-badge .dot{width:7px;height:7px;border-radius:50%;background:var(--em);
   box-shadow:0 0 10px var(--em);animation:pulse 1.4s ease-in-out infinite}
 
 /* ─── Remote connect badge ───────────────────── */
-.link-badge{position:fixed;bottom:30px;right:40px;z-index:250;display:none;
+.link-badge{position:fixed;bottom:28px;right:32px;z-index:250;display:none;
   align-items:center;gap:8px;padding:8px 14px;border-radius:999px;
   background:rgba(92,225,255,.10);border:1px solid rgba(92,225,255,.28);
   font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.18em;
@@ -1444,14 +1461,6 @@ body.on-cover .brand{opacity:0;pointer-events:none}
 .link-badge .dot{width:7px;height:7px;border-radius:50%;background:var(--cy);
   box-shadow:0 0 10px var(--cy)}
 body.idle .auto-badge,body.idle .link-badge{opacity:0;transition:opacity .6s var(--ease)}
-
-/* ─── Help hint button ───────────────────────── */
-.help-hint{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);
-  z-index:200;font-family:'JetBrains Mono',monospace;font-size:10px;
-  letter-spacing:.22em;color:var(--t30);text-transform:uppercase;
-  padding:6px 12px;border-radius:999px;border:1px solid var(--hair);
-  background:var(--t04);cursor:none;pointer-events:none}
-body.idle .help-hint{opacity:0;transition:opacity .6s var(--ease)}
 </style>
 </head>
 <body>
@@ -1480,7 +1489,11 @@ body.idle .help-hint{opacity:0;transition:opacity .6s var(--ease)}
 
 <div class="auto-badge" id="auto-badge"><span class="dot"></span><span id="auto-label">AUTO 15S</span></div>
 <div class="link-badge" id="link-badge"><span class="dot"></span><span>REMOTO CONECTADO</span></div>
-<div class="help-hint">? para atalhos</div>
+<button class="help-btn" id="help-btn" type="button" aria-label="Atalhos e controle remoto">
+  <i data-lucide="keyboard"></i>
+  <span>Atalhos</span>
+  <span class="kbd">?</span>
+</button>
 
 <div class="help-ov" id="help-ov" role="dialog" aria-modal="true">
   <div class="help-card">
@@ -2948,6 +2961,7 @@ function toggleHelp(force){
   helpOv.classList.toggle('on',next);
 }
 helpOv.addEventListener('click',e=>{if(e.target===helpOv)toggleHelp(false);});
+document.getElementById('help-btn').addEventListener('click',e=>{e.stopPropagation();toggleHelp();});
 
 /* ─── Keyboard shortcuts ─── */
 document.addEventListener('keydown',e=>{
@@ -2963,7 +2977,7 @@ document.addEventListener('keydown',e=>{
   if(k==='A'&&e.shiftKey){e.preventDefault();startAuto(30000);return;}
 });
 document.getElementById('deck').addEventListener('click',e=>{
-  if(e.target.closest('a,.arr,.nav-bar,.ch,.help-ov'))return;
+  if(e.target.closest('a,.arr,.nav-bar,.ch,.help-ov,.help-btn,.auto-badge,.link-badge'))return;
   go(cur_i+1);
 });
 
