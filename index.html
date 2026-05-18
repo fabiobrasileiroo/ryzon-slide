@@ -1121,17 +1121,17 @@ body.on-cover .brand{opacity:0;pointer-events:none}
 }
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   SLIDE — GEOALERTA · PIPELINE DE DADOS (diagrama)
+   SLIDE — GEOALERTA · PIPELINE DE DADOS (native diagram)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 #sPipe{justify-content:center;align-items:center}
 #sPipe .wrap{
   width:100%;max-width:1500px;position:relative;z-index:2;
-  display:flex;flex-direction:column;gap:24px;
+  display:flex;flex-direction:column;gap:18px;
 }
 #sPipe .head{display:flex;align-items:flex-end;justify-content:space-between;gap:60px}
 #sPipe h2{max-width:760px;font-size:clamp(38px,4.4vw,64px)}
 #sPipe .pipe-meta{
-  display:flex;gap:18px;align-items:flex-end;flex-wrap:wrap;justify-content:flex-end;
+  display:flex;gap:8px;align-items:flex-end;flex-wrap:wrap;justify-content:flex-end;
 }
 #sPipe .pipe-meta .tier{
   display:flex;align-items:center;gap:8px;
@@ -1141,48 +1141,106 @@ body.on-cover .brand{opacity:0;pointer-events:none}
   background:rgba(255,255,255,.02);
 }
 #sPipe .pipe-meta .tier .sw{width:8px;height:8px;border-radius:2px}
-#sPipe .pipe-meta .tier.bronze .sw{background:#cd7f32;box-shadow:0 0 8px rgba(205,127,50,.45)}
-#sPipe .pipe-meta .tier.silver .sw{background:#c0c8d0;box-shadow:0 0 8px rgba(192,200,208,.45)}
-#sPipe .pipe-meta .tier.gold   .sw{background:#ffd60a;box-shadow:0 0 10px rgba(255,214,10,.55)}
+#sPipe .pipe-meta .tier.bronze .sw{background:#cd7f32;box-shadow:0 0 8px rgba(205,127,50,.55)}
+#sPipe .pipe-meta .tier.silver .sw{background:#c0c8d0;box-shadow:0 0 8px rgba(192,200,208,.5)}
+#sPipe .pipe-meta .tier.gold   .sw{background:#ffd60a;box-shadow:0 0 10px rgba(255,214,10,.6)}
 
-#sPipe .pipe-stage{
-  position:relative;border:1px solid var(--hair);border-radius:16px;
-  background:rgba(255,255,255,.96);
-  padding:24px;
-  box-shadow:0 24px 64px rgba(0,0,0,.55),0 0 0 1px rgba(255,255,255,.04) inset;
-  overflow:hidden;
+#sPipe .pipe-flow{
+  display:flex;flex-direction:column;gap:8px;
 }
-#sPipe .pipe-stage .pipe-tag{
-  position:absolute;top:14px;right:14px;z-index:2;
-  font-family:'JetBrains Mono',monospace;font-size:10px;
-  letter-spacing:.16em;text-transform:uppercase;
-  padding:5px 10px;background:rgba(0,230,118,.14);
-  border:1px solid rgba(0,230,118,.35);border-radius:100px;
-  color:#066d39;font-weight:700;
+#sPipe .pipe-tier,#sPipe .pipe-row{
+  position:relative;border:1px solid var(--hair);border-radius:14px;
+  padding:12px 16px;
+  background:rgba(255,255,255,.014);
+  display:flex;align-items:center;gap:18px;
+  transition:transform .4s var(--ease),border-color .4s var(--ease);
 }
-#sPipe .pipe-stage img{
-  display:block;width:100%;height:auto;max-height:64vh;
-  object-fit:contain;object-position:center;
+#sPipe .pipe-tier{padding-left:170px}
+#sPipe .tier-tag{
+  position:absolute;left:18px;top:50%;transform:translateY(-50%);
+  display:flex;flex-direction:column;gap:2px;
+  font-family:'JetBrains Mono',monospace;
 }
+#sPipe .tier-tag .sw{width:10px;height:10px;border-radius:2px;margin-bottom:4px}
+#sPipe .tier-tag .tlbl{font-size:13px;letter-spacing:.2em;font-weight:700}
+#sPipe .tier-tag .tdesc{font-size:10px;letter-spacing:.05em;color:var(--t50);text-transform:lowercase}
 
-#sPipe .pipe-caption{
-  display:flex;align-items:center;justify-content:space-between;gap:24px;
-  font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;
-  text-transform:uppercase;color:var(--t50);
-  padding-top:14px;border-top:1px solid var(--hair);
+#sPipe .pipe-tier.bronze{border-color:rgba(205,127,50,.35);background:rgba(205,127,50,.045)}
+#sPipe .pipe-tier.bronze .tier-tag .sw{background:#cd7f32;box-shadow:0 0 8px rgba(205,127,50,.6)}
+#sPipe .pipe-tier.bronze .tier-tag .tlbl{color:#e6a361}
+#sPipe .pipe-tier.silver{border-color:rgba(192,200,208,.3);background:rgba(192,200,208,.035)}
+#sPipe .pipe-tier.silver .tier-tag .sw{background:#c0c8d0;box-shadow:0 0 8px rgba(192,200,208,.55)}
+#sPipe .pipe-tier.silver .tier-tag .tlbl{color:#dde2ea}
+#sPipe .pipe-tier.gold{border-color:rgba(255,214,10,.35);background:rgba(255,214,10,.045)}
+#sPipe .pipe-tier.gold .tier-tag .sw{background:#ffd60a;box-shadow:0 0 10px rgba(255,214,10,.7)}
+#sPipe .pipe-tier.gold .tier-tag .tlbl{color:#ffe261}
+
+#sPipe .pipe-row .row-tag{
+  display:flex;align-items:center;gap:8px;
+  font-family:'JetBrains Mono',monospace;font-size:10.5px;
+  letter-spacing:.18em;text-transform:uppercase;
+  min-width:120px;
 }
-#sPipe .pipe-caption .flow{
-  display:flex;align-items:center;gap:10px;color:var(--t70);
+#sPipe .pipe-row .row-tag .rt-dot{width:8px;height:8px;border-radius:50%}
+#sPipe .pipe-row.pipe-ingest{border-color:rgba(92,225,255,.25);background:rgba(92,225,255,.03)}
+#sPipe .pipe-row.pipe-ingest .row-tag{color:var(--cy)}
+#sPipe .pipe-row.pipe-ingest .row-tag .rt-dot{background:var(--cy);box-shadow:0 0 8px rgba(92,225,255,.6)}
+#sPipe .pipe-row.pipe-serve{border-color:rgba(0,230,118,.28);background:rgba(0,230,118,.04)}
+#sPipe .pipe-row.pipe-serve .row-tag{color:var(--em)}
+#sPipe .pipe-row.pipe-serve .row-tag .rt-dot{background:var(--em);box-shadow:0 0 10px rgba(0,230,118,.6)}
+
+#sPipe .row-steps{
+  flex:1;display:flex;align-items:stretch;gap:6px;min-width:0;
 }
-#sPipe .pipe-caption .flow .arrow{color:var(--em)}
-#sPipe .pipe-caption .source{color:var(--t30)}
+#sPipe .pstep{
+  flex:1;display:flex;align-items:center;gap:10px;
+  padding:9px 12px;border-radius:10px;
+  background:rgba(0,0,0,.28);
+  border:1px solid var(--hair);
+  min-width:0;
+  transition:transform .35s var(--ease),border-color .35s var(--ease),box-shadow .35s var(--ease);
+}
+#sPipe .pstep:hover{transform:translateY(-2px);border-color:rgba(0,230,118,.3);
+  box-shadow:0 8px 24px rgba(0,0,0,.4),0 0 18px rgba(0,230,118,.08)}
+#sPipe .pstep > i,#sPipe .pstep > img{
+  width:18px;height:18px;flex-shrink:0;object-fit:contain;
+}
+#sPipe .pstep > i{color:var(--em)}
+#sPipe .pstep.src > i{color:var(--cy)}
+#sPipe .pstep.serve > i{color:var(--em)}
+#sPipe .pstep .ps-body{display:flex;flex-direction:column;gap:1px;min-width:0;flex:1}
+#sPipe .pstep .ps-t{
+  font-family:'Bricolage Grotesque',sans-serif;font-size:13.5px;font-weight:600;
+  letter-spacing:-.005em;color:var(--t90);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+#sPipe .pstep .ps-d{
+  font-size:11px;color:var(--t50);line-height:1.35;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+#sPipe .parrow{display:flex;align-items:center;color:var(--t30);flex-shrink:0}
+#sPipe .parrow i{width:16px;height:16px}
+
+#sPipe .pipe-down{
+  display:flex;align-items:center;justify-content:center;
+  color:var(--t30);height:14px;
+}
+#sPipe .pipe-down i{width:18px;height:18px}
 
 @media (max-height:820px){
-  #sPipe .wrap{gap:16px}
+  #sPipe .wrap{gap:12px}
   #sPipe h2{font-size:clamp(28px,3vw,46px)}
-  #sPipe .pipe-stage{padding:18px}
-  #sPipe .pipe-stage img{max-height:58vh}
-  #sPipe .pipe-caption{font-size:10px}
+  #sPipe .pipe-flow{gap:5px}
+  #sPipe .pipe-tier,#sPipe .pipe-row{padding:9px 14px;gap:14px}
+  #sPipe .pipe-tier{padding-left:160px}
+  #sPipe .pstep{padding:7px 10px;gap:8px}
+  #sPipe .pstep > i,#sPipe .pstep > img{width:16px;height:16px}
+  #sPipe .pstep .ps-t{font-size:12.5px}
+  #sPipe .pstep .ps-d{font-size:10.5px}
+  #sPipe .tier-tag .tlbl{font-size:12px}
+  #sPipe .tier-tag .tdesc{font-size:9.5px}
+  #sPipe .pipe-down{height:8px}
+  #sPipe .pipe-down i{width:14px;height:14px}
 }
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -2154,20 +2212,186 @@ body.on-cover .brand{opacity:0;pointer-events:none}
       </div>
     </div>
 
-    <div class="pipe-stage blurin d-4">
-      <span class="pipe-tag">Arquitetura · Lakehouse</span>
-      <img src="assets/diagrama-pipeline-geoalerta.jpeg" alt="Diagrama do pipeline de dados GeoAlerta — Bronze, Silver, Gold com Airflow, Databricks, S3 e Nominatim"/>
-    </div>
+    <div class="pipe-flow">
 
-    <div class="pipe-caption blurin d-5">
-      <div class="flow">
-        <span>denúncias</span><span class="arrow">→</span>
-        <span>Airflow</span><span class="arrow">→</span>
-        <span>Databricks · S3</span><span class="arrow">→</span>
-        <span>API PythonAnywhere</span><span class="arrow">→</span>
-        <span>Mapa dashboard</span>
+      <!-- Ingestion / orchestration -->
+      <div class="pipe-row pipe-ingest blurin d-3">
+        <div class="row-tag"><span class="rt-dot"></span>INGESTION</div>
+        <div class="row-steps">
+          <div class="pstep src">
+            <i data-lucide="message-square-warning"></i>
+            <div class="ps-body">
+              <div class="ps-t">denúncias</div>
+              <div class="ps-d">cidadão · Telegram</div>
+            </div>
+          </div>
+          <div class="parrow"><i data-lucide="chevron-right"></i></div>
+          <div class="pstep src">
+            <i data-lucide="webhook"></i>
+            <div class="ps-body">
+              <div class="ps-t">Rizon API</div>
+              <div class="ps-d">NestJS · ingestão</div>
+            </div>
+          </div>
+          <div class="parrow"><i data-lucide="chevron-right"></i></div>
+          <div class="pstep src">
+            <img src="https://cdn.simpleicons.org/apacheairflow/017CEE" alt=""/>
+            <div class="ps-body">
+              <div class="ps-t">Apache Airflow</div>
+              <div class="ps-d">DAG · coleta · dispara</div>
+            </div>
+          </div>
+          <div class="parrow"><i data-lucide="chevron-right"></i></div>
+          <div class="pstep src">
+            <img src="https://cdn.simpleicons.org/databricks/FF3621" alt=""/>
+            <div class="ps-body">
+              <div class="ps-t">Databricks Jobs</div>
+              <div class="ps-d">PySpark · consome &amp; envia</div>
+            </div>
+          </div>
+          <div class="parrow"><i data-lucide="chevron-right"></i></div>
+          <div class="pstep src">
+            <img src="https://cdn.simpleicons.org/amazons3/569A31" alt=""/>
+            <div class="ps-body">
+              <div class="ps-t">AWS S3</div>
+              <div class="ps-d">landing · raw bucket</div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="source">FONTE · DIAGRAMA INTERNO · 2026</div>
+
+      <div class="pipe-down"><i data-lucide="arrow-down"></i></div>
+
+      <!-- Bronze tier -->
+      <div class="pipe-tier bronze blurin d-4">
+        <div class="tier-tag">
+          <span class="sw"></span>
+          <span class="tlbl">BRONZE</span>
+          <span class="tdesc">raw ingestion</span>
+        </div>
+        <div class="row-steps">
+          <div class="pstep">
+            <i data-lucide="hard-drive-download"></i>
+            <div class="ps-body">
+              <div class="ps-t">Leitura S3</div>
+              <div class="ps-d">JSON bruto</div>
+            </div>
+          </div>
+          <div class="parrow"><i data-lucide="chevron-right"></i></div>
+          <div class="pstep">
+            <i data-lucide="crop"></i>
+            <div class="ps-body">
+              <div class="ps-t">Filtro Bounding Box</div>
+              <div class="ps-d">recorte amplo</div>
+            </div>
+          </div>
+          <div class="parrow"><i data-lucide="chevron-right"></i></div>
+          <div class="pstep">
+            <i data-lucide="table"></i>
+            <div class="ps-body">
+              <div class="ps-t">bronze.denuncias_staged</div>
+              <div class="ps-d">tabela versionada</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pipe-down"><i data-lucide="arrow-down"></i></div>
+
+      <!-- Silver tier -->
+      <div class="pipe-tier silver blurin d-5">
+        <div class="tier-tag">
+          <span class="sw"></span>
+          <span class="tlbl">SILVER</span>
+          <span class="tdesc">matemática espacial</span>
+        </div>
+        <div class="row-steps">
+          <div class="pstep">
+            <i data-lucide="layers"></i>
+            <div class="ps-body">
+              <div class="ps-t">Cruzamento Shapefiles</div>
+              <div class="ps-d">S3 · TI · garimpo · APP</div>
+            </div>
+          </div>
+          <div class="parrow"><i data-lucide="chevron-right"></i></div>
+          <div class="pstep">
+            <i data-lucide="flag"></i>
+            <div class="ps-body">
+              <div class="ps-t">Gera Flags</div>
+              <div class="ps-d">in_mining_area · in_ti_context</div>
+            </div>
+          </div>
+          <div class="parrow"><i data-lucide="chevron-right"></i></div>
+          <div class="pstep">
+            <i data-lucide="file-json-2"></i>
+            <div class="ps-body">
+              <div class="ps-t">Backup S3 · JSON</div>
+              <div class="ps-d">snapshot processado</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pipe-down"><i data-lucide="arrow-down"></i></div>
+
+      <!-- Gold tier -->
+      <div class="pipe-tier gold blurin d-6">
+        <div class="tier-tag">
+          <span class="sw"></span>
+          <span class="tlbl">GOLD</span>
+          <span class="tdesc">regras de negócio</span>
+        </div>
+        <div class="row-steps">
+          <div class="pstep">
+            <i data-lucide="map-pin"></i>
+            <div class="ps-body">
+              <div class="ps-t">Geocodificação reversa</div>
+              <div class="ps-d">API Nominatim</div>
+            </div>
+          </div>
+          <div class="parrow"><i data-lucide="chevron-right"></i></div>
+          <div class="pstep">
+            <i data-lucide="gauge"></i>
+            <div class="ps-body">
+              <div class="ps-t">Confidence Score</div>
+              <div class="ps-d">&amp; severidade</div>
+            </div>
+          </div>
+          <div class="parrow"><i data-lucide="chevron-right"></i></div>
+          <div class="pstep">
+            <i data-lucide="filter"></i>
+            <div class="ps-body">
+              <div class="ps-t">Filtro de qualidade</div>
+              <div class="ps-d">score ≥ 50</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pipe-down"><i data-lucide="arrow-down"></i></div>
+
+      <!-- Serving -->
+      <div class="pipe-row pipe-serve blurin d-7">
+        <div class="row-tag"><span class="rt-dot"></span>SERVING</div>
+        <div class="row-steps">
+          <div class="pstep serve">
+            <i data-lucide="cloud"></i>
+            <div class="ps-body">
+              <div class="ps-t">API PythonAnywhere</div>
+              <div class="ps-d">recebe denúncias · cruzamento</div>
+            </div>
+          </div>
+          <div class="parrow"><i data-lucide="chevron-right"></i></div>
+          <div class="pstep serve">
+            <i data-lucide="map"></i>
+            <div class="ps-body">
+              <div class="ps-t">Mapa Dashboard</div>
+              <div class="ps-d">GeoAlerta · Monitor Amazônico</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
