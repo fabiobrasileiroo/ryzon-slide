@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no,viewport-fit=cover"/>
+<title>Ryzon · Controle Remoto</title>
+<link rel="icon" type="image/png" href="assets/ryzon-logo-sem-background.png"/>
+<link rel="apple-touch-icon" href="assets/ryzon-logo-sem-background.png"/>
+<meta name="theme-color" content="#000000"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet"/>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
+:root{
+  --bg:#000;--bg2:#0a0a0c;--em:#00e676;--em-d:#00b85a;--cy:#5ce1ff;
+  --txt:#fff;--t90:rgba(255,255,255,.9);--t70:rgba(255,255,255,.7);
+  --t50:rgba(255,255,255,.5);--t30:rgba(255,255,255,.3);--t15:rgba(255,255,255,.15);
+  --t08:rgba(255,255,255,.08);--t04:rgba(255,255,255,.04);--hair:rgba(255,255,255,.1);
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+html,body{width:100%;min-height:100%;background:var(--bg);color:var(--txt);
+  font-family:'Manrope',sans-serif;overflow-x:hidden}
+body{min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;
+  padding:24px 20px calc(24px + env(safe-area-inset-bottom));gap:18px;
+  background:
+    radial-gradient(60% 40% at 50% 0%,rgba(0,230,118,.10),transparent 60%),
+    radial-gradient(50% 35% at 50% 100%,rgba(92,225,255,.06),transparent 60%),
+    #000}
+
+/* ─── Header ─── */
+.hdr{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.hdr .brand{display:flex;align-items:center;gap:10px}
+.hdr .brand img{height:36px;width:auto;filter:drop-shadow(0 0 14px rgba(0,230,118,.5))}
+.hdr .brand .t{font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:15px;letter-spacing:-.01em}
+.hdr .brand .s{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.22em;color:var(--t30);text-transform:uppercase;margin-top:2px}
+.hdr .status{display:flex;align-items:center;gap:8px;padding:7px 12px;border-radius:999px;
+  background:var(--t04);border:1px solid var(--hair);
+  font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.18em;color:var(--t50);text-transform:uppercase}
+.hdr .status .dot{width:7px;height:7px;border-radius:50%;background:var(--t30)}
+.hdr .status.ok{background:rgba(0,230,118,.10);border-color:rgba(0,230,118,.28);color:var(--em)}
+.hdr .status.ok .dot{background:var(--em);box-shadow:0 0 10px var(--em);animation:pulse 1.4s ease-in-out infinite}
+.hdr .status.err{background:rgba(255,107,53,.10);border-color:rgba(255,107,53,.28);color:#ff8b5a}
+.hdr .status.err .dot{background:#ff8b5a}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+
+/* ─── Room ─── */
+.room{display:flex;align-items:center;gap:10px;padding:14px 16px;border-radius:14px;
+  background:linear-gradient(180deg,rgba(20,22,24,.9),rgba(8,10,12,.9));
+  border:1px solid var(--hair)}
+.room label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.22em;color:var(--t50);text-transform:uppercase}
+.room input{flex:1;background:transparent;border:none;outline:none;color:var(--txt);
+  font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:700;letter-spacing:.22em;
+  text-transform:uppercase;text-align:center;min-width:0;width:100%}
+.room button{background:var(--em);color:#000;border:none;border-radius:10px;
+  padding:10px 14px;font-family:'Manrope',sans-serif;font-weight:700;font-size:13px;
+  letter-spacing:.04em;cursor:pointer;transition:transform .15s var(--ease),background .2s var(--ease)}
+.room button:active{transform:scale(.96)}
+.room button:disabled{background:var(--t15);color:var(--t50);cursor:not-allowed}
+
+/* ─── Main controls ─── */
+.pad{flex:1;display:grid;grid-template-rows:1fr auto;gap:16px;min-height:0}
+.bigs{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.btn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;
+  background:linear-gradient(180deg,rgba(20,22,24,.95),rgba(8,10,12,.95));
+  border:1px solid var(--hair);border-radius:18px;color:var(--txt);
+  font-family:'Manrope',sans-serif;font-weight:600;font-size:14px;letter-spacing:.04em;
+  padding:18px 14px;cursor:pointer;transition:transform .12s var(--ease),border-color .2s var(--ease),background .2s var(--ease);
+  -webkit-user-select:none;user-select:none;text-transform:uppercase}
+.btn i{width:28px;height:28px}
+.btn:active{transform:scale(.97)}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.btn.big{font-size:16px;padding:32px 16px}
+.btn.big i{width:48px;height:48px}
+.btn.primary{background:linear-gradient(180deg,rgba(0,230,118,.18),rgba(0,184,90,.12));
+  border-color:rgba(0,230,118,.42);color:var(--em)}
+.btn.primary:active{background:linear-gradient(180deg,rgba(0,230,118,.28),rgba(0,184,90,.2))}
+.btn.ghost{background:var(--t04);border-color:var(--hair);color:var(--t70);font-size:12px;padding:14px 10px}
+.btn.ghost i{width:20px;height:20px}
+.btn.on{background:rgba(0,230,118,.18);border-color:rgba(0,230,118,.45);color:var(--em);
+  box-shadow:0 0 0 1px rgba(0,230,118,.18) inset,0 0 22px rgba(0,230,118,.15)}
+
+.row{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.row3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.sect-t{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.22em;
+  color:var(--t30);text-transform:uppercase;margin:4px 2px -4px}
+
+/* ─── Toast ─── */
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom));
+  transform:translateX(-50%);padding:10px 16px;border-radius:999px;
+  background:rgba(0,230,118,.15);border:1px solid rgba(0,230,118,.4);
+  font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.18em;
+  color:var(--em);text-transform:uppercase;opacity:0;pointer-events:none;
+  transition:opacity .25s var(--ease),transform .25s var(--ease);z-index:50}
+.toast.on{opacity:1;transform:translateX(-50%) translateY(-4px)}
+
+/* ─── Footer / shortcuts ─── */
+.foot{padding:14px 16px;border-radius:14px;background:var(--t04);
+  border:1px solid var(--hair)}
+.foot h4{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.22em;
+  color:var(--t50);text-transform:uppercase;margin-bottom:10px}
+.foot .grid{display:grid;grid-template-columns:1fr 1fr;gap:8px 18px}
+.foot .it{display:flex;align-items:center;justify-content:space-between;gap:8px;
+  font-size:12px;color:var(--t70)}
+.foot kbd{font-family:'JetBrains Mono',monospace;font-size:11px;background:var(--t08);
+  border:1px solid var(--hair);border-bottom-width:2px;color:var(--txt);
+  padding:2px 7px;border-radius:5px;min-width:22px;text-align:center;display:inline-block}
+
+@media (min-width:720px){
+  body{padding:36px 32px;max-width:560px;margin:0 auto}
+  .btn.big{padding:48px 18px}
+}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="brand">
+    <img src="assets/ryzon-logo-sem-background.png" alt="Ryzon"/>
+    <div>
+      <div class="t">Controle Remoto</div>
+      <div class="s">Ryzon · Keynote</div>
+    </div>
+  </div>
+  <div class="status" id="status"><span class="dot"></span><span id="status-t">Desconectado</span></div>
+</header>
+
+<div class="room">
+  <label for="room-input">Sala</label>
+  <input id="room-input" type="text" maxlength="6" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="••••"/>
+  <button id="connect-btn" type="button">Conectar</button>
+</div>
+
+<div class="pad">
+  <div class="bigs">
+    <button class="btn big" data-cmd="prev"><i data-lucide="chevron-left"></i>Anterior</button>
+    <button class="btn big primary" data-cmd="next"><i data-lucide="chevron-right"></i>Próximo</button>
+  </div>
+
+  <div>
+    <div class="sect-t">Navegação</div>
+    <div class="row" style="margin-top:6px">
+      <button class="btn" data-cmd="first"><i data-lucide="chevrons-left"></i>Primeiro · 0</button>
+      <button class="btn" data-cmd="last"><i data-lucide="chevrons-right"></i>Último · 9</button>
+    </div>
+
+    <div class="sect-t" style="margin-top:14px">Auto-avanço</div>
+    <div class="row3" style="margin-top:6px">
+      <button class="btn ghost" id="b-a15" data-cmd="auto15"><i data-lucide="timer"></i>15 s · a</button>
+      <button class="btn ghost" id="b-a30" data-cmd="auto30"><i data-lucide="timer"></i>30 s · A</button>
+      <button class="btn ghost" data-cmd="stop"><i data-lucide="square"></i>Parar · Esc</button>
+    </div>
+  </div>
+</div>
+
+<div class="foot">
+  <h4>Atalhos no controle</h4>
+  <div class="grid">
+    <div class="it"><span>Próximo</span><span><kbd>→</kbd> <kbd>Espaço</kbd></span></div>
+    <div class="it"><span>Anterior</span><span><kbd>←</kbd></span></div>
+    <div class="it"><span>Primeiro</span><span><kbd>0</kbd></span></div>
+    <div class="it"><span>Último</span><span><kbd>9</kbd></span></div>
+    <div class="it"><span>Auto 15 s</span><span><kbd>a</kbd></span></div>
+    <div class="it"><span>Auto 30 s</span><span><kbd>⇧A</kbd></span></div>
+    <div class="it"><span>Parar auto</span><span><kbd>Esc</kbd></span></div>
+    <div class="it"><span>Ajuda no slide</span><span><kbd>?</kbd></span></div>
+  </div>
+</div>
+
+<div class="toast" id="toast">Conectado</div>
+
+<script>
+const $ = s => document.querySelector(s);
+const statusEl = $('#status');
+const statusT = $('#status-t');
+const toast = $('#toast');
+const roomInput = $('#room-input');
+const connectBtn = $('#connect-btn');
+const a15Btn = $('#b-a15');
+const a30Btn = $('#b-a30');
+
+let conn = null, peer = null, currentAuto = null;
+
+function setStatus(state, text){
+  statusEl.classList.remove('ok','err');
+  if(state==='ok')statusEl.classList.add('ok');
+  if(state==='err')statusEl.classList.add('err');
+  statusT.textContent=text;
+}
+function flash(msg){
+  toast.textContent=msg;
+  toast.classList.add('on');
+  clearTimeout(flash._t);
+  flash._t=setTimeout(()=>toast.classList.remove('on'),1200);
+}
+function setAutoUi(which){
+  currentAuto=which;
+  a15Btn.classList.toggle('on',which==='auto15');
+  a30Btn.classList.toggle('on',which==='auto30');
+}
+
+function getRoomFromUrl(){
+  return (new URLSearchParams(location.search).get('room')||'').toUpperCase();
+}
+function normalize(v){return (v||'').toUpperCase().replace(/[^A-Z0-9]/g,'').slice(0,6);}
+
+const initial=getRoomFromUrl();
+if(initial)roomInput.value=initial;
+
+function connect(){
+  const room=normalize(roomInput.value);
+  if(room.length<3){flash('Código inválido');return;}
+  roomInput.value=room;
+  setStatus('','Conectando...');
+  connectBtn.disabled=true;
+
+  try{
+    if(peer){try{peer.destroy();}catch(e){}}
+    peer=new Peer({debug:0});
+  }catch(err){setStatus('err','Erro PeerJS');connectBtn.disabled=false;return;}
+
+  peer.on('open',()=>{
+    conn=peer.connect('ryzon-slide-'+room,{reliable:true});
+    conn.on('open',()=>{
+      setStatus('ok','Conectado · '+room);
+      connectBtn.disabled=false;
+      connectBtn.textContent='Reconectar';
+      flash('Conectado');
+      try{history.replaceState(null,'',location.pathname+'?room='+room);}catch(e){}
+    });
+    conn.on('close',()=>{setStatus('err','Conexão encerrada');connectBtn.disabled=false;});
+    conn.on('error',()=>{setStatus('err','Falha de conexão');connectBtn.disabled=false;});
+  });
+  peer.on('error',err=>{
+    setStatus('err',err.type==='peer-unavailable'?'Sala não encontrada':'Erro: '+err.type);
+    connectBtn.disabled=false;
+  });
+}
+
+function send(cmd){
+  if(!conn||!conn.open){flash('Sem conexão');return;}
+  conn.send(cmd);
+  if(cmd==='auto15')setAutoUi('auto15');
+  else if(cmd==='auto30')setAutoUi('auto30');
+  else setAutoUi(null);
+}
+
+document.querySelectorAll('[data-cmd]').forEach(b=>{
+  b.addEventListener('click',()=>send(b.dataset.cmd));
+});
+connectBtn.addEventListener('click',connect);
+roomInput.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();connect();}});
+roomInput.addEventListener('input',()=>{roomInput.value=normalize(roomInput.value);});
+
+document.addEventListener('keydown',e=>{
+  if(e.target===roomInput)return;
+  const k=e.key;
+  if(k==='ArrowRight'||k===' '){e.preventDefault();send('next');return;}
+  if(k==='ArrowLeft'){e.preventDefault();send('prev');return;}
+  if(k==='Home'||k==='0'){e.preventDefault();send('first');return;}
+  if(k==='End'||k==='9'){e.preventDefault();send('last');return;}
+  if(k==='a'&&!e.shiftKey){e.preventDefault();send('auto15');return;}
+  if(k==='A'&&e.shiftKey){e.preventDefault();send('auto30');return;}
+  if(k==='Escape'){e.preventDefault();send('stop');return;}
+  if(k==='?'){e.preventDefault();send('help');return;}
+});
+
+lucide.createIcons();
+if(initial)connect();
+</script>
+</body>
+</html>

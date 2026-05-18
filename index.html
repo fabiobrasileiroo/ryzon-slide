@@ -14,6 +14,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,500;12..96,700;12..96,800&family=Instrument+Serif:ital@0;1&family=Manrope:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
 <style>
 /* ─── Tokens ─────────────────────────────────── */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-font-smoothing:antialiased}
@@ -1384,6 +1385,73 @@ body.on-cover .brand{opacity:0;pointer-events:none}
 .ch:hover i{transform:scale(1.12)}
 #s8 .tag-end{font-family:'JetBrains Mono',monospace;font-size:11px;
   letter-spacing:.22em;color:var(--t30);text-transform:uppercase;margin-top:8px}
+
+/* ─── Help overlay (?) ───────────────────────── */
+.help-ov{position:fixed;inset:0;z-index:9000;display:none;
+  align-items:center;justify-content:center;
+  background:rgba(0,0,0,.78);backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);opacity:0;transition:opacity .35s var(--ease)}
+.help-ov.on{display:flex;opacity:1}
+.help-card{width:min(640px,92vw);max-height:88vh;overflow:auto;
+  background:linear-gradient(180deg,rgba(20,22,24,.96),rgba(8,10,12,.96));
+  border:1px solid var(--hair);border-radius:18px;padding:32px 36px;
+  box-shadow:0 30px 80px rgba(0,0,0,.5),0 0 0 1px rgba(0,230,118,.06) inset;
+  font-family:'Manrope',sans-serif}
+.help-card h3{font-family:'Bricolage Grotesque',sans-serif;
+  font-weight:700;font-size:22px;letter-spacing:-.01em;margin-bottom:4px}
+.help-card .sub{font-family:'JetBrains Mono',monospace;font-size:11px;
+  letter-spacing:.22em;color:var(--em);text-transform:uppercase;margin-bottom:22px}
+.help-card .row{display:flex;align-items:center;justify-content:space-between;
+  padding:11px 0;border-bottom:1px solid var(--t08);gap:18px}
+.help-card .row:last-child{border-bottom:none}
+.help-card .lbl{font-size:14px;color:var(--t70);flex:1}
+.help-card .keys{display:flex;gap:6px;flex-shrink:0}
+.help-card kbd{font-family:'JetBrains Mono',monospace;font-size:12px;
+  background:var(--t08);border:1px solid var(--hair);border-bottom-width:2px;
+  color:var(--txt);padding:4px 9px;border-radius:6px;min-width:28px;
+  display:inline-flex;align-items:center;justify-content:center}
+.help-card .remote-box{margin-top:22px;padding:16px 18px;border-radius:12px;
+  background:rgba(0,230,118,.06);border:1px solid rgba(0,230,118,.18)}
+.help-card .remote-box .t1{font-family:'JetBrains Mono',monospace;font-size:10px;
+  letter-spacing:.22em;color:var(--em);text-transform:uppercase;margin-bottom:6px}
+.help-card .remote-box .t2{font-size:13px;color:var(--t70);margin-bottom:10px;line-height:1.5}
+.help-card .remote-box .url{font-family:'JetBrains Mono',monospace;font-size:13px;
+  color:var(--txt);word-break:break-all;background:var(--bg);padding:8px 10px;
+  border-radius:6px;border:1px solid var(--hair)}
+.help-card .remote-box .code{font-family:'JetBrains Mono',monospace;
+  font-size:26px;font-weight:700;letter-spacing:.18em;color:var(--em);
+  text-shadow:0 0 18px rgba(0,230,118,.45);margin-top:8px;display:block}
+.help-card .close-hint{margin-top:18px;font-size:11px;color:var(--t30);
+  font-family:'JetBrains Mono',monospace;letter-spacing:.16em;text-transform:uppercase;text-align:center}
+
+/* ─── Auto-play badge ────────────────────────── */
+.auto-badge{position:fixed;bottom:30px;left:40px;z-index:250;display:none;
+  align-items:center;gap:8px;padding:8px 14px;border-radius:999px;
+  background:rgba(0,230,118,.12);border:1px solid rgba(0,230,118,.32);
+  font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.18em;
+  color:var(--em);text-transform:uppercase}
+.auto-badge.on{display:inline-flex;animation:fadein .4s var(--ease) forwards}
+.auto-badge .dot{width:7px;height:7px;border-radius:50%;background:var(--em);
+  box-shadow:0 0 10px var(--em);animation:pulse 1.4s ease-in-out infinite}
+
+/* ─── Remote connect badge ───────────────────── */
+.link-badge{position:fixed;bottom:30px;right:40px;z-index:250;display:none;
+  align-items:center;gap:8px;padding:8px 14px;border-radius:999px;
+  background:rgba(92,225,255,.10);border:1px solid rgba(92,225,255,.28);
+  font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.18em;
+  color:var(--cy);text-transform:uppercase}
+.link-badge.on{display:inline-flex;animation:fadein .4s var(--ease) forwards}
+.link-badge .dot{width:7px;height:7px;border-radius:50%;background:var(--cy);
+  box-shadow:0 0 10px var(--cy)}
+body.idle .auto-badge,body.idle .link-badge{opacity:0;transition:opacity .6s var(--ease)}
+
+/* ─── Help hint button ───────────────────────── */
+.help-hint{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);
+  z-index:200;font-family:'JetBrains Mono',monospace;font-size:10px;
+  letter-spacing:.22em;color:var(--t30);text-transform:uppercase;
+  padding:6px 12px;border-radius:999px;border:1px solid var(--hair);
+  background:var(--t04);cursor:none;pointer-events:none}
+body.idle .help-hint{opacity:0;transition:opacity .6s var(--ease)}
 </style>
 </head>
 <body>
@@ -1409,6 +1477,32 @@ body.on-cover .brand{opacity:0;pointer-events:none}
 </button>
 
 <nav class="nav-bar" id="nav"></nav>
+
+<div class="auto-badge" id="auto-badge"><span class="dot"></span><span id="auto-label">AUTO 15S</span></div>
+<div class="link-badge" id="link-badge"><span class="dot"></span><span>REMOTO CONECTADO</span></div>
+<div class="help-hint">? para atalhos</div>
+
+<div class="help-ov" id="help-ov" role="dialog" aria-modal="true">
+  <div class="help-card">
+    <h3>Atalhos</h3>
+    <div class="sub">Ryzon · Keynote</div>
+    <div class="row"><span class="lbl">Próximo slide</span><span class="keys"><kbd>→</kbd><kbd>Espaço</kbd></span></div>
+    <div class="row"><span class="lbl">Slide anterior</span><span class="keys"><kbd>←</kbd></span></div>
+    <div class="row"><span class="lbl">Primeiro slide</span><span class="keys"><kbd>0</kbd><kbd>Home</kbd></span></div>
+    <div class="row"><span class="lbl">Último slide</span><span class="keys"><kbd>9</kbd><kbd>End</kbd></span></div>
+    <div class="row"><span class="lbl">Auto-avançar 15 s</span><span class="keys"><kbd>a</kbd></span></div>
+    <div class="row"><span class="lbl">Auto-avançar 30 s</span><span class="keys"><kbd>⇧</kbd><kbd>A</kbd></span></div>
+    <div class="row"><span class="lbl">Parar auto-avanço</span><span class="keys"><kbd>Esc</kbd></span></div>
+    <div class="row"><span class="lbl">Mostrar / esconder ajuda</span><span class="keys"><kbd>?</kbd></span></div>
+    <div class="remote-box">
+      <div class="t1">Controle remoto</div>
+      <div class="t2">Abra esta URL no celular ou tablet para controlar a apresentação:</div>
+      <div class="url" id="remote-url">remote.html</div>
+      <span class="code" id="remote-code">····</span>
+    </div>
+    <div class="close-hint">? ou Esc para fechar</div>
+  </div>
+</div>
 
 <div class="deck" id="deck">
 
@@ -2827,16 +2921,88 @@ slides[0].classList.add('active');
 progEl.style.width=(1/slides.length*100)+'%';
 document.body.classList.add('on-cover');
 
+/* ─── Auto-advance ─── */
+let autoTimer=null,autoMs=0;
+const autoBadge=document.getElementById('auto-badge');
+const autoLabel=document.getElementById('auto-label');
+function stopAuto(){
+  if(autoTimer){clearInterval(autoTimer);autoTimer=null;autoMs=0;}
+  autoBadge.classList.remove('on');
+}
+function startAuto(ms){
+  if(autoTimer&&autoMs===ms){stopAuto();return;}
+  if(autoTimer)clearInterval(autoTimer);
+  autoMs=ms;
+  autoLabel.textContent='AUTO '+(ms/1000)+'S';
+  autoBadge.classList.add('on');
+  autoTimer=setInterval(()=>{
+    if(cur_i>=slides.length-1){stopAuto();return;}
+    go(cur_i+1);
+  },ms);
+}
+
+/* ─── Help overlay ─── */
+const helpOv=document.getElementById('help-ov');
+function toggleHelp(force){
+  const next=typeof force==='boolean'?force:!helpOv.classList.contains('on');
+  helpOv.classList.toggle('on',next);
+}
+helpOv.addEventListener('click',e=>{if(e.target===helpOv)toggleHelp(false);});
+
+/* ─── Keyboard shortcuts ─── */
 document.addEventListener('keydown',e=>{
-  if(e.key==='ArrowRight'||e.key===' '){e.preventDefault();go(cur_i+1);}
-  if(e.key==='ArrowLeft'){e.preventDefault();go(cur_i-1);}
-  if(e.key==='Home'){e.preventDefault();go(0);}
-  if(e.key==='End'){e.preventDefault();go(slides.length-1);}
+  if(e.target.matches('input,textarea'))return;
+  const k=e.key;
+  if(k==='ArrowRight'||k===' '){e.preventDefault();stopAuto();go(cur_i+1);return;}
+  if(k==='ArrowLeft'){e.preventDefault();stopAuto();go(cur_i-1);return;}
+  if(k==='Home'||k==='0'){e.preventDefault();stopAuto();go(0);return;}
+  if(k==='End'||k==='9'){e.preventDefault();stopAuto();go(slides.length-1);return;}
+  if(k==='?'){e.preventDefault();toggleHelp();return;}
+  if(k==='Escape'){e.preventDefault();stopAuto();toggleHelp(false);return;}
+  if(k==='a'&&!e.shiftKey){e.preventDefault();startAuto(15000);return;}
+  if(k==='A'&&e.shiftKey){e.preventDefault();startAuto(30000);return;}
 });
 document.getElementById('deck').addEventListener('click',e=>{
-  if(e.target.closest('a,.arr,.nav-bar,.ch'))return;
+  if(e.target.closest('a,.arr,.nav-bar,.ch,.help-ov'))return;
   go(cur_i+1);
 });
+
+/* ─── Remote control via PeerJS ─── */
+function genRoom(){
+  const s='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  let r='';for(let i=0;i<4;i++)r+=s[Math.floor(Math.random()*s.length)];
+  return r;
+}
+let room=new URLSearchParams(location.search).get('room');
+if(!room){room=genRoom();}
+const remoteUrl=location.origin+location.pathname.replace(/index\.html$/,'')+'remote.html?room='+room;
+document.getElementById('remote-url').textContent=remoteUrl;
+document.getElementById('remote-code').textContent=room;
+const linkBadge=document.getElementById('link-badge');
+
+function setupPeer(){
+  if(typeof Peer==='undefined')return;
+  let peer;
+  try{peer=new Peer('ryzon-slide-'+room,{debug:0});}
+  catch(err){console.warn('PeerJS init failed',err);return;}
+  peer.on('open',()=>{console.log('[remote] aguardando em sala',room);});
+  peer.on('connection',conn=>{
+    conn.on('open',()=>{linkBadge.classList.add('on');});
+    conn.on('data',cmd=>{
+      if(cmd==='next'){stopAuto();go(cur_i+1);}
+      else if(cmd==='prev'){stopAuto();go(cur_i-1);}
+      else if(cmd==='first'){stopAuto();go(0);}
+      else if(cmd==='last'){stopAuto();go(slides.length-1);}
+      else if(cmd==='auto15'){startAuto(15000);}
+      else if(cmd==='auto30'){startAuto(30000);}
+      else if(cmd==='stop'){stopAuto();}
+      else if(cmd==='help'){toggleHelp();}
+    });
+    conn.on('close',()=>{linkBadge.classList.remove('on');});
+  });
+  peer.on('error',err=>{console.warn('[peer]',err.type);});
+}
+setupPeer();
 
 lucide.createIcons();
 </script>
