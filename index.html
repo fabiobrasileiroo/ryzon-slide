@@ -1439,7 +1439,7 @@ body.on-cover .brand{opacity:0;pointer-events:none}
 .help-btn .kbd{font-family:'JetBrains Mono',monospace;font-size:10px;
   background:var(--t08);border:1px solid var(--hair);border-bottom-width:2px;
   color:var(--txt);padding:2px 6px;border-radius:5px;line-height:1}
-body.idle .help-btn{opacity:.25}
+body.idle .help-btn{opacity:0;pointer-events:none;transition:opacity .6s var(--ease)}
 
 /* ─── Room code pill (bottom-left, above help) ─── */
 .room-pill{position:fixed;bottom:78px;left:32px;z-index:255;
@@ -1457,7 +1457,7 @@ body.idle .help-btn{opacity:.25}
 .room-pill .val{font-size:14px;font-weight:700;letter-spacing:.18em;
   color:var(--em);text-shadow:0 0 12px rgba(0,230,118,.45)}
 .room-pill i{width:14px;height:14px;color:var(--em);opacity:.85}
-body.idle .room-pill{opacity:.35}
+body.idle .room-pill{opacity:0;pointer-events:none;transition:opacity .6s var(--ease)}
 
 /* ─── Auto-play badge (bottom-left, stacks above room pill) ─── */
 .auto-badge{position:fixed;bottom:128px;left:32px;z-index:250;display:none;
