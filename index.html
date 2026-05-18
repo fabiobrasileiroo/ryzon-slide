@@ -1121,6 +1121,71 @@ body.on-cover .brand{opacity:0;pointer-events:none}
 }
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   SLIDE — GEOALERTA · PIPELINE DE DADOS (diagrama)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+#sPipe{justify-content:center;align-items:center}
+#sPipe .wrap{
+  width:100%;max-width:1500px;position:relative;z-index:2;
+  display:flex;flex-direction:column;gap:24px;
+}
+#sPipe .head{display:flex;align-items:flex-end;justify-content:space-between;gap:60px}
+#sPipe h2{max-width:760px;font-size:clamp(38px,4.4vw,64px)}
+#sPipe .pipe-meta{
+  display:flex;gap:18px;align-items:flex-end;flex-wrap:wrap;justify-content:flex-end;
+}
+#sPipe .pipe-meta .tier{
+  display:flex;align-items:center;gap:8px;
+  font-family:'JetBrains Mono',monospace;font-size:11px;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--t70);
+  padding:6px 12px;border:1px solid var(--hair);border-radius:100px;
+  background:rgba(255,255,255,.02);
+}
+#sPipe .pipe-meta .tier .sw{width:8px;height:8px;border-radius:2px}
+#sPipe .pipe-meta .tier.bronze .sw{background:#cd7f32;box-shadow:0 0 8px rgba(205,127,50,.45)}
+#sPipe .pipe-meta .tier.silver .sw{background:#c0c8d0;box-shadow:0 0 8px rgba(192,200,208,.45)}
+#sPipe .pipe-meta .tier.gold   .sw{background:#ffd60a;box-shadow:0 0 10px rgba(255,214,10,.55)}
+
+#sPipe .pipe-stage{
+  position:relative;border:1px solid var(--hair);border-radius:16px;
+  background:rgba(255,255,255,.96);
+  padding:24px;
+  box-shadow:0 24px 64px rgba(0,0,0,.55),0 0 0 1px rgba(255,255,255,.04) inset;
+  overflow:hidden;
+}
+#sPipe .pipe-stage .pipe-tag{
+  position:absolute;top:14px;right:14px;z-index:2;
+  font-family:'JetBrains Mono',monospace;font-size:10px;
+  letter-spacing:.16em;text-transform:uppercase;
+  padding:5px 10px;background:rgba(0,230,118,.14);
+  border:1px solid rgba(0,230,118,.35);border-radius:100px;
+  color:#066d39;font-weight:700;
+}
+#sPipe .pipe-stage img{
+  display:block;width:100%;height:auto;max-height:64vh;
+  object-fit:contain;object-position:center;
+}
+
+#sPipe .pipe-caption{
+  display:flex;align-items:center;justify-content:space-between;gap:24px;
+  font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--t50);
+  padding-top:14px;border-top:1px solid var(--hair);
+}
+#sPipe .pipe-caption .flow{
+  display:flex;align-items:center;gap:10px;color:var(--t70);
+}
+#sPipe .pipe-caption .flow .arrow{color:var(--em)}
+#sPipe .pipe-caption .source{color:var(--t30)}
+
+@media (max-height:820px){
+  #sPipe .wrap{gap:16px}
+  #sPipe h2{font-size:clamp(28px,3vw,46px)}
+  #sPipe .pipe-stage{padding:18px}
+  #sPipe .pipe-stage img{max-height:58vh}
+  #sPipe .pipe-caption{font-size:10px}
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    SLIDE — ROADMAP (3 semanas → futuro)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 #sRoad{justify-content:center;align-items:center}
@@ -2060,9 +2125,57 @@ body.on-cover .brand{opacity:0;pointer-events:none}
 </section>
 
 <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     SLIDE — GEOALERTA · PIPELINE DE DADOS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<section class="slide" id="sPipe" data-i="10">
+  <div class="bg">
+    <div class="grid-bg tight"></div>
+    <div class="glow glow-em" style="opacity:.45"></div>
+    <div class="glow glow-cy" style="opacity:.4"></div>
+    <div class="veil"></div>
+    <div class="noise"></div>
+  </div>
+
+  <div class="wrap">
+    <div class="head">
+      <div>
+        <div class="eyebrow blurin d-1">
+          <span class="dot"></span>
+          Capítulo 06.5 · GeoAlerta · Pipeline
+        </div>
+        <h2 class="display display-m blurin d-2" style="margin-top:18px">
+          Bronze → Silver → <span class="grad">Gold.</span>
+        </h2>
+      </div>
+      <div class="pipe-meta blurin d-3">
+        <div class="tier bronze"><span class="sw"></span>Bronze · raw</div>
+        <div class="tier silver"><span class="sw"></span>Silver · spatial</div>
+        <div class="tier gold"><span class="sw"></span>Gold · business</div>
+      </div>
+    </div>
+
+    <div class="pipe-stage blurin d-4">
+      <span class="pipe-tag">Arquitetura · Lakehouse</span>
+      <img src="assets/diagrama-pipeline-geoalerta.jpeg" alt="Diagrama do pipeline de dados GeoAlerta — Bronze, Silver, Gold com Airflow, Databricks, S3 e Nominatim"/>
+    </div>
+
+    <div class="pipe-caption blurin d-5">
+      <div class="flow">
+        <span>denúncias</span><span class="arrow">→</span>
+        <span>Airflow</span><span class="arrow">→</span>
+        <span>Databricks · S3</span><span class="arrow">→</span>
+        <span>API PythonAnywhere</span><span class="arrow">→</span>
+        <span>Mapa dashboard</span>
+      </div>
+      <div class="source">FONTE · DIAGRAMA INTERNO · 2026</div>
+    </div>
+  </div>
+</section>
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
      SLIDE 10 — ENGENHARIA
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
-<section class="slide" id="s4" data-i="10">
+<section class="slide" id="s4" data-i="11">
   <div class="bg">
     <div class="grid-bg tight"></div>
     <div class="glow glow-em" style="opacity:.7"></div>
@@ -2149,7 +2262,7 @@ body.on-cover .brand{opacity:0;pointer-events:none}
 <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
      SLIDE 11 — IA
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
-<section class="slide" id="s7" data-i="11">
+<section class="slide" id="s7" data-i="12">
   <div class="bg">
     <div class="dots-bg"></div>
     <div class="orb orb-2"></div>
@@ -2226,7 +2339,7 @@ body.on-cover .brand{opacity:0;pointer-events:none}
 <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
      SLIDE 12 — FLUXO
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
-<section class="slide" id="sFlow" data-i="12">
+<section class="slide" id="sFlow" data-i="13">
   <div class="bg">
     <div class="grid-bg"></div>
     <div class="orb orb-2"></div>
@@ -2299,7 +2412,7 @@ body.on-cover .brand{opacity:0;pointer-events:none}
 <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
      SLIDE 13 — ROADMAP
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
-<section class="slide" id="sRoad" data-i="13">
+<section class="slide" id="sRoad" data-i="14">
   <div class="bg">
     <div class="grid-bg"></div>
     <div class="orb orb-1"></div>
@@ -2388,7 +2501,7 @@ body.on-cover .brand{opacity:0;pointer-events:none}
 <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
      SLIDE 14 — CTA · OBRIGADO
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
-<section class="slide" id="s8" data-i="14">
+<section class="slide" id="s8" data-i="15">
   <div class="bg">
     <div class="grid-bg"></div>
     <div class="orb orb-1"></div>
@@ -2457,7 +2570,7 @@ slides.forEach((_,i)=>{
 const sep=document.createElement('div');sep.className='nav-divider';navEl.appendChild(sep);
 const lbl=document.createElement('div');lbl.className='nav-label';lbl.id='nav-num';lbl.textContent='01 — KEYNOTE';navEl.appendChild(lbl);
 
-const titles=['CAPA','PROBLEMA','SOLUÇÃO','BOT TELEGRAM','PAINEL · PÚBLICO','PAINEL · VISÃO','PAINEL · TRIAGEM','MERCADO','STACK','ARQUITETURA','ENGENHARIA','IA','FLUXO','ROADMAP','OBRIGADO'];
+const titles=['CAPA','PROBLEMA','SOLUÇÃO','BOT TELEGRAM','PAINEL · PÚBLICO','PAINEL · VISÃO','PAINEL · TRIAGEM','MERCADO','STACK','ARQUITETURA','GEOALERTA · PIPELINE','ENGENHARIA','IA','FLUXO','ROADMAP','OBRIGADO'];
 
 function update(i){
   document.querySelectorAll('.dot').forEach((d,j)=>d.classList.toggle('on',j===i));
