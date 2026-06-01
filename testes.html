@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Ryzon API · Testes · DDD + TDD</title>
+<link rel="icon" type="image/png" href="assets/ryzon-logo-sem-background.png"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet"/>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-font-smoothing:antialiased}
+:root{
+  --bg:#fafaf7;
+  --bg2:#ffffff;
+  --paper:#f3f3ee;
+  --ink:#111111;
+  --t90:rgba(17,17,17,.92);
+  --t70:rgba(17,17,17,.68);
+  --t50:rgba(17,17,17,.48);
+  --t30:rgba(17,17,17,.30);
+  --t15:rgba(17,17,17,.14);
+  --t08:rgba(17,17,17,.08);
+  --t04:rgba(17,17,17,.04);
+  --hair:rgba(17,17,17,.10);
+  --em:#0a7d3e;          /* green ink */
+  --em-soft:#e7f5ec;
+  --em-d:#075a2c;
+  --red:#b3261e;
+  --red-soft:#fdecea;
+  --blue:#0b64c4;
+  --blue-soft:#e7f0fb;
+  --amber:#8a5a00;
+  --amber-soft:#fdf2dc;
+  --violet:#5a2ea6;
+  --violet-soft:#efe9fb;
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+html,body{width:100%;height:100%;background:var(--bg);color:var(--ink);
+  font-family:'Manrope',sans-serif;font-weight:400;overflow:hidden}
+
+/* ─── progress bar ─────────────────────────────── */
+.prog{position:fixed;top:0;left:0;height:3px;width:0;background:var(--em);
+  z-index:300;transition:width .6s var(--ease)}
+
+/* ─── chrome ───────────────────────────────────── */
+.slide-n{position:fixed;top:28px;left:40px;z-index:200;
+  font-family:'JetBrains Mono',monospace;font-size:15px;
+  letter-spacing:.18em;color:var(--t50);font-weight:600}
+.slide-n .of{margin-left:8px;color:var(--t30)}
+
+.brand{position:fixed;top:24px;right:40px;z-index:200;display:flex;align-items:center;gap:10px;
+  font-family:'JetBrains Mono',monospace;font-size:15px;letter-spacing:.18em;color:var(--t50);font-weight:600}
+.brand .dot{width:10px;height:10px;background:var(--em);border-radius:50%}
+
+.nav{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:200;
+  display:flex;gap:12px;align-items:center;
+  font-family:'JetBrains Mono',monospace;font-size:14px;color:var(--t50);letter-spacing:.08em}
+.nav .key{display:inline-flex;align-items:center;justify-content:center;
+  min-width:34px;height:34px;padding:0 10px;border:1px solid var(--hair);border-radius:8px;
+  background:var(--bg2);color:var(--ink);font-weight:700;font-size:15px;
+  box-shadow:0 1px 2px rgba(0,0,0,.04)}
+
+/* ─── slide layout ─────────────────────────────── */
+.slide{position:fixed;inset:0;display:none;padding:96px 80px 90px;
+  opacity:0;transition:opacity .45s var(--ease);background:var(--bg)}
+.slide.active{display:flex;opacity:1}
+.slide-inner{width:100%;max-width:1320px;margin:0 auto;display:flex;flex-direction:column;justify-content:center}
+
+/* ─── typography ───────────────────────────────── */
+.eyebrow{display:inline-flex;align-items:center;gap:12px;font-family:'JetBrains Mono',monospace;
+  font-size:18px;letter-spacing:.2em;color:var(--em);font-weight:700;
+  padding:10px 20px;border:1px solid rgba(10,125,62,.25);border-radius:999px;
+  background:var(--em-soft);margin-bottom:32px;text-transform:uppercase;width:fit-content}
+.eyebrow svg{width:22px;height:22px;stroke-width:2.5}
+
+h1.title{font-size:140px;font-weight:800;line-height:1;letter-spacing:-.035em;margin-bottom:36px;color:var(--ink)}
+h1.title .grad{background:linear-gradient(135deg,var(--em),var(--blue));-webkit-background-clip:text;
+  background-clip:text;-webkit-text-fill-color:transparent}
+h2{font-size:84px;font-weight:700;line-height:1.06;letter-spacing:-.025em;margin-bottom:28px;color:var(--ink)}
+h2 .quiet{color:var(--t50);font-weight:500}
+h2 .em{color:var(--em)}
+.lead{font-size:32px;color:var(--t70);line-height:1.45;max-width:1140px;font-weight:400}
+.serif{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400}
+.mono{font-family:'JetBrains Mono',monospace;font-size:.92em}
+code{font-family:'JetBrains Mono',monospace;font-size:.88em;background:var(--paper);
+  padding:3px 10px;border-radius:6px;border:1px solid var(--hair);color:var(--em-d);font-weight:600}
+
+/* ─── cards genéricos ──────────────────────────── */
+.cards-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:32px}
+.cards-2{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-top:32px}
+.cards-4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:32px}
+.card{padding:34px;border:1px solid var(--hair);border-radius:18px;background:var(--bg2);
+  transition:transform .25s var(--ease),box-shadow .25s var(--ease),border-color .25s var(--ease);
+  box-shadow:0 1px 2px rgba(0,0,0,.03)}
+.card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.06);border-color:var(--em)}
+.card .ico-wrap{display:inline-flex;align-items:center;justify-content:center;
+  width:68px;height:68px;border-radius:14px;background:var(--em-soft);color:var(--em);margin-bottom:20px}
+.card .ico-wrap svg{width:34px;height:34px;stroke-width:2}
+.card .n{font-family:'JetBrains Mono',monospace;font-size:15px;color:var(--t50);
+  letter-spacing:.18em;margin-bottom:14px;font-weight:700;text-transform:uppercase}
+.card h3{font-size:30px;font-weight:700;margin-bottom:14px;letter-spacing:-.01em;color:var(--ink)}
+.card p{font-size:21px;color:var(--t70);line-height:1.5}
+.card.red .ico-wrap{background:var(--red-soft);color:var(--red)}
+.card.blue .ico-wrap{background:var(--blue-soft);color:var(--blue)}
+.card.amber .ico-wrap{background:var(--amber-soft);color:var(--amber)}
+.card.violet .ico-wrap{background:var(--violet-soft);color:var(--violet)}
+
+/* ─── layers row ───────────────────────────────── */
+.layers{display:flex;flex-direction:column;gap:16px;margin-top:32px}
+.layer{display:grid;grid-template-columns:88px 1fr auto;gap:30px;align-items:center;
+  padding:26px 32px;border:1px solid var(--hair);border-radius:16px;background:var(--bg2);
+  box-shadow:0 1px 2px rgba(0,0,0,.03)}
+.layer .ic{display:inline-flex;align-items:center;justify-content:center;
+  width:68px;height:68px;border-radius:14px;background:var(--em-soft);color:var(--em)}
+.layer .ic svg{width:36px;height:36px;stroke-width:2}
+.layer.b .ic{background:var(--blue-soft);color:var(--blue)}
+.layer.v .ic{background:var(--violet-soft);color:var(--violet)}
+.layer .tit{font-size:30px;font-weight:700;letter-spacing:-.01em;color:var(--ink);
+  display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.layer .tit .path{font-family:'JetBrains Mono',monospace;font-size:19px;
+  color:var(--em);background:var(--em-soft);padding:5px 14px;border-radius:8px;font-weight:600}
+.layer.b .tit .path{color:var(--blue);background:var(--blue-soft)}
+.layer.v .tit .path{color:var(--violet);background:var(--violet-soft)}
+.layer .ds{font-size:21px;color:var(--t70);line-height:1.5;margin-top:10px}
+.layer .pill{font-family:'JetBrains Mono',monospace;font-size:17px;color:var(--ink);
+  padding:10px 18px;border:1px solid var(--hair);border-radius:999px;background:var(--paper);
+  display:inline-flex;align-items:center;gap:10px;font-weight:600}
+.layer .pill svg{width:20px;height:20px;stroke-width:2.4}
+
+/* ─── code ─────────────────────────────────────── */
+.code{margin-top:24px;border:1px solid var(--hair);border-radius:14px;background:#fbfbf8;overflow:hidden;
+  box-shadow:0 1px 2px rgba(0,0,0,.03)}
+.code-head{display:flex;align-items:center;justify-content:space-between;
+  padding:12px 22px;border-bottom:1px solid var(--hair);background:var(--paper)}
+.code-head .fn{font-family:'JetBrains Mono',monospace;font-size:18px;color:var(--t70);display:flex;align-items:center;gap:12px;font-weight:500}
+.code-head .fn svg{width:22px;height:22px;stroke-width:2;color:var(--em)}
+.code-head .lbl{font-family:'JetBrains Mono',monospace;font-size:16px;color:var(--em);
+  letter-spacing:.15em;text-transform:uppercase;font-weight:700;
+  padding:5px 12px;background:var(--em-soft);border-radius:6px}
+.code pre{padding:26px 32px;font-family:'JetBrains Mono',monospace;font-size:20px;
+  line-height:1.6;color:var(--ink);overflow:auto;white-space:pre}
+.code .kw{color:#a134a4;font-weight:600}
+.code .fnn{color:#0b64c4}
+.code .str{color:#0a7d3e}
+.code .com{color:var(--t50);font-style:italic}
+.code .num{color:#a05a00}
+.code .ty{color:#a05a00}
+
+/* ─── tdd cycle ────────────────────────────────── */
+.cycle{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:32px}
+.cycle .step{padding:36px;border:1px solid var(--hair);border-radius:18px;
+  background:var(--bg2);position:relative;box-shadow:0 1px 2px rgba(0,0,0,.03)}
+.cycle .step .ico-wrap{display:inline-flex;align-items:center;justify-content:center;
+  width:74px;height:74px;border-radius:15px;margin-bottom:22px}
+.cycle .step .ico-wrap svg{width:38px;height:38px;stroke-width:2}
+.cycle .step .nm{font-size:34px;font-weight:700;letter-spacing:-.01em;margin-bottom:10px}
+.cycle .step .sub{font-family:'JetBrains Mono',monospace;font-size:16px;color:var(--t50);
+  letter-spacing:.12em;text-transform:uppercase;margin-bottom:16px;font-weight:700}
+.cycle .step .ds{font-size:21px;color:var(--t70);line-height:1.5}
+.cycle .red .ico-wrap{background:var(--red-soft);color:var(--red)}
+.cycle .red .nm{color:var(--red)}
+.cycle .green .ico-wrap{background:var(--em-soft);color:var(--em)}
+.cycle .green .nm{color:var(--em)}
+.cycle .blue .ico-wrap{background:var(--blue-soft);color:var(--blue)}
+.cycle .blue .nm{color:var(--blue)}
+
+/* ─── metrics ──────────────────────────────────── */
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:36px}
+.metric{padding:36px 28px;border:1px solid var(--hair);border-radius:16px;background:var(--bg2);
+  box-shadow:0 1px 2px rgba(0,0,0,.03)}
+.metric .ico-wrap{display:inline-flex;align-items:center;justify-content:center;
+  width:56px;height:56px;border-radius:13px;background:var(--em-soft);color:var(--em);margin-bottom:20px}
+.metric .ico-wrap svg{width:30px;height:30px;stroke-width:2.2}
+.metric .v{font-size:80px;font-weight:800;letter-spacing:-.03em;line-height:1;color:var(--ink)}
+.metric .u{font-size:28px;color:var(--t50);font-weight:600;margin-left:4px}
+.metric .lbl{font-size:21px;color:var(--t70);margin-top:16px;line-height:1.4}
+
+/* ─── cmds ─────────────────────────────────────── */
+.cmds{display:flex;flex-direction:column;gap:12px;margin-top:32px}
+.cmd{display:grid;grid-template-columns:72px 380px 1fr;gap:26px;align-items:center;
+  padding:22px 28px;border:1px solid var(--hair);border-radius:14px;background:var(--bg2);
+  box-shadow:0 1px 2px rgba(0,0,0,.03)}
+.cmd .ic{display:inline-flex;align-items:center;justify-content:center;
+  width:56px;height:56px;border-radius:12px;background:var(--em-soft);color:var(--em)}
+.cmd .ic svg{width:28px;height:28px;stroke-width:2.2}
+.cmd code{font-family:'JetBrains Mono',monospace;font-size:24px;background:none;border:none;padding:0;color:var(--ink);font-weight:700}
+.cmd .ds{font-size:20px;color:var(--t70);line-height:1.4}
+
+/* ─── cover ────────────────────────────────────── */
+.cover{justify-content:center;text-align:center;align-items:center}
+.cover .eyebrow{margin:0 auto 28px}
+.cover h1.title{margin-bottom:30px}
+.cover .lead{margin:0 auto;text-align:center}
+.cover .meta{margin-top:56px;display:inline-flex;gap:22px;align-items:center;
+  font-family:'JetBrains Mono',monospace;font-size:16px;color:var(--t50);
+  letter-spacing:.15em;text-transform:uppercase;padding:14px 24px;
+  background:var(--bg2);border:1px solid var(--hair);border-radius:999px;font-weight:600}
+.cover .meta .sep{width:5px;height:5px;background:var(--t30);border-radius:50%}
+
+/* ─── two col ──────────────────────────────────── */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:30px;align-items:stretch}
+.two .col{padding:30px;border:1px solid var(--hair);border-radius:14px;background:var(--bg2);
+  box-shadow:0 1px 2px rgba(0,0,0,.03)}
+.two .col.bad{border-color:rgba(179,38,30,.25);background:#fffaf9}
+.two .col.good{border-color:rgba(10,125,62,.25);background:#f9fdfa}
+.two .col h3{font-size:19px;font-weight:700;
+  font-family:'JetBrains Mono',monospace;letter-spacing:.1em;text-transform:uppercase;
+  margin-bottom:18px;display:flex;align-items:center;gap:10px}
+.two .col.bad h3{color:var(--red)}
+.two .col.good h3{color:var(--em)}
+.two .col h3 svg{width:24px;height:24px;stroke-width:2.2}
+.two .col ul{list-style:none;display:flex;flex-direction:column;gap:14px}
+.two .col li{font-size:21px;color:var(--t70);line-height:1.45;
+  display:flex;align-items:flex-start;gap:14px;padding-bottom:14px;border-bottom:1px solid var(--hair)}
+.two .col li:last-child{border-bottom:none;padding-bottom:0}
+.two .col li svg{width:22px;height:22px;stroke-width:2.4;flex-shrink:0;margin-top:3px}
+.two .col.bad li svg{color:var(--red)}
+.two .col.good li svg{color:var(--em)}
+.two .col li strong{color:var(--ink);font-weight:700}
+
+/* ─── pyramid (test pyramid) ───────────────────── */
+.pyr-wrap{display:grid;grid-template-columns:auto 1fr;gap:48px;margin-top:30px;align-items:center}
+.pyramid{display:flex;flex-direction:column;gap:8px;align-items:center;width:440px}
+.pyr-lv{display:flex;align-items:center;justify-content:center;flex-direction:column;
+  height:84px;border-radius:10px;font-weight:700;font-size:19px;letter-spacing:-.01em;
+  border:1px solid var(--hair);position:relative}
+.pyr-lv .qty{font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:600;color:var(--t70);margin-top:4px}
+.pyr-lv.l1{width:200px;background:var(--violet-soft);color:var(--violet);border-color:rgba(90,46,166,.25)}
+.pyr-lv.l2{width:320px;background:var(--blue-soft);color:var(--blue);border-color:rgba(11,100,196,.25)}
+.pyr-lv.l3{width:440px;background:var(--em-soft);color:var(--em);border-color:rgba(10,125,62,.25)}
+.pyr-explain{display:flex;flex-direction:column;gap:16px}
+.pyr-explain .item{padding:18px 24px;border:1px solid var(--hair);border-radius:12px;background:var(--bg2)}
+.pyr-explain .item .ti{font-size:22px;font-weight:700;margin-bottom:6px;display:flex;align-items:center;gap:10px}
+.pyr-explain .item .ti svg{width:20px;height:20px;stroke-width:2.4}
+.pyr-explain .item.l1 .ti{color:var(--violet)}
+.pyr-explain .item.l2 .ti{color:var(--blue)}
+.pyr-explain .item.l3 .ti{color:var(--em)}
+.pyr-explain .item .ds{font-size:18px;color:var(--t70);line-height:1.45}
+
+/* ─── arrow flow (ports & adapters) ────────────── */
+.flow{display:grid;grid-template-columns:1fr 80px 1fr 80px 1fr;gap:0;margin-top:30px;align-items:center}
+.flow .node{padding:30px 26px;border:1.5px solid var(--hair);border-radius:16px;background:var(--bg2);
+  text-align:center;box-shadow:0 2px 6px rgba(0,0,0,.04)}
+.flow .node .ic{display:inline-flex;align-items:center;justify-content:center;
+  width:60px;height:60px;border-radius:13px;margin-bottom:14px}
+.flow .node .ic svg{width:30px;height:30px;stroke-width:2}
+.flow .node .nm{font-size:22px;font-weight:700;margin-bottom:6px;letter-spacing:-.01em}
+.flow .node .sub{font-family:'JetBrains Mono',monospace;font-size:14px;color:var(--t50);font-weight:500}
+.flow .node.test{border-color:var(--violet);background:var(--violet-soft)}
+.flow .node.test .ic{background:rgba(255,255,255,.7);color:var(--violet)}
+.flow .node.test .nm{color:var(--violet)}
+.flow .node.port{border-color:var(--em);background:var(--em-soft)}
+.flow .node.port .ic{background:rgba(255,255,255,.7);color:var(--em)}
+.flow .node.port .nm{color:var(--em)}
+.flow .node.adapter{border-color:var(--blue);background:var(--blue-soft)}
+.flow .node.adapter .ic{background:rgba(255,255,255,.7);color:var(--blue)}
+.flow .node.adapter .nm{color:var(--blue)}
+.flow .arr{display:flex;align-items:center;justify-content:center;color:var(--t30)}
+.flow .arr svg{width:36px;height:36px;stroke-width:1.5}
+
+/* ─── final ────────────────────────────────────── */
+.final{justify-content:center;text-align:center;align-items:center}
+.final h1{font-size:160px;font-weight:800;letter-spacing:-.04em;margin-bottom:28px;color:var(--ink)}
+.final .grad{background:linear-gradient(135deg,var(--em),var(--blue));-webkit-background-clip:text;
+  background-clip:text;-webkit-text-fill-color:transparent}
+
+/* ─── helpers ──────────────────────────────────── */
+.bullet-list{display:flex;flex-direction:column;gap:14px;margin-top:28px}
+.bullet-list .b{display:flex;align-items:flex-start;gap:16px;padding:18px 22px;
+  background:var(--bg2);border:1px solid var(--hair);border-radius:12px}
+.bullet-list .b .ic{flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;
+  width:44px;height:44px;border-radius:10px;background:var(--em-soft);color:var(--em)}
+.bullet-list .b .ic svg{width:22px;height:22px;stroke-width:2.4}
+.bullet-list .b .t{font-size:22px;color:var(--t70);line-height:1.5}
+.bullet-list .b .t strong{color:var(--ink);font-weight:700}
+
+/* ─── spec list ────────────────────────────────── */
+.spec-groups{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:28px}
+.spec-group{padding:24px 26px;border:1px solid var(--hair);border-radius:14px;background:var(--bg2)}
+.spec-group .gh{display:flex;align-items:center;gap:10px;margin-bottom:14px;
+  font-family:'JetBrains Mono',monospace;font-size:15px;color:var(--em);
+  letter-spacing:.12em;text-transform:uppercase;font-weight:700;
+  padding-bottom:10px;border-bottom:1px dashed var(--hair)}
+.spec-group .gh svg{width:20px;height:20px;stroke-width:2.4}
+.spec-group ul{list-style:none;display:flex;flex-direction:column;gap:8px}
+.spec-group li{display:grid;grid-template-columns:auto 1fr;gap:12px;font-size:17px;color:var(--t70);line-height:1.4}
+.spec-group li code{font-size:15px;color:var(--ink);background:var(--paper);
+  padding:3px 9px;border-radius:6px;border:1px solid var(--hair);font-weight:600;white-space:nowrap}
+.spec-group.users .gh{color:var(--blue)}
+.spec-group.escalation .gh{color:var(--violet)}
+.spec-group.geo .gh{color:var(--amber)}
+
+/* ─── doubles taxonomy (slide 6 extra) ─────────── */
+.doubles{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:24px}
+.dbl{padding:16px 14px;border:1px solid var(--hair);border-radius:10px;background:var(--bg2);text-align:center}
+.dbl .nm{font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:700;color:var(--t50);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px}
+.dbl .ds{font-size:15px;color:var(--t70);line-height:1.35}
+.dbl.us{border-color:var(--em);background:var(--em-soft)}
+.dbl.us .nm{color:var(--em)}
+.dbl.us .ds{color:var(--ink)}
+.dbl.us::after{content:'usado aqui';position:absolute;font-family:'JetBrains Mono',monospace;
+  font-size:10px;color:var(--em);letter-spacing:.15em;text-transform:uppercase;font-weight:700;
+  margin-top:6px;display:block;position:relative}
+
+/* ─── first principles pills ───────────────────── */
+.first-row{display:flex;gap:10px;margin-top:26px;flex-wrap:wrap}
+.first-pill{display:inline-flex;align-items:center;gap:10px;padding:12px 20px;
+  border:1px solid var(--hair);border-radius:999px;background:var(--bg2);
+  font-size:18px;font-weight:600;color:var(--ink)}
+.first-pill .ltr{font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:800;color:var(--em)}
+.first-pill .lbl{color:var(--t70);font-weight:500}
+
+/* ─── room pill (peerjs remote) ────────────────── */
+.room-pill{position:fixed;bottom:78px;right:32px;z-index:250;cursor:pointer;
+  display:inline-flex;align-items:center;gap:14px;padding:14px 22px;border-radius:14px;
+  background:var(--bg2);border:1px solid var(--hair);box-shadow:0 4px 16px rgba(0,0,0,.06);
+  font-family:'JetBrains Mono',monospace;transition:transform .15s var(--ease),border-color .2s var(--ease)}
+.room-pill:hover{transform:translateY(-1px);border-color:var(--em)}
+.room-pill .lbl{font-size:11px;letter-spacing:.22em;color:var(--t50);text-transform:uppercase;font-weight:700}
+.room-pill .val{font-size:24px;font-weight:800;letter-spacing:.2em;color:var(--em);line-height:1}
+.room-pill .ic{display:inline-flex;width:38px;height:38px;align-items:center;justify-content:center;
+  border-radius:10px;background:var(--em-soft);color:var(--em)}
+.room-pill .ic svg{width:20px;height:20px;stroke-width:2.4}
+.room-pill .status{width:9px;height:9px;border-radius:50%;background:var(--t30);transition:background .3s var(--ease)}
+.room-pill.live .status{background:var(--em);box-shadow:0 0 10px var(--em);animation:pulse 1.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+
+/* ─── help overlay (atalhos remote) ────────────── */
+.help-ov{position:fixed;inset:0;z-index:400;display:none;align-items:center;justify-content:center;
+  background:rgba(17,17,17,.6);backdrop-filter:blur(6px)}
+.help-ov.on{display:flex}
+.help-card{background:var(--bg2);border:1px solid var(--hair);border-radius:18px;
+  padding:36px 40px;max-width:520px;box-shadow:0 24px 64px rgba(0,0,0,.2)}
+.help-card h3{font-size:22px;font-weight:700;margin-bottom:10px;color:var(--ink)}
+.help-card .sub{font-size:15px;color:var(--t70);line-height:1.5;margin-bottom:22px}
+.help-card .url{display:block;font-family:'JetBrains Mono',monospace;font-size:14px;
+  word-break:break-all;background:var(--paper);padding:14px 16px;border-radius:10px;
+  border:1px solid var(--hair);color:var(--em-d);margin-bottom:16px}
+.help-card .close{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--t50);
+  letter-spacing:.15em;text-transform:uppercase;text-align:center}
+
+/* ─── responsive ───────────────────────────────── */
+@media (max-height:840px){
+  .slide{padding:64px 48px 60px}
+  h1.title{font-size:96px}
+  h2{font-size:60px}
+  .lead{font-size:24px}
+  .card h3{font-size:24px}
+  .card p{font-size:17px}
+  .layer .tit{font-size:24px}
+  .layer .ds{font-size:17px}
+  .cycle .step .nm{font-size:26px}
+  .cycle .step .ds{font-size:17px}
+  .metric .v{font-size:60px}
+  .metric .lbl{font-size:17px}
+  .code pre{font-size:16px}
+  .cmd code{font-size:20px}
+  .cmd .ds{font-size:16px}
+  .final h1{font-size:120px}
+  .cards-3,.cards-2,.cards-4{gap:14px}.card{padding:22px}
+}
+</style>
+</head>
+<body>
+
+<div class="prog" id="prog"></div>
+<div class="slide-n"><span id="cur">01</span><span class="of">/ <span id="tot">12</span></span></div>
+<div class="brand"><span class="dot"></span>RYZON API · TESTES</div>
+<div class="nav">
+  <span class="key">←</span><span>anterior</span>
+  <span style="margin:0 6px;color:var(--t30)">·</span>
+  <span class="key">→</span><span>próximo</span>
+</div>
+
+<button class="room-pill" id="room-pill" type="button" title="Código da sala — abra remote.html?room=… no celular">
+  <span class="ic"><i data-lucide="smartphone"></i></span>
+  <span style="display:flex;flex-direction:column;gap:2px;align-items:flex-start">
+    <span class="lbl">Sala</span>
+    <span class="val" id="room-pill-val">····</span>
+  </span>
+  <span class="status" id="room-status"></span>
+</button>
+
+<div class="help-ov" id="help-ov">
+  <div class="help-card">
+    <h3>Controle remoto</h3>
+    <div class="sub">Abra esta URL no celular pra controlar o slide:</div>
+    <code class="url" id="remote-url-show">…</code>
+    <div class="close">clique fora · ou pressione <strong>esc</strong></div>
+  </div>
+</div>
+
+<!-- ━━━ 01 — CAPA ━━━ -->
+<section class="slide active cover">
+  <div class="slide-inner">
+    <div class="eyebrow"><i data-lucide="flask-conical"></i>Trabalho · Testes 2</div>
+    <h1 class="title">
+      Back-end com<br/>
+      <span class="grad">DDD + TDD.</span>
+    </h1>
+    <p class="lead">
+      Como a API da Ryzon — plataforma de denúncias ambientais —
+      foi construída <span class="serif">orientada por testes</span>,
+      com domínio isolado e <strong style="color:var(--ink);font-weight:600">inversão de dependência</strong>.
+    </p>
+    <div class="meta">
+      <span>Fabio</span><span class="sep"></span>
+      <span>NestJS 11 · Jest</span><span class="sep"></span>
+      <span>2026</span>
+    </div>
+  </div>
+</section>
+
+<!-- ━━━ 02 — CONTEXTO ━━━ -->
+<section class="slide">
+  <div class="slide-inner">
+    <div class="eyebrow"><i data-lucide="info"></i>01 · Contexto</div>
+    <h2>O que é a <span class="em">Ryzon API</span>.</h2>
+    <p class="lead">
+      API REST que recebe denúncias ambientais (queimadas, garimpo ilegal e alagamentos),
+      valida coordenadas contra fontes oficiais, analisa imagens com IA (Gemini)
+      e escala automaticamente para <strong style="color:var(--ink);font-weight:600">IBAMA, MPF e Defesa Civil</strong>
+      quando não há resposta em 72h.
+    </p>
+
+    <div class="cards-3">
+      <div class="card">
+        <div class="ico-wrap"><i data-lucide="layers"></i></div>
+        <div class="n">STACK</div>
+        <h3>NestJS 11 + Prisma</h3>
+        <p>TypeScript estrito, PostgreSQL, Jest como test runner. <code>pnpm</code> como package manager.</p>
+      </div>
+      <div class="card blue">
+        <div class="ico-wrap"><i data-lucide="boxes"></i></div>
+        <div class="n">ARQUITETURA</div>
+        <h3>DDD em 3 camadas</h3>
+        <p>Domínio puro isolado de infraestrutura. Regra de negócio sem amarra com framework.</p>
+      </div>
+      <div class="card violet">
+        <div class="ico-wrap"><i data-lucide="shield-check"></i></div>
+        <div class="n">QUALIDADE</div>
+        <h3>14 specs · TDD</h3>
+        <p>Cada caso de uso nasce do seu teste. Suíte completa roda em menos de 2 segundos.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ━━━ 03 — DDD: AS 3 CAMADAS ━━━ -->
+<section class="slide">
+  <div class="slide-inner">
+    <div class="eyebrow"><i data-lucide="layers-3"></i>02 · Arquitetura DDD</div>
+    <h2>Três camadas. <span class="quiet">Uma regra: dependência aponta pra dentro.</span></h2>
+    <p class="lead">
+      A camada de <strong style="color:var(--ink);font-weight:600">domínio não conhece</strong> Prisma, Express ou NestJS.
+      Quem se adapta é a infraestrutura — não o contrário.
+    </p>
+
+    <div class="layers">
+      <div class="layer">
+        <div class="ic"><i data-lucide="brain"></i></div>
+        <div>
+          <div class="tit">Domínio <span class="path">src/domain/</span></div>
+          <div class="ds">
+            <strong>Entidades</strong> (DenunciaEntity, StatusHistoryEntity),
+            <strong>contratos</strong> (abstract repositories, ports como GeoValidationPort e ImageAnalysisPort) e
+            <strong>use-cases</strong> (CreateDenunciaUseCase, AnalyzeImageUseCase…).
+            TypeScript puro — zero <code>@Injectable()</code>, zero import de Prisma.
+          </div>
+        </div>
+        <div class="pill"><i data-lucide="check-circle-2"></i>testável sem mock</div>
+      </div>
+      <div class="layer b">
+        <div class="ic"><i data-lucide="database"></i></div>
+        <div>
+          <div class="tit">Infraestrutura <span class="path">src/infrastructure/</span></div>
+          <div class="ds">
+            <strong>Adapters</strong> que implementam as portas: <code>PrismaDenunciasRepository</code>,
+            <code>InMemoryDenunciasRepository</code>, <code>GeminiService</code>, <code>TelegramService</code>.
+            Trocar Prisma por Drizzle só mexe aqui — o domínio não muda uma linha.
+          </div>
+        </div>
+        <div class="pill"><i data-lucide="repeat"></i>substituível</div>
+      </div>
+      <div class="layer v">
+        <div class="ic"><i data-lucide="plug"></i></div>
+        <div>
+          <div class="tit">Módulos / HTTP <span class="path">src/modules/</span></div>
+          <div class="ds">
+            <strong>Controllers</strong>, DTOs com <code>class-validator</code>, guards JWT e
+            <strong>factories</strong> que injetam as implementações concretas nos use-cases.
+            Camada fina — só traduz HTTP em chamadas de domínio.
+          </div>
+        </div>
+        <div class="pill"><i data-lucide="wifi"></i>borda externa</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ━━━ 04 — PORTS & ADAPTERS ━━━ -->
+<section class="slide">
+  <div class="slide-inner">
+    <div class="eyebrow"><i data-lucide="git-branch"></i>03 · Inversão de Dependência</div>
+    <h2>O mesmo use-case <span class="em">não sabe</span><br/>quem está executando ele.</h2>
+    <p class="lead">
+      A interface (porta) vive no domínio. As implementações (adapters) vivem fora.
+      Em <strong style="color:var(--ink);font-weight:600">teste</strong>, injetamos in-memory.
+      Em <strong style="color:var(--ink);font-weight:600">produção</strong>, injetamos Prisma. O use-case é idêntico.
+    </p>
+
+    <div class="flow">
+      <div class="node test">
+        <div class="ic"><i data-lucide="flask-conical"></i></div>
+        <div class="nm">Spec / Teste</div>
+        <div class="sub">create-denuncia.spec.ts</div>
+      </div>
+      <div class="arr"><i data-lucide="arrow-right"></i></div>
+      <div class="node port">
+        <div class="ic"><i data-lucide="circle-dashed"></i></div>
+        <div class="nm">Use-Case + Porta</div>
+        <div class="sub">CreateDenunciaUseCase</div>
+      </div>
+      <div class="arr"><i data-lucide="arrow-right"></i></div>
+      <div class="node adapter">
+        <div class="ic"><i data-lucide="database"></i></div>
+        <div class="nm">Adapter</div>
+        <div class="sub">InMemory · Prisma</div>
+      </div>
+    </div>
+
+    <div class="bullet-list">
+      <div class="b">
+        <div class="ic"><i data-lucide="check"></i></div>
+        <div class="t"><strong>Porta = abstract class</strong> no domínio. Define o contrato (assinaturas de métodos) sem implementar nada.</div>
+      </div>
+      <div class="b">
+        <div class="ic"><i data-lucide="check"></i></div>
+        <div class="t"><strong>Adapter = classe concreta</strong> na infraestrutura. Implementa a porta com a tecnologia escolhida (Prisma, in-memory, HTTP).</div>
+      </div>
+      <div class="b">
+        <div class="ic"><i data-lucide="check"></i></div>
+        <div class="t"><strong>Factory no module</strong> escolhe qual adapter injetar em runtime — abrindo espaço para feature flags, A/B e ambientes diferentes.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ━━━ 05 — TDD CICLO ━━━ -->
+<section class="slide">
+  <div class="slide-inner">
+    <div class="eyebrow"><i data-lucide="refresh-cw"></i>04 · TDD</div>
+    <h2>Red. Green. <span class="em">Refactor.</span></h2>
+    <p class="lead">
+      TDD não é só "escrever teste antes". É um <span class="serif">design tool</span>:
+      forçar você a usar a API antes de implementá-la
+      faz emergir contratos mais limpos e dependências mais finas.
+    </p>
+
+    <div class="cycle">
+      <div class="step red">
+        <div class="ico-wrap"><i data-lucide="circle-x"></i></div>
+        <div class="sub">passo 1</div>
+        <div class="nm">RED · escreve o teste</div>
+        <div class="ds">Descreve o comportamento esperado com <code>it('deve…')</code>. O teste falha — o use-case ainda nem foi criado. Esse erro é a especificação executável.</div>
+      </div>
+      <div class="step green">
+        <div class="ico-wrap"><i data-lucide="circle-check"></i></div>
+        <div class="sub">passo 2</div>
+        <div class="nm">GREEN · faz passar</div>
+        <div class="ds">Implementa o <strong>mínimo</strong> para o teste passar. Sem otimização, sem generalização precoce. Verde é a meta — funcionalidade comprovada.</div>
+      </div>
+      <div class="step blue">
+        <div class="ico-wrap"><i data-lucide="wand-2"></i></div>
+        <div class="sub">passo 3</div>
+        <div class="nm">REFACTOR · melhora</div>
+        <div class="ds">Limpa duplicação, extrai métodos, renomeia. A bateria de testes vira sua rede de segurança — refatorar deixa de ser ato de fé.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ━━━ 06 — IN-MEMORY vs MOCKS ━━━ -->
+<section class="slide">
+  <div class="slide-inner">
+    <div class="eyebrow"><i data-lucide="zap"></i>05 · Estratégia de Testes</div>
+    <h2>Por que <span class="em">in-memory repository</span><br/><span class="quiet">e não mocks de Prisma.</span></h2>
+    <p class="lead">
+      Mockar <code>prisma.denuncia.findMany</code> testa <em>como</em> o código chama Prisma — não <em>se</em> a regra de negócio funciona.
+      Implementar um repositório real, em memória, testa o <strong style="color:var(--ink);font-weight:600">comportamento</strong>.
+    </p>
+
+    <div class="two">
+      <div class="col bad">
+        <h3><i data-lucide="x-circle"></i>Mock de Prisma</h3>
+        <ul>
+          <li><i data-lucide="x"></i>Acopla teste à <strong>API do Prisma</strong> — muda o ORM e tudo quebra.</li>
+          <li><i data-lucide="x"></i>Verifica chamadas (<code>toHaveBeenCalledWith</code>), não resultado.</li>
+          <li><i data-lucide="x"></i>Pode passar verde com bug — você programou o mock pra retornar o que esperava.</li>
+          <li><i data-lucide="x"></i>Fragilidade: refactor benigno faz teste falhar.</li>
+        </ul>
+      </div>
+      <div class="col good">
+        <h3><i data-lucide="check-circle"></i>InMemoryRepository</h3>
+        <ul>
+          <li><i data-lucide="check"></i>Implementa a <strong>mesma interface</strong> que o repositório real.</li>
+          <li><i data-lucide="check"></i>Estado real: <code>create</code> de fato adiciona ao <code>items[]</code>.</li>
+          <li><i data-lucide="check"></i>Testes verificam <strong>o que o sistema faz</strong>, não como faz.</li>
+          <li><i data-lucide="check"></i>Refactor livre — só quebra quando o comportamento muda.</li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="lead" style="margin-top:32px;font-size:24px">
+      <strong style="color:var(--ink);font-weight:700">Taxonomia de Test Doubles</strong>
+      <span class="serif" style="color:var(--t50)">(Gerard Meszaros)</span> — o que usamos aqui é um <strong style="color:var(--em);font-weight:700">Fake</strong>:
+    </p>
+    <div class="doubles">
+      <div class="dbl"><div class="nm">Dummy</div><div class="ds">Preenche parâmetro, nunca é usado.</div></div>
+      <div class="dbl"><div class="nm">Stub</div><div class="ds">Devolve respostas prontas.</div></div>
+      <div class="dbl us"><div class="nm">Fake</div><div class="ds">Implementação simples mas funcional.</div></div>
+      <div class="dbl"><div class="nm">Spy</div><div class="ds">Grava chamadas que recebeu.</div></div>
+      <div class="dbl"><div class="nm">Mock</div><div class="ds">Verifica expectativas pré-programadas.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ━━━ 07 — ANATOMIA DO SPEC (AAA) ━━━ -->
+<section class="slide">
+  <div class="slide-inner">
+    <div class="eyebrow"><i data-lucide="file-code-2"></i>06 · Anatomia de um spec</div>
+    <h2>Padrão <span class="em">Arrange · Act · Assert</span></h2>
+    <p class="lead">Todo teste segue três blocos. Cada um responde uma pergunta diferente.</p>
+
+    <div class="code">
+      <div class="code-head">
+        <div class="fn"><i data-lucide="file-text"></i>src/domain/denuncias/use-cases/create-denuncia.use-case.spec.ts</div>
+        <div class="lbl">JEST · TDD</div>
+      </div>
+<pre><span class="kw">describe</span>(<span class="str">'CreateDenunciaUseCase'</span>, () =&gt; {
+  <span class="kw">let</span> repository: <span class="ty">InMemoryDenunciasRepository</span>
+  <span class="kw">let</span> sut: <span class="ty">CreateDenunciaUseCase</span>            <span class="com">// System Under Test</span>
+
+  <span class="kw">beforeEach</span>(() =&gt; {                              <span class="com">// 🅰 ARRANGE — monta o cenário</span>
+    repository = <span class="kw">new</span> <span class="fnn">InMemoryDenunciasRepository</span>()
+    sut = <span class="kw">new</span> <span class="fnn">CreateDenunciaUseCase</span>(repository, <span class="fnn">makeGeoValidation</span>([<span class="str">'QUEIMADA'</span>]))
+  })
+
+  <span class="kw">it</span>(<span class="str">'deve validar denúncia quando geo retorna flags'</span>, <span class="kw">async</span> () =&gt; {
+    <span class="kw">const</span> { denuncia } = <span class="kw">await</span> sut.<span class="fnn">execute</span>({       <span class="com">// 🅱 ACT — exercita o SUT</span>
+      type: <span class="str">'QUEIMADA'</span>, channel: <span class="str">'TELEGRAM'</span>,
+      latitude: <span class="num">-3.119</span>, longitude: <span class="num">-60.021</span>,
+    })
+
+    <span class="fnn">expect</span>(denuncia.status).<span class="fnn">toBe</span>(<span class="str">'VALIDADA'</span>)        <span class="com">// 🅲 ASSERT — verifica</span>
+    <span class="fnn">expect</span>(denuncia.flags).<span class="fnn">toContain</span>(<span class="str">'QUEIMADA'</span>)
+    <span class="fnn">expect</span>(denuncia.validatedAt).<span class="fnn">toBeInstanceOf</span>(<span class="ty">Date</span>)
+  })
+})</pre>
+    </div>
+  </div>
+</section>
+
+<!-- ━━━ 08 — O QUE FOI TESTADO (REAL) ━━━ -->
+<section class="slide">
+  <div class="slide-inner">
+    <div class="eyebrow"><i data-lucide="list-checks"></i>07 · O que foi testado</div>
+    <h2>Os <span class="em">14 specs</span> do domínio.</h2>
+    <p class="lead">Cada use-case do projeto tem seu <code>.spec.ts</code> ao lado. Agrupados por bounded context:</p>
+
+    <div class="spec-groups">
+      <div class="spec-group">
+        <div class="gh"><i data-lucide="flame"></i>denúncias · 8 specs</div>
+        <ul>
+          <li><code>create-denuncia</code><span>cria denúncia, valida via geo, dispara IA, registra histórico</span></li>
+          <li><code>find-all-denuncias</code><span>filtros (tipo, status, UF, datas) + paginação</span></li>
+          <li><code>find-denuncia-by-id</code><span>retorna entidade ou lança <code>DenunciaNotFoundError</code></span></li>
+          <li><code>update-denuncia-status</code><span>transição de status + registra no histórico</span></li>
+          <li><code>get-denuncias-stats</code><span>contagens agregadas por status</span></li>
+          <li><code>get-status-history</code><span>timeline de transições de uma denúncia</span></li>
+          <li><code>get-public-denuncia</code><span>view pública (sem dados sensíveis)</span></li>
+          <li><code>analyze-image</code><span>integração com Gemini via porta <code>ImageAnalysisPort</code></span></li>
+        </ul>
+      </div>
+
+      <div class="spec-group users">
+        <div class="gh"><i data-lucide="users"></i>auth + users · 4 specs</div>
+        <ul>
+          <li><code>login</code><span>credenciais válidas/inválidas, geração de JWT</span></li>
+          <li><code>set-password</code><span>ativação de conta via convite + bcrypt</span></li>
+          <li><code>invite-user</code><span>token único, expiração, dedup por e-mail</span></li>
+          <li><code>list-users</code><span>filtro por role + paginação</span></li>
+        </ul>
+
+        <div class="gh" style="margin-top:18px"><i data-lucide="git-pull-request"></i>escalation · 1 spec</div>
+        <ul>
+          <li><code>check-and-escalate</code><span>72h sem resposta → IBAMA/MPF/Defesa Civil conforme tipo</span></li>
+        </ul>
+
+        <div class="gh" style="margin-top:18px"><i data-lucide="map-pin"></i>geo-validation · 1 spec</div>
+        <ul>
+          <li><code>validate-coordinates</code><span>raio contra INPE (queimada), ANM (garimpo), SGB (alagamento)</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ━━━ 09 — PIRÂMIDE DE TESTES ━━━ -->
+<section class="slide">
+  <div class="slide-inner">
+    <div class="eyebrow"><i data-lucide="pyramid"></i>08 · Pirâmide de Testes</div>
+    <h2>Muitos rápidos. <span class="em">Poucos lentos.</span></h2>
+    <p class="lead">A base do projeto fica em testes <strong style="color:var(--ink);font-weight:600">unitários de domínio</strong> — onde mora a regra de negócio. O topo (e2e) entra só pra validar o sistema integrado.</p>
+
+    <div class="pyr-wrap">
+      <div class="pyramid">
+        <div class="pyr-lv l1">E2E<span class="qty">1 spec · banco real</span></div>
+        <div class="pyr-lv l2">Integração<span class="qty">in-memory + use-cases combinados</span></div>
+        <div class="pyr-lv l3">Unitários (Domain)<span class="qty">14 specs · ~50 casos</span></div>
+      </div>
+      <div class="pyr-explain">
+        <div class="item l3">
+          <div class="ti"><i data-lucide="zap"></i>Unitários</div>
+          <div class="ds">Isolam um use-case com in-memory repos. Rodam em <strong>milissegundos</strong>. Onde o TDD acontece de verdade.</div>
+        </div>
+        <div class="item l2">
+          <div class="ti"><i data-lucide="link"></i>Integração</div>
+          <div class="ds">Combinam vários use-cases reais (ex.: criar denúncia + analisar imagem + atualizar status). Mesma infra in-memory.</div>
+        </div>
+        <div class="item l1">
+          <div class="ti"><i data-lucide="globe"></i>End-to-End</div>
+          <div class="ds">Sobe Nest + Postgres + faz HTTP real. Caros e lentos — só pro happy path crítico.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="first-row">
+      <div class="first-pill"><span class="ltr">F</span><span class="lbl">Fast</span></div>
+      <div class="first-pill"><span class="ltr">I</span><span class="lbl">Independent</span></div>
+      <div class="first-pill"><span class="ltr">R</span><span class="lbl">Repeatable</span></div>
+      <div class="first-pill"><span class="ltr">S</span><span class="lbl">Self-validating</span></div>
+      <div class="first-pill"><span class="ltr">T</span><span class="lbl">Timely</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ━━━ 10 — MÉTRICAS ━━━ -->
+<section class="slide">
+  <div class="slide-inner">
+    <div class="eyebrow"><i data-lucide="bar-chart-3"></i>09 · Números</div>
+    <h2>A rede de segurança <span class="em">em números</span>.</h2>
+
+    <div class="metrics">
+      <div class="metric">
+        <div class="ico-wrap"><i data-lucide="file-code-2"></i></div>
+        <div><span class="v">14</span></div>
+        <div class="lbl">arquivos <code>.spec.ts</code> no domínio</div>
+      </div>
+      <div class="metric">
+        <div class="ico-wrap"><i data-lucide="list-checks"></i></div>
+        <div><span class="v">50<span class="u">+</span></span></div>
+        <div class="lbl">casos de teste (<code>it</code> blocks)</div>
+      </div>
+      <div class="metric">
+        <div class="ico-wrap"><i data-lucide="timer"></i></div>
+        <div><span class="v">&lt;2<span class="u">s</span></span></div>
+        <div class="lbl">tempo total da suíte unitária</div>
+      </div>
+      <div class="metric">
+        <div class="ico-wrap"><i data-lucide="database-zap"></i></div>
+        <div><span class="v">0</span></div>
+        <div class="lbl">dependência de banco no unit</div>
+      </div>
+    </div>
+
+    <div class="bullet-list" style="margin-top:32px">
+      <div class="b">
+        <div class="ic"><i data-lucide="sparkles"></i></div>
+        <div class="t">Suíte rápida = <strong>TDD viável</strong>. Quem espera 40s pra ver o vermelho desiste de TDD na segunda semana.</div>
+      </div>
+      <div class="b">
+        <div class="ic"><i data-lucide="shield"></i></div>
+        <div class="t">Cobertura via <code>pnpm test:cov</code> gera HTML em <code>coverage/lcov-report/index.html</code>.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ━━━ 11 — COMANDOS ━━━ -->
+<section class="slide">
+  <div class="slide-inner">
+    <div class="eyebrow"><i data-lucide="terminal"></i>10 · Como rodar</div>
+    <h2>Quatro comandos. <span class="quiet">Nada mais.</span></h2>
+
+    <div class="cmds">
+      <div class="cmd">
+        <div class="ic"><i data-lucide="play"></i></div>
+        <code>pnpm test</code>
+        <div class="ds">Roda toda a suíte unitária (domain + in-memory).</div>
+      </div>
+      <div class="cmd">
+        <div class="ic"><i data-lucide="eye"></i></div>
+        <code>pnpm test:watch</code>
+        <div class="ds">Modo TDD — re-roda os testes a cada save. Loop red → green → refactor.</div>
+      </div>
+      <div class="cmd">
+        <div class="ic"><i data-lucide="bar-chart-2"></i></div>
+        <code>pnpm test:cov</code>
+        <div class="ds">Gera relatório de cobertura em <code>coverage/</code>.</div>
+      </div>
+      <div class="cmd">
+        <div class="ic"><i data-lucide="globe-2"></i></div>
+        <code>pnpm test:e2e</code>
+        <div class="ds">Testes ponta-a-ponta — requer banco rodando (docker-compose up).</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ━━━ 12 — FECHAMENTO ━━━ -->
+<section class="slide final">
+  <div class="slide-inner" style="text-align:center;align-items:center">
+    <div class="eyebrow" style="margin:0 auto 22px"><i data-lucide="check-circle-2"></i>Fim</div>
+    <h1><span class="grad">Obrigado.</span></h1>
+    <p class="lead" style="margin:0 auto 16px;text-align:center;max-width:680px">
+      DDD isola <span class="serif">o que importa</span>. TDD garante que continue funcionando.<br/>
+      Juntos, fazem <strong style="color:var(--ink);font-weight:700">código que dura</strong>.
+    </p>
+    <div class="meta" style="margin-top:36px;display:inline-flex;gap:18px;align-items:center;
+      font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--t50);
+      letter-spacing:.15em;text-transform:uppercase;padding:10px 18px;
+      background:var(--bg2);border:1px solid var(--hair);border-radius:999px">
+      <i data-lucide="github" style="width:14px;height:14px;color:var(--ink)"></i>
+      <span>github.com/fabiobrasileiroo/ryzon-api</span>
+    </div>
+  </div>
+</section>
+
+<script>
+const slides = document.querySelectorAll('.slide')
+const total = slides.length
+let idx = 0
+const cur = document.getElementById('cur')
+const tot = document.getElementById('tot')
+const prog = document.getElementById('prog')
+tot.textContent = String(total).padStart(2,'0')
+
+function go(n){
+  idx = Math.max(0, Math.min(total-1, n))
+  slides.forEach((s,i)=>s.classList.toggle('active', i===idx))
+  cur.textContent = String(idx+1).padStart(2,'0')
+  prog.style.width = ((idx+1)/total*100) + '%'
+}
+
+document.addEventListener('keydown', e => {
+  if(e.key === 'Escape'){toggleHelp(false);return}
+  if(e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') go(idx+1)
+  else if(e.key === 'ArrowLeft' || e.key === 'PageUp') go(idx-1)
+  else if(e.key === 'Home') go(0)
+  else if(e.key === 'End') go(total-1)
+  else if(e.key === '?' || e.key === 'h') toggleHelp()
+})
+
+document.addEventListener('click', e => {
+  if(e.target.closest('.nav') || e.target.closest('.brand') || e.target.closest('.room-pill') || e.target.closest('.help-card')) return
+  if(e.target.closest('.help-ov')){toggleHelp(false);return}
+  go(idx+1)
+})
+
+go(0)
+
+/* ─── Controle remoto via PeerJS (compatível com remote.html) ─── */
+function genRoom(){
+  const s='ABCDEFGHJKLMNPQRSTUVWXYZ23456789'
+  let r='';for(let i=0;i<4;i++)r+=s[Math.floor(Math.random()*s.length)]
+  return r
+}
+const room = new URLSearchParams(location.search).get('room') || genRoom()
+const remoteUrl = location.origin + location.pathname.replace(/testes\.html$/,'') + 'remote.html?room=' + room
+document.getElementById('room-pill-val').textContent = room
+document.getElementById('remote-url-show').textContent = remoteUrl
+
+const helpOv = document.getElementById('help-ov')
+function toggleHelp(force){
+  const on = force === undefined ? !helpOv.classList.contains('on') : force
+  helpOv.classList.toggle('on', on)
+}
+document.getElementById('room-pill').addEventListener('click', e => {e.stopPropagation();toggleHelp()})
+
+const roomPill = document.getElementById('room-pill')
+function setupPeer(){
+  if(typeof Peer === 'undefined') return
+  let peer
+  try{peer = new Peer('ryzon-slide-'+room,{debug:0})}
+  catch(err){console.warn('PeerJS init failed', err);return}
+  peer.on('open', ()=>{console.log('[remote] aguardando em sala', room)})
+  peer.on('connection', conn => {
+    conn.on('open', ()=>roomPill.classList.add('live'))
+    conn.on('data', cmd => {
+      if(cmd === 'next') go(idx+1)
+      else if(cmd === 'prev') go(idx-1)
+      else if(cmd === 'first') go(0)
+      else if(cmd === 'last') go(total-1)
+      else if(cmd === 'help') toggleHelp()
+    })
+    conn.on('close', ()=>roomPill.classList.remove('live'))
+  })
+  peer.on('error', err => console.warn('[peer]', err.type))
+}
+setupPeer()
+
+if(window.lucide) lucide.createIcons()
+</script>
+</body>
+</html>
