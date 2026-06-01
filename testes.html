@@ -41,6 +41,11 @@
 html,body{width:100%;height:100%;background:var(--bg);color:var(--ink);
   font-family:'Manrope',sans-serif;font-weight:400;overflow:hidden}
 
+/* ─── idle hide chrome (mouse parado 3s) ───────── */
+.slide-n,.brand,.nav,.room-pill{transition:opacity .6s var(--ease)}
+body.idle .slide-n,body.idle .brand,body.idle .nav,body.idle .room-pill{
+  opacity:0;pointer-events:none}
+
 /* ─── progress bar ─────────────────────────────── */
 .prog{position:fixed;top:0;left:0;height:3px;width:0;background:var(--em);
   z-index:300;transition:width .6s var(--ease)}
@@ -69,12 +74,59 @@ html,body{width:100%;height:100%;background:var(--bg);color:var(--ink);
 .slide.active{display:flex;opacity:1}
 .slide-inner{width:100%;max-width:1320px;margin:0 auto;display:flex;flex-direction:column;justify-content:center}
 
+/* ─── stagger fade-in on active ─────────────────── */
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.slide.active .eyebrow,.slide.active h1,.slide.active h2,.slide.active .lead,
+.slide.active .cards-3,.slide.active .cards-2,.slide.active .cards-4,
+.slide.active .layers,.slide.active .cycle,.slide.active .metrics,
+.slide.active .cmds,.slide.active .two,.slide.active .pyr-wrap,
+.slide.active .flow,.slide.active .code,.slide.active .bullet-list,
+.slide.active .spec-groups,.slide.active .doubles,.slide.active .first-row,
+.slide.active .meta,.slide.active .tools-grid,.slide.active .figure,
+.slide.active .report-card{animation:rise .7s var(--ease) both}
+.slide.active .eyebrow{animation-delay:.05s}
+.slide.active h1,.slide.active h2{animation-delay:.15s}
+.slide.active .lead{animation-delay:.28s}
+.slide.active .cards-3,.slide.active .cards-2,.slide.active .cards-4,
+.slide.active .layers,.slide.active .cycle,.slide.active .metrics,
+.slide.active .cmds,.slide.active .two,.slide.active .pyr-wrap,
+.slide.active .flow,.slide.active .code,.slide.active .bullet-list,
+.slide.active .spec-groups,.slide.active .doubles,.slide.active .figure,
+.slide.active .tools-grid,.slide.active .report-card{animation-delay:.42s}
+.slide.active .first-row{animation-delay:.55s}
+.slide.active .meta{animation-delay:.55s}
+
+/* card item stagger (when inside container that's already animating) */
+.slide.active .card,.slide.active .layer,.slide.active .step,
+.slide.active .metric,.slide.active .cmd,.slide.active .spec-group,
+.slide.active .tool,.slide.active .first-pill,.slide.active .b{opacity:0;animation:rise .6s var(--ease) forwards}
+.slide.active .card:nth-child(1),.slide.active .layer:nth-child(1),
+.slide.active .step:nth-child(1),.slide.active .metric:nth-child(1),
+.slide.active .cmd:nth-child(1),.slide.active .spec-group:nth-child(1),
+.slide.active .tool:nth-child(1),.slide.active .first-pill:nth-child(1),
+.slide.active .b:nth-child(1){animation-delay:.45s}
+.slide.active .card:nth-child(2),.slide.active .layer:nth-child(2),
+.slide.active .step:nth-child(2),.slide.active .metric:nth-child(2),
+.slide.active .cmd:nth-child(2),.slide.active .spec-group:nth-child(2),
+.slide.active .tool:nth-child(2),.slide.active .first-pill:nth-child(2),
+.slide.active .b:nth-child(2){animation-delay:.55s}
+.slide.active .card:nth-child(3),.slide.active .layer:nth-child(3),
+.slide.active .step:nth-child(3),.slide.active .metric:nth-child(3),
+.slide.active .cmd:nth-child(3),.slide.active .tool:nth-child(3),
+.slide.active .first-pill:nth-child(3),.slide.active .b:nth-child(3){animation-delay:.65s}
+.slide.active .card:nth-child(4),.slide.active .metric:nth-child(4),
+.slide.active .cmd:nth-child(4),.slide.active .tool:nth-child(4),
+.slide.active .first-pill:nth-child(4),.slide.active .b:nth-child(4){animation-delay:.75s}
+.slide.active .card:nth-child(5),.slide.active .tool:nth-child(5),
+.slide.active .first-pill:nth-child(5){animation-delay:.85s}
+.slide.active .card:nth-child(6),.slide.active .tool:nth-child(6){animation-delay:.95s}
+
 /* ─── typography ───────────────────────────────── */
-.eyebrow{display:inline-flex;align-items:center;gap:12px;font-family:'JetBrains Mono',monospace;
-  font-size:18px;letter-spacing:.2em;color:var(--em);font-weight:700;
-  padding:10px 20px;border:1px solid rgba(10,125,62,.25);border-radius:999px;
-  background:var(--em-soft);margin-bottom:32px;text-transform:uppercase;width:fit-content}
-.eyebrow svg{width:22px;height:22px;stroke-width:2.5}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:'JetBrains Mono',monospace;
+  font-size:14px;letter-spacing:.22em;color:var(--t50);font-weight:600;
+  padding:0;background:none;border:none;margin-bottom:24px;text-transform:uppercase;width:fit-content}
+.eyebrow svg{width:16px;height:16px;stroke-width:2.2;color:var(--em);opacity:.8}
+.eyebrow::before{content:'';display:block;width:24px;height:1px;background:var(--em);opacity:.7;margin-right:4px}
 
 h1.title{font-size:140px;font-weight:800;line-height:1;letter-spacing:-.035em;margin-bottom:36px;color:var(--ink)}
 h1.title .grad{background:linear-gradient(135deg,var(--em),var(--blue));-webkit-background-clip:text;
@@ -277,6 +329,51 @@ code{font-family:'JetBrains Mono',monospace;font-size:.88em;background:var(--pap
 .bullet-list .b .t{font-size:22px;color:var(--t70);line-height:1.5}
 .bullet-list .b .t strong{color:var(--ink);font-weight:700}
 
+/* ─── figure (diagramas externos como evidência) ─ */
+.figure{margin-top:28px;display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:center}
+.figure.wide{grid-template-columns:1.2fr 1fr;gap:48px}
+.figure .frame{position:relative;border:1px solid var(--hair);border-radius:18px;
+  background:var(--bg2);padding:28px;box-shadow:0 4px 18px rgba(0,0,0,.05);overflow:hidden}
+.figure .frame::after{content:'';position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(120% 90% at 50% 0%,transparent 55%,rgba(0,0,0,.04) 100%)}
+.figure img{display:block;width:100%;height:auto;border-radius:8px}
+.figure .cap{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--t50);
+  margin-top:14px;letter-spacing:.04em;text-align:center;line-height:1.4}
+.figure .cap strong{color:var(--ink);font-weight:600}
+.figure .side h3{font-size:24px;font-weight:700;letter-spacing:-.01em;margin-bottom:14px;color:var(--ink)}
+.figure .side p{font-size:19px;color:var(--t70);line-height:1.5;margin-bottom:14px}
+.figure .side ul{list-style:none;display:flex;flex-direction:column;gap:10px;margin-top:6px}
+.figure .side li{display:flex;gap:10px;align-items:flex-start;font-size:18px;color:var(--t70);line-height:1.45}
+.figure .side li::before{content:'';display:block;width:6px;height:6px;border-radius:50%;background:var(--em);margin-top:11px;flex-shrink:0}
+.figure .side li strong{color:var(--ink);font-weight:700}
+
+/* ─── tools grid (logos via CDN) ─────────────── */
+.tools-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;margin-top:32px}
+.tool{padding:24px 18px;border:1px solid var(--hair);border-radius:14px;background:var(--bg2);
+  display:flex;flex-direction:column;align-items:center;gap:14px;
+  transition:transform .25s var(--ease),border-color .25s var(--ease)}
+.tool:hover{transform:translateY(-3px);border-color:var(--em)}
+.tool img{width:56px;height:56px;object-fit:contain;filter:drop-shadow(0 2px 6px rgba(0,0,0,.08))}
+.tool .nm{font-size:16px;font-weight:700;color:var(--ink);letter-spacing:-.005em}
+.tool .ds{font-size:13px;color:var(--t50);text-align:center;line-height:1.35;font-family:'JetBrains Mono',monospace}
+
+/* ─── report card (CTA pro relatório de testes) ─ */
+.report-card{margin-top:32px;display:flex;align-items:center;gap:28px;padding:28px 32px;
+  border:1px solid var(--hair);border-radius:16px;background:linear-gradient(135deg,var(--bg2),var(--paper));
+  box-shadow:0 4px 16px rgba(0,0,0,.05)}
+.report-card .ic{display:flex;align-items:center;justify-content:center;
+  width:64px;height:64px;border-radius:14px;background:var(--em-soft);color:var(--em);flex-shrink:0}
+.report-card .ic svg{width:32px;height:32px;stroke-width:2}
+.report-card .body{flex:1}
+.report-card .ti{font-size:22px;font-weight:700;color:var(--ink);margin-bottom:4px;letter-spacing:-.01em}
+.report-card .sub{font-size:16px;color:var(--t70);line-height:1.4}
+.report-card a{display:inline-flex;align-items:center;gap:10px;padding:14px 22px;border-radius:10px;
+  background:var(--ink);color:var(--bg);text-decoration:none;font-weight:700;font-size:16px;
+  font-family:'JetBrains Mono',monospace;letter-spacing:.02em;
+  transition:transform .15s var(--ease)}
+.report-card a:hover{transform:translateY(-2px)}
+.report-card a svg{width:18px;height:18px;stroke-width:2.4}
+
 /* ─── spec list ────────────────────────────────── */
 .spec-groups{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:28px}
 .spec-group{padding:24px 26px;border:1px solid var(--hair);border-radius:14px;background:var(--bg2)}
@@ -396,7 +493,7 @@ code{font-family:'JetBrains Mono',monospace;font-size:.88em;background:var(--pap
 <!-- ━━━ 01 — CAPA ━━━ -->
 <section class="slide active cover">
   <div class="slide-inner">
-    <div class="eyebrow"><i data-lucide="flask-conical"></i>Trabalho · Testes 2</div>
+    <div class="eyebrow">Trabalho · Testes 2</div>
     <h1 class="title">
       Back-end com<br/>
       <span class="grad">DDD + TDD.</span>
@@ -409,7 +506,7 @@ code{font-family:'JetBrains Mono',monospace;font-size:.88em;background:var(--pap
     <div class="meta">
       <span>Fabio</span><span class="sep"></span>
       <span>NestJS 11 · Jest</span><span class="sep"></span>
-      <span>2026</span>
+      <a href="https://fabiobrasileiroo.github.io/ryzon-api/" target="_blank" rel="noopener" style="color:var(--em);text-decoration:none;display:inline-flex;align-items:center;gap:6px">Test Report <i data-lucide="external-link" style="width:14px;height:14px;stroke-width:2.4"></i></a>
     </div>
   </div>
 </section>
@@ -417,7 +514,7 @@ code{font-family:'JetBrains Mono',monospace;font-size:.88em;background:var(--pap
 <!-- ━━━ 02 — CONTEXTO ━━━ -->
 <section class="slide">
   <div class="slide-inner">
-    <div class="eyebrow"><i data-lucide="info"></i>01 · Contexto</div>
+    <div class="eyebrow">01 · Contexto</div>
     <h2>O que é a <span class="em">Ryzon API</span>.</h2>
     <p class="lead">
       API REST que recebe denúncias ambientais (queimadas, garimpo ilegal e alagamentos),
@@ -450,13 +547,40 @@ code{font-family:'JetBrains Mono',monospace;font-size:.88em;background:var(--pap
 </section>
 
 <!-- ━━━ 03 — DDD: AS 3 CAMADAS ━━━ -->
+<!-- ━━━ NOVO — DDD ONION (image anchor) ━━━ -->
 <section class="slide">
   <div class="slide-inner">
-    <div class="eyebrow"><i data-lucide="layers-3"></i>02 · Arquitetura DDD</div>
-    <h2>Três camadas. <span class="quiet">Uma regra: dependência aponta pra dentro.</span></h2>
+    <div class="eyebrow">02 · DDD &amp; Clean Architecture</div>
+    <h2>O <span class="em">núcleo</span> não conhece o mundo.</h2>
+    <p class="lead">No DDD, <strong style="color:var(--ink);font-weight:600">entidades e regras de negócio ficam no centro</strong>. Quanto mais externa a camada, mais técnica e substituível ela é.</p>
+
+    <div class="figure">
+      <div class="frame">
+        <img src="assets/ddd-onion.webp" alt="Diagrama DDD em camadas concêntricas"/>
+        <div class="cap"><strong>Onion Architecture</strong> · entidades no centro, infraestrutura na borda</div>
+      </div>
+      <div class="side">
+        <h3>Por que esse formato?</h3>
+        <p>A regra de ouro: <strong>dependência aponta pra dentro</strong>. O domínio não importa Prisma, nem Express, nem NestJS — quem se adapta é a infraestrutura.</p>
+        <ul>
+          <li><strong>Entidades</strong> — modelo de negócio puro</li>
+          <li><strong>Use Cases</strong> — orquestram regras</li>
+          <li><strong>Controllers / Presenters</strong> — traduzem para HTTP</li>
+          <li><strong>Infrastructure</strong> — DB, libs, rede</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ━━━ 03 — CAMADAS DETALHADAS (ryzon-api) ━━━ -->
+<section class="slide">
+  <div class="slide-inner">
+    <div class="eyebrow">03 · No projeto ryzon-api</div>
+    <h2>Três pastas. <span class="quiet">Uma direção.</span></h2>
     <p class="lead">
-      A camada de <strong style="color:var(--ink);font-weight:600">domínio não conhece</strong> Prisma, Express ou NestJS.
-      Quem se adapta é a infraestrutura — não o contrário.
+      Cada pasta de <code>src/</code> corresponde a um anel do diagrama anterior.
+      O <strong style="color:var(--ink);font-weight:600">domínio</strong> fica no centro.
     </p>
 
     <div class="layers">
@@ -501,10 +625,35 @@ code{font-family:'JetBrains Mono',monospace;font-size:.88em;background:var(--pap
   </div>
 </section>
 
-<!-- ━━━ 04 — PORTS & ADAPTERS ━━━ -->
+<!-- ━━━ NOVO — CLEAN ARCH FLOW (image anchor) ━━━ -->
 <section class="slide">
   <div class="slide-inner">
-    <div class="eyebrow"><i data-lucide="git-branch"></i>03 · Inversão de Dependência</div>
+    <div class="eyebrow">04 · Setas representam dependência</div>
+    <h2>Quem <span class="em">chama</span> quem.</h2>
+    <p class="lead">No fluxo real do projeto, Controllers chamam Use Cases que dependem de <strong style="color:var(--ink);font-weight:600">interfaces</strong> — Infrastructure só entra via <span class="serif">injeção de dependência</span>.</p>
+
+    <div class="figure wide">
+      <div class="frame" style="background:#fff">
+        <img src="assets/clean-architecture.jpg" alt="Diagrama Clean Architecture mostrando fluxo de dependências"/>
+        <div class="cap">Frameworks &amp; Drivers → Adapters → Application → <strong>Entities</strong></div>
+      </div>
+      <div class="side">
+        <h3>O que esse desenho prova</h3>
+        <p>As setas <strong>nunca apontam pra fora</strong> do círculo. <code>Infrastructure</code> implementa interfaces que vivem em <code>Application</code> — esse é o <strong>Dependency Inversion Principle</strong> (DIP) em ação.</p>
+        <ul>
+          <li>Mudar o ORM = mexer só em Infrastructure</li>
+          <li>Mudar HTTP por gRPC = mexer só em Frameworks</li>
+          <li>Mudar regra de negócio = mexer só em Entities</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ━━━ 05 — PORTS & ADAPTERS (use-case + adapter) ━━━ -->
+<section class="slide">
+  <div class="slide-inner">
+    <div class="eyebrow">05 · Inversão de dependência na prática</div>
     <h2>O mesmo use-case <span class="em">não sabe</span><br/>quem está executando ele.</h2>
     <p class="lead">
       A interface (porta) vive no domínio. As implementações (adapters) vivem fora.
@@ -552,7 +701,7 @@ code{font-family:'JetBrains Mono',monospace;font-size:.88em;background:var(--pap
 <!-- ━━━ 05 — TDD CICLO ━━━ -->
 <section class="slide">
   <div class="slide-inner">
-    <div class="eyebrow"><i data-lucide="refresh-cw"></i>04 · TDD</div>
+    <div class="eyebrow">06 · TDD</div>
     <h2>Red. Green. <span class="em">Refactor.</span></h2>
     <p class="lead">
       TDD não é só "escrever teste antes". É um <span class="serif">design tool</span>:
@@ -586,7 +735,7 @@ code{font-family:'JetBrains Mono',monospace;font-size:.88em;background:var(--pap
 <!-- ━━━ 06 — IN-MEMORY vs MOCKS ━━━ -->
 <section class="slide">
   <div class="slide-inner">
-    <div class="eyebrow"><i data-lucide="zap"></i>05 · Estratégia de Testes</div>
+    <div class="eyebrow">07 · Estratégia de testes</div>
     <h2>Por que <span class="em">in-memory repository</span><br/><span class="quiet">e não mocks de Prisma.</span></h2>
     <p class="lead">
       Mockar <code>prisma.denuncia.findMany</code> testa <em>como</em> o código chama Prisma — não <em>se</em> a regra de negócio funciona.
@@ -631,7 +780,7 @@ code{font-family:'JetBrains Mono',monospace;font-size:.88em;background:var(--pap
 <!-- ━━━ 07 — ANATOMIA DO SPEC (AAA) ━━━ -->
 <section class="slide">
   <div class="slide-inner">
-    <div class="eyebrow"><i data-lucide="file-code-2"></i>06 · Anatomia de um spec</div>
+    <div class="eyebrow">08 · Anatomia de um spec</div>
     <h2>Padrão <span class="em">Arrange · Act · Assert</span></h2>
     <p class="lead">Todo teste segue três blocos. Cada um responde uma pergunta diferente.</p>
 
@@ -667,7 +816,7 @@ code{font-family:'JetBrains Mono',monospace;font-size:.88em;background:var(--pap
 <!-- ━━━ 08 — O QUE FOI TESTADO (REAL) ━━━ -->
 <section class="slide">
   <div class="slide-inner">
-    <div class="eyebrow"><i data-lucide="list-checks"></i>07 · O que foi testado</div>
+    <div class="eyebrow">09 · O que foi testado</div>
     <h2>Os <span class="em">14 specs</span> do domínio.</h2>
     <p class="lead">Cada use-case do projeto tem seu <code>.spec.ts</code> ao lado. Agrupados por bounded context:</p>
 
@@ -712,38 +861,24 @@ code{font-family:'JetBrains Mono',monospace;font-size:.88em;background:var(--pap
 <!-- ━━━ 09 — PIRÂMIDE DE TESTES ━━━ -->
 <section class="slide">
   <div class="slide-inner">
-    <div class="eyebrow"><i data-lucide="pyramid"></i>08 · Pirâmide de Testes</div>
+    <div class="eyebrow">10 · Pirâmide de testes</div>
     <h2>Muitos rápidos. <span class="em">Poucos lentos.</span></h2>
-    <p class="lead">A base do projeto fica em testes <strong style="color:var(--ink);font-weight:600">unitários de domínio</strong> — onde mora a regra de negócio. O topo (e2e) entra só pra validar o sistema integrado.</p>
+    <p class="lead">A base — <strong style="color:var(--ink);font-weight:600">testes unitários</strong> — é grande e barata. O topo (E2E) é pequeno e caro. Inverter essa pirâmide é o anti-padrão clássico.</p>
 
-    <div class="pyr-wrap">
-      <div class="pyramid">
-        <div class="pyr-lv l1">E2E<span class="qty">1 spec · banco real</span></div>
-        <div class="pyr-lv l2">Integração<span class="qty">in-memory + use-cases combinados</span></div>
-        <div class="pyr-lv l3">Unitários (Domain)<span class="qty">14 specs · ~50 casos</span></div>
+    <div class="figure">
+      <div class="frame" style="background:#fff">
+        <img src="assets/test-pyramid.png" alt="Pirâmide de testes: Unidade, Integração, E2E Sistema"/>
+        <div class="cap">A pirâmide clássica · <strong>unidade na base · E2E no topo</strong></div>
       </div>
-      <div class="pyr-explain">
-        <div class="item l3">
-          <div class="ti"><i data-lucide="zap"></i>Unitários</div>
-          <div class="ds">Isolam um use-case com in-memory repos. Rodam em <strong>milissegundos</strong>. Onde o TDD acontece de verdade.</div>
-        </div>
-        <div class="item l2">
-          <div class="ti"><i data-lucide="link"></i>Integração</div>
-          <div class="ds">Combinam vários use-cases reais (ex.: criar denúncia + analisar imagem + atualizar status). Mesma infra in-memory.</div>
-        </div>
-        <div class="item l1">
-          <div class="ti"><i data-lucide="globe"></i>End-to-End</div>
-          <div class="ds">Sobe Nest + Postgres + faz HTTP real. Caros e lentos — só pro happy path crítico.</div>
-        </div>
+      <div class="side">
+        <h3>No ryzon-api</h3>
+        <ul>
+          <li><strong>Unidade · 14 specs</strong> — use-cases com in-memory repos. Milissegundos.</li>
+          <li><strong>Integração</strong> — combina use-cases (criar + analisar + escalar)</li>
+          <li><strong>E2E</strong> — sobe Nest + Postgres + HTTP real. Só pro happy path crítico.</li>
+        </ul>
+        <p style="margin-top:18px;font-size:17px"><strong style="color:var(--ink);font-weight:700">F.I.R.S.T</strong> — Fast · Independent · Repeatable · Self-validating · Timely</p>
       </div>
-    </div>
-
-    <div class="first-row">
-      <div class="first-pill"><span class="ltr">F</span><span class="lbl">Fast</span></div>
-      <div class="first-pill"><span class="ltr">I</span><span class="lbl">Independent</span></div>
-      <div class="first-pill"><span class="ltr">R</span><span class="lbl">Repeatable</span></div>
-      <div class="first-pill"><span class="ltr">S</span><span class="lbl">Self-validating</span></div>
-      <div class="first-pill"><span class="ltr">T</span><span class="lbl">Timely</span></div>
     </div>
   </div>
 </section>
@@ -751,7 +886,7 @@ code{font-family:'JetBrains Mono',monospace;font-size:.88em;background:var(--pap
 <!-- ━━━ 10 — MÉTRICAS ━━━ -->
 <section class="slide">
   <div class="slide-inner">
-    <div class="eyebrow"><i data-lucide="bar-chart-3"></i>09 · Números</div>
+    <div class="eyebrow">11 · Números</div>
     <h2>A rede de segurança <span class="em">em números</span>.</h2>
 
     <div class="metrics">
@@ -790,10 +925,63 @@ code{font-family:'JetBrains Mono',monospace;font-size:.88em;background:var(--pap
   </div>
 </section>
 
+<!-- ━━━ NOVO — STACK DE FERRAMENTAS ━━━ -->
+<section class="slide">
+  <div class="slide-inner">
+    <div class="eyebrow">12 · Ferramentas de teste</div>
+    <h2>O que está <span class="em">debaixo do capô</span>.</h2>
+    <p class="lead">Stack <span class="serif">batalhada</span> — escolhas que privilegiam velocidade da suíte e isolamento de camadas.</p>
+
+    <div class="tools-grid">
+      <div class="tool">
+        <img src="https://cdn.simpleicons.org/jest/C21325" alt="Jest"/>
+        <div class="nm">Jest</div>
+        <div class="ds">test runner</div>
+      </div>
+      <div class="tool">
+        <img src="https://cdn.simpleicons.org/typescript/3178C6" alt="TypeScript"/>
+        <div class="nm">TypeScript</div>
+        <div class="ds">types nos specs</div>
+      </div>
+      <div class="tool">
+        <img src="https://cdn.simpleicons.org/nestjs/E0234E" alt="NestJS"/>
+        <div class="nm">NestJS</div>
+        <div class="ds">DI + módulos</div>
+      </div>
+      <div class="tool">
+        <img src="https://cdn.simpleicons.org/prisma/0F172A" alt="Prisma"/>
+        <div class="nm">Prisma</div>
+        <div class="ds">adapter de DB</div>
+      </div>
+      <div class="tool">
+        <img src="https://cdn.simpleicons.org/postgresql/4169E1" alt="PostgreSQL"/>
+        <div class="nm">PostgreSQL</div>
+        <div class="ds">só E2E</div>
+      </div>
+      <div class="tool">
+        <img src="https://cdn.simpleicons.org/pnpm/F69220" alt="pnpm"/>
+        <div class="nm">pnpm</div>
+        <div class="ds">scripts</div>
+      </div>
+    </div>
+
+    <div class="bullet-list" style="margin-top:32px">
+      <div class="b">
+        <div class="ic"><i data-lucide="info"></i></div>
+        <div class="t"><strong>Por que Jest?</strong> Watch mode rápido, snapshot quando preciso, mocks &amp; spies built-in, paralelismo automático.</div>
+      </div>
+      <div class="b">
+        <div class="ic"><i data-lucide="info"></i></div>
+        <div class="t"><strong>Por que NÃO Vitest aqui?</strong> NestJS 11 + ts-jest já está afinado; trocar custa tempo sem ganho de regressão.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ━━━ 11 — COMANDOS ━━━ -->
 <section class="slide">
   <div class="slide-inner">
-    <div class="eyebrow"><i data-lucide="terminal"></i>10 · Como rodar</div>
+    <div class="eyebrow">13 · Como rodar</div>
     <h2>Quatro comandos. <span class="quiet">Nada mais.</span></h2>
 
     <div class="cmds">
@@ -818,24 +1006,49 @@ code{font-family:'JetBrains Mono',monospace;font-size:.88em;background:var(--pap
         <div class="ds">Testes ponta-a-ponta — requer banco rodando (docker-compose up).</div>
       </div>
     </div>
+
+    <div class="report-card">
+      <div class="ic"><i data-lucide="file-bar-chart"></i></div>
+      <div class="body">
+        <div class="ti">Test Report online</div>
+        <div class="sub">Relatório de cobertura do <code>ryzon-api</code> publicado via GitHub Pages — atualizado a cada CI.</div>
+      </div>
+      <a href="https://fabiobrasileiroo.github.io/ryzon-api/" target="_blank" rel="noopener">
+        ryzon-api/coverage <i data-lucide="external-link"></i>
+      </a>
+    </div>
   </div>
 </section>
 
-<!-- ━━━ 12 — FECHAMENTO ━━━ -->
+<!-- ━━━ 13 — FECHAMENTO ━━━ -->
 <section class="slide final">
   <div class="slide-inner" style="text-align:center;align-items:center">
-    <div class="eyebrow" style="margin:0 auto 22px"><i data-lucide="check-circle-2"></i>Fim</div>
+    <div class="eyebrow" style="margin:0 auto 22px">Fim</div>
     <h1><span class="grad">Obrigado.</span></h1>
-    <p class="lead" style="margin:0 auto 16px;text-align:center;max-width:680px">
+    <p class="lead" style="margin:0 auto 16px;text-align:center;max-width:780px">
       DDD isola <span class="serif">o que importa</span>. TDD garante que continue funcionando.<br/>
       Juntos, fazem <strong style="color:var(--ink);font-weight:700">código que dura</strong>.
     </p>
-    <div class="meta" style="margin-top:36px;display:inline-flex;gap:18px;align-items:center;
-      font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--t50);
-      letter-spacing:.15em;text-transform:uppercase;padding:10px 18px;
-      background:var(--bg2);border:1px solid var(--hair);border-radius:999px">
-      <i data-lucide="github" style="width:14px;height:14px;color:var(--ink)"></i>
-      <span>github.com/fabiobrasileiroo/ryzon-api</span>
+
+    <div style="display:flex;gap:14px;align-items:center;justify-content:center;flex-wrap:wrap;margin-top:42px">
+      <a href="https://fabiobrasileiroo.github.io/ryzon-api/" target="_blank" rel="noopener"
+         style="display:inline-flex;align-items:center;gap:12px;padding:18px 28px;border-radius:14px;
+                background:var(--ink);color:var(--bg);text-decoration:none;font-weight:700;font-size:18px;
+                font-family:'JetBrains Mono',monospace;letter-spacing:.02em;
+                transition:transform .15s var(--ease)">
+        <i data-lucide="file-bar-chart" style="width:22px;height:22px;stroke-width:2.4"></i>
+        Test Report
+        <i data-lucide="arrow-up-right" style="width:18px;height:18px;stroke-width:2.4"></i>
+      </a>
+      <a href="https://github.com/fabiobrasileiroo/ryzon-api" target="_blank" rel="noopener"
+         style="display:inline-flex;align-items:center;gap:12px;padding:18px 28px;border-radius:14px;
+                background:var(--bg2);color:var(--ink);text-decoration:none;font-weight:600;font-size:18px;
+                font-family:'JetBrains Mono',monospace;letter-spacing:.02em;
+                border:1px solid var(--hair);transition:transform .15s var(--ease)">
+        <i data-lucide="github" style="width:22px;height:22px"></i>
+        ryzon-api
+        <i data-lucide="arrow-up-right" style="width:18px;height:18px;stroke-width:2.4"></i>
+      </a>
     </div>
   </div>
 </section>
@@ -872,6 +1085,16 @@ document.addEventListener('click', e => {
 })
 
 go(0)
+
+/* ─── Idle detection (esconde chrome após 3s sem mouse) ─── */
+let idleTimer
+function resetIdle(){
+  document.body.classList.remove('idle')
+  clearTimeout(idleTimer)
+  idleTimer = setTimeout(()=>document.body.classList.add('idle'), 3000)
+}
+;['mousemove','keydown','touchstart','wheel'].forEach(ev=>document.addEventListener(ev, resetIdle, {passive:true}))
+resetIdle()
 
 /* ─── Controle remoto via PeerJS (compatível com remote.html) ─── */
 function genRoom(){
