@@ -134,7 +134,8 @@ h1.title .grad{background:linear-gradient(135deg,var(--em),var(--blue));-webkit-
 h2{font-size:84px;font-weight:700;line-height:1.06;letter-spacing:-.025em;margin-bottom:28px;color:var(--ink)}
 h2 .quiet{color:var(--t50);font-weight:500}
 h2 .em{color:var(--em)}
-.lead{font-size:32px;color:var(--t70);line-height:1.45;max-width:1140px;font-weight:400}
+.lead{font-size:34px;color:var(--t70);line-height:1.45;max-width:1180px;font-weight:400}
+.cover .lead{font-size:38px;max-width:1080px}
 .serif{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400}
 .mono{font-family:'JetBrains Mono',monospace;font-size:.92em}
 code{font-family:'JetBrains Mono',monospace;font-size:.88em;background:var(--paper);
@@ -246,9 +247,9 @@ code{font-family:'JetBrains Mono',monospace;font-size:.88em;background:var(--pap
 .cover .eyebrow{margin:0 auto 28px}
 .cover h1.title{margin-bottom:30px}
 .cover .lead{margin:0 auto;text-align:center}
-.cover .meta{margin-top:56px;display:inline-flex;gap:22px;align-items:center;
-  font-family:'JetBrains Mono',monospace;font-size:16px;color:var(--t50);
-  letter-spacing:.15em;text-transform:uppercase;padding:14px 24px;
+.cover .meta{margin-top:60px;display:inline-flex;gap:24px;align-items:center;
+  font-family:'JetBrains Mono',monospace;font-size:20px;color:var(--t50);
+  letter-spacing:.14em;text-transform:uppercase;padding:18px 30px;
   background:var(--bg2);border:1px solid var(--hair);border-radius:999px;font-weight:600}
 .cover .meta .sep{width:5px;height:5px;background:var(--t30);border-radius:50%}
 
@@ -337,25 +338,26 @@ code{font-family:'JetBrains Mono',monospace;font-size:.88em;background:var(--pap
 .figure .frame::after{content:'';position:absolute;inset:0;pointer-events:none;
   background:radial-gradient(120% 90% at 50% 0%,transparent 55%,rgba(0,0,0,.04) 100%)}
 .figure img{display:block;width:100%;height:auto;border-radius:8px}
-.figure .cap{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--t50);
-  margin-top:14px;letter-spacing:.04em;text-align:center;line-height:1.4}
-.figure .cap strong{color:var(--ink);font-weight:600}
-.figure .side h3{font-size:24px;font-weight:700;letter-spacing:-.01em;margin-bottom:14px;color:var(--ink)}
-.figure .side p{font-size:19px;color:var(--t70);line-height:1.5;margin-bottom:14px}
-.figure .side ul{list-style:none;display:flex;flex-direction:column;gap:10px;margin-top:6px}
-.figure .side li{display:flex;gap:10px;align-items:flex-start;font-size:18px;color:var(--t70);line-height:1.45}
-.figure .side li::before{content:'';display:block;width:6px;height:6px;border-radius:50%;background:var(--em);margin-top:11px;flex-shrink:0}
+.figure .cap{font-family:'JetBrains Mono',monospace;font-size:17px;color:var(--t50);
+  margin-top:18px;letter-spacing:.04em;text-align:center;line-height:1.4;font-weight:500}
+.figure .cap strong{color:var(--ink);font-weight:700}
+.figure .side h3{font-size:36px;font-weight:700;letter-spacing:-.01em;margin-bottom:20px;color:var(--ink);line-height:1.1}
+.figure .side p{font-size:28px;color:var(--t70);line-height:1.45;margin-bottom:18px}
+.figure .side p strong{color:var(--ink);font-weight:700}
+.figure .side ul{list-style:none;display:flex;flex-direction:column;gap:14px;margin-top:10px}
+.figure .side li{display:flex;gap:14px;align-items:flex-start;font-size:26px;color:var(--t70);line-height:1.4}
+.figure .side li::before{content:'';display:block;width:9px;height:9px;border-radius:50%;background:var(--em);margin-top:14px;flex-shrink:0}
 .figure .side li strong{color:var(--ink);font-weight:700}
 
 /* ─── tools grid (logos via CDN) ─────────────── */
-.tools-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;margin-top:32px}
-.tool{padding:24px 18px;border:1px solid var(--hair);border-radius:14px;background:var(--bg2);
-  display:flex;flex-direction:column;align-items:center;gap:14px;
+.tools-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:32px}
+.tool{padding:32px 22px;border:1px solid var(--hair);border-radius:16px;background:var(--bg2);
+  display:flex;flex-direction:column;align-items:center;gap:18px;
   transition:transform .25s var(--ease),border-color .25s var(--ease)}
 .tool:hover{transform:translateY(-3px);border-color:var(--em)}
-.tool img{width:56px;height:56px;object-fit:contain;filter:drop-shadow(0 2px 6px rgba(0,0,0,.08))}
-.tool .nm{font-size:16px;font-weight:700;color:var(--ink);letter-spacing:-.005em}
-.tool .ds{font-size:13px;color:var(--t50);text-align:center;line-height:1.35;font-family:'JetBrains Mono',monospace}
+.tool img{width:84px;height:84px;object-fit:contain;filter:drop-shadow(0 2px 6px rgba(0,0,0,.08))}
+.tool .nm{font-size:24px;font-weight:700;color:var(--ink);letter-spacing:-.01em}
+.tool .ds{font-size:17px;color:var(--t50);text-align:center;line-height:1.35;font-family:'JetBrains Mono',monospace}
 
 /* ─── report card (CTA pro relatório de testes) ─ */
 .report-card{margin-top:32px;display:flex;align-items:center;gap:28px;padding:28px 32px;
@@ -439,25 +441,31 @@ code{font-family:'JetBrains Mono',monospace;font-size:.88em;background:var(--pap
 .help-card .close{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--t50);
   letter-spacing:.15em;text-transform:uppercase;text-align:center}
 
-/* ─── responsive ───────────────────────────────── */
-@media (max-height:840px){
-  .slide{padding:64px 48px 60px}
-  h1.title{font-size:96px}
-  h2{font-size:60px}
-  .lead{font-size:24px}
-  .card h3{font-size:24px}
-  .card p{font-size:17px}
-  .layer .tit{font-size:24px}
-  .layer .ds{font-size:17px}
-  .cycle .step .nm{font-size:26px}
-  .cycle .step .ds{font-size:17px}
-  .metric .v{font-size:60px}
-  .metric .lbl{font-size:17px}
-  .code pre{font-size:16px}
+/* ─── responsive (mantém fontes grandes) ───────── */
+@media (max-height:900px){
+  .slide{padding:72px 56px 72px}
+  h1.title{font-size:110px}
+  h2{font-size:68px}
+  .lead{font-size:28px}
+  .cover .lead{font-size:32px}
+  .card h3{font-size:26px}
+  .card p{font-size:18px}
+  .layer .tit{font-size:26px}
+  .layer .ds{font-size:18px}
+  .cycle .step .nm{font-size:28px}
+  .cycle .step .ds{font-size:18px}
+  .metric .v{font-size:66px}
+  .metric .lbl{font-size:18px}
+  .code pre{font-size:17px}
   .cmd code{font-size:20px}
-  .cmd .ds{font-size:16px}
-  .final h1{font-size:120px}
-  .cards-3,.cards-2,.cards-4{gap:14px}.card{padding:22px}
+  .cmd .ds{font-size:17px}
+  .final h1{font-size:130px}
+  .figure .side h3{font-size:30px}
+  .figure .side p{font-size:23px}
+  .figure .side li{font-size:21px}
+  .tool img{width:72px;height:72px}
+  .tool .nm{font-size:21px}
+  .cards-3,.cards-2,.cards-4{gap:14px}.card{padding:26px}
 }
 </style>
 </head>
@@ -930,7 +938,7 @@ code{font-family:'JetBrains Mono',monospace;font-size:.88em;background:var(--pap
   <div class="slide-inner">
     <div class="eyebrow">12 · Ferramentas de teste</div>
     <h2>O que está <span class="em">debaixo do capô</span>.</h2>
-    <p class="lead">Stack <span class="serif">batalhada</span> — escolhas que privilegiam velocidade da suíte e isolamento de camadas.</p>
+    <p class="lead">Quatro libs. Cada uma faz uma coisa muito bem.</p>
 
     <div class="tools-grid">
       <div class="tool">
@@ -941,39 +949,54 @@ code{font-family:'JetBrains Mono',monospace;font-size:.88em;background:var(--pap
       <div class="tool">
         <img src="https://cdn.simpleicons.org/typescript/3178C6" alt="TypeScript"/>
         <div class="nm">TypeScript</div>
-        <div class="ds">types nos specs</div>
+        <div class="ds">tipos nos specs</div>
       </div>
       <div class="tool">
         <img src="https://cdn.simpleicons.org/nestjs/E0234E" alt="NestJS"/>
         <div class="nm">NestJS</div>
-        <div class="ds">DI + módulos</div>
+        <div class="ds">@nestjs/testing</div>
       </div>
       <div class="tool">
-        <img src="https://cdn.simpleicons.org/prisma/0F172A" alt="Prisma"/>
-        <div class="nm">Prisma</div>
-        <div class="ds">adapter de DB</div>
-      </div>
-      <div class="tool">
-        <img src="https://cdn.simpleicons.org/postgresql/4169E1" alt="PostgreSQL"/>
-        <div class="nm">PostgreSQL</div>
-        <div class="ds">só E2E</div>
-      </div>
-      <div class="tool">
-        <img src="https://cdn.simpleicons.org/pnpm/F69220" alt="pnpm"/>
-        <div class="nm">pnpm</div>
-        <div class="ds">scripts</div>
+        <img src="https://cdn.simpleicons.org/npm/CB3837" alt="supertest"/>
+        <div class="nm">supertest</div>
+        <div class="ds">HTTP no E2E</div>
       </div>
     </div>
+  </div>
+</section>
 
-    <div class="bullet-list" style="margin-top:32px">
-      <div class="b">
-        <div class="ic"><i data-lucide="info"></i></div>
-        <div class="t"><strong>Por que Jest?</strong> Watch mode rápido, snapshot quando preciso, mocks &amp; spies built-in, paralelismo automático.</div>
+<!-- ━━━ NOVO — E2E COM SUPERTEST (código real) ━━━ -->
+<section class="slide">
+  <div class="slide-inner">
+    <div class="eyebrow">13 · supertest no E2E</div>
+    <h2>Como o teste E2E <span class="em">faz request</span>.</h2>
+    <p class="lead">O <code>@nestjs/testing</code> sobe um <strong style="color:var(--ink);font-weight:700">app de verdade</strong> em memória. O <code>supertest</code> envia HTTP pra ele e valida a resposta — sem precisar de servidor ouvindo em porta.</p>
+
+    <div class="code">
+      <div class="code-head">
+        <div class="fn">test/app.e2e-spec.ts</div>
+        <div class="lbl">E2E</div>
       </div>
-      <div class="b">
-        <div class="ic"><i data-lucide="info"></i></div>
-        <div class="t"><strong>Por que NÃO Vitest aqui?</strong> NestJS 11 + ts-jest já está afinado; trocar custa tempo sem ganho de regressão.</div>
-      </div>
+<pre><span class="kw">import</span> request <span class="kw">from</span> <span class="str">'supertest'</span>
+<span class="kw">import</span> { Test } <span class="kw">from</span> <span class="str">'@nestjs/testing'</span>
+<span class="kw">import</span> { AppModule } <span class="kw">from</span> <span class="str">'./../src/app.module'</span>
+
+<span class="kw">describe</span>(<span class="str">'AppController (e2e)'</span>, () =&gt; {
+  <span class="kw">let</span> app: <span class="ty">INestApplication</span>
+
+  <span class="kw">beforeEach</span>(<span class="kw">async</span> () =&gt; {
+    <span class="kw">const</span> mod = <span class="kw">await</span> Test.<span class="fnn">createTestingModule</span>({ imports: [AppModule] }).<span class="fnn">compile</span>()
+    app = mod.<span class="fnn">createNestApplication</span>()
+    <span class="kw">await</span> app.<span class="fnn">init</span>()
+  })
+
+  <span class="kw">it</span>(<span class="str">'/ (GET)'</span>, () =&gt; {
+    <span class="kw">return</span> <span class="fnn">request</span>(app.<span class="fnn">getHttpServer</span>())   <span class="com">// ← supertest manda HTTP no app rodando em memória</span>
+      .<span class="fnn">get</span>(<span class="str">'/'</span>)
+      .<span class="fnn">expect</span>(<span class="num">200</span>)
+      .<span class="fnn">expect</span>(<span class="str">'Hello World!'</span>)
+  })
+})</pre>
     </div>
   </div>
 </section>
@@ -981,7 +1004,7 @@ code{font-family:'JetBrains Mono',monospace;font-size:.88em;background:var(--pap
 <!-- ━━━ 11 — COMANDOS ━━━ -->
 <section class="slide">
   <div class="slide-inner">
-    <div class="eyebrow">13 · Como rodar</div>
+    <div class="eyebrow">14 · Como rodar</div>
     <h2>Quatro comandos. <span class="quiet">Nada mais.</span></h2>
 
     <div class="cmds">
